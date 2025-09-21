@@ -6,39 +6,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.minerxgloble.minerxgloble.databinding.ItemDocumentBinding
 import com.minerxgloble.minerxgloble.models.DocumentItem
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class DocumentsAdapter(
-    private var items: List<DocumentItem>,
-    private val onClick: (DocumentItem) -> Unit
+    private var items: List<DocumentItem>, private val onClick: (DocumentItem) -> Unit
 ) : RecyclerView.Adapter<DocumentsAdapter.DocVH>() {
 
-    inner class DocVH(val binding: ItemDocumentBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class DocVH(val b: ItemDocumentBinding) : RecyclerView.ViewHolder(b.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocVH {
-        val binding = ItemDocumentBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return DocVH(binding)
+        val b = ItemDocumentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DocVH(b)
     }
 
     override fun onBindViewHolder(holder: DocVH, position: Int) {
         val item = items[position]
-        holder.binding.titleTv.text = item.title
-        holder.binding.descTv.text = item.description
+        val b = holder.b
 
-        // Format updatedAt timestamp
-        val formattedDate = item.updatedAt?.toDate()?.let { date ->
-            val sdf = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
-            sdf.format(date)
+        b.titleTv.text = item.title
+        b.descTv.text = item.description
+
+        val formatted = item.updatedAt?.toDate()?.let {
+            SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(it)
         } ?: "-"
 
-        holder.binding.updatedTv.text = "Updated On $formattedDate"
+        b.updatedTv.text = "Updated • $formatted"
 
-        holder.itemView.setOnClickListener { onClick(item) }
+        b.root.setOnClickListener { onClick(item) }
     }
 
     override fun getItemCount(): Int = items.size

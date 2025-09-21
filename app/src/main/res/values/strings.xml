@@ -225,4 +225,11 @@ power.</string>
     <string name="lucky_draw">Lucky Draw</string>
     <string name="winners_are_announced_every_sunday">Winners are announced every Sunday.</string>
     <string name="token_usdt">MXGN USDT</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="invite">Invite</string>
+    <string name="fragment_home_network_stats">Network Stats</string>
+    <string name="fragment_home_announcements">Announcements</string>
+    <string name="overview">Overview</string>
+    <string name="cd_profile_avatar">Profile avatar</string>
+
 </resources>

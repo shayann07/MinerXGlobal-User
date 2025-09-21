@@ -1,11 +1,7 @@
 package com.minerxgloble.minerxgloble.ui.fragments
 
-import android.animation.ValueAnimator
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,26 +25,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.minerxgloble.minerxgloble.R
 import com.minerxgloble.minerxgloble.adapters.AnnouncementImageAdapter
 import com.minerxgloble.minerxgloble.adapters.DocumentsAdapter
-import com.minerxgloble.minerxgloble.adapters.NetworkStatsAdapter
-import com.minerxgloble.minerxgloble.adapters.UserStatsAdapter
+import com.minerxgloble.minerxgloble.adapters.NetworkMiniAdapter
+import com.minerxgloble.minerxgloble.adapters.StatGridAdapter
 import com.minerxgloble.minerxgloble.databinding.FragmentHomeBinding
 import com.minerxgloble.minerxgloble.models.DocumentItem
+import com.minerxgloble.minerxgloble.models.NetworkStat
 import com.minerxgloble.minerxgloble.models.TeamLevel
 import com.minerxgloble.minerxgloble.models.UserStatCard
 import com.minerxgloble.minerxgloble.repos.AuthRepository
 import com.minerxgloble.minerxgloble.repos.WalletRepo
 import com.minerxgloble.minerxgloble.utils.PrefService
 import com.minerxgloble.minerxgloble.utils.ProfileImageUtil
-import com.minerxgloble.minerxgloble.viewModels.AuthViewModel
-import com.minerxgloble.minerxgloble.viewModels.NetworkStatsViewModel
-import com.minerxgloble.minerxgloble.viewModels.TeamLevelViewModel
-import com.minerxgloble.minerxgloble.viewModels.WalletViewModel
+import com.minerxgloble.minerxgloble.viewModels.*
 import com.minerxgloble.minerxgloble.viewModels.factory.AuthViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 class HomeFragment : BaseFragment() {
 
@@ -67,33 +61,22 @@ class HomeFragment : BaseFragment() {
     }
     private val networkVm: NetworkStatsViewModel by viewModels()
 
-    private var statsPagerJob: Job? = null
     private var announcementPagerJob: Job? = null
-    private var networkPagerJob: Job? = null
-
     private val pref by lazy { PrefService(requireContext()) }
 
-    // ---- cache keys
     private val K_BALANCE        = "cache_balance"
     private val K_DIRECT_USERS   = "cache_direct_users"
     private val K_INDIRECT_USERS = "cache_indirect_users"
     private val K_TOTAL_BUSINESS = "cache_total_business"
-
     private val K_NET_MEMBERS    = "cache_net_members"
     private val K_NET_WITHDRAW   = "cache_net_withdraw"
     private val K_NET_INVEST     = "cache_net_invest"
-
     private val K_TOKENS         = "cache_tokens"
 
-    // flags to ensure we stop shimmer exactly once on first real load
     private var statsFirstRealShown = false
     private var netFirstRealShown = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -101,30 +84,41 @@ class HomeFragment : BaseFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupDrawerTrigger(view)
 
-        // greet user
+        // greet + avatar
         pref.getString("name")?.takeIf { it.isNotBlank() }?.let { full ->
             binding.hiName.text = getString(R.string.hi_name, full.substringBefore(" "))
         }
+        ProfileImageUtil.loadOrRefresh(requireContext(), pref.getUserId().orEmpty(), binding.avatar)
 
-        ProfileImageUtil.loadOrRefresh(
-            requireContext(),
-            uid = pref.getUserId().orEmpty(),
-            binding.avatar
-        )
+        // ----- HERO WALLET (note: go through include's binding) -----
+        binding.walletHero.tvWalletTitle.text = "MinerX Deposit Wallet"
+        binding.walletHero.tvWalletTotalLabel.text = "Total USD"
+        binding.walletHero.tvWalletAmount.text = "—"
 
-        // ================== USER STATS SLIDER ==================
-        val statsAdapter = UserStatsAdapter(emptyList())
-        binding.userStatsPager.adapter = statsAdapter
+        walletVm.wallet.observe(viewLifecycleOwner) { snap ->
+            snap ?: return@observe
+            val balance = snap.account.earnings.totalEarned
+            binding.walletHero.tvWalletAmount.text = walletVm.money(balance)
+        }
 
-        val cachedUserCards = readCachedUserCards()
-        if (cachedUserCards != null) {
-            showUserStatsShimmer(false)
-            statsAdapter.submitList(cachedUserCards)
+        // ----- QUICK ACTIONS -----
+        binding.btnDeposit.setOnClickListener { /* TODO */ }
+        binding.btnWithdraw.setOnClickListener { /* TODO */ }
+        binding.btnInvite.setOnClickListener  { /* TODO */ }
+
+        // ----- STATS GRID (2×2) -----
+        val statsAdapter = StatGridAdapter()
+        binding.rvStatsGrid.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvStatsGrid.adapter = statsAdapter
+
+        val cachedUser = readCachedUserCards()
+        if (cachedUser != null) {
+            showStatsGridShimmer(false)
+            statsAdapter.submit(cachedUser)
         } else {
-            showUserStatsShimmer(true)
+            showStatsGridShimmer(true)
         }
 
         walletVm.wallet.observe(viewLifecycleOwner) { snap ->
@@ -135,16 +129,7 @@ class HomeFragment : BaseFragment() {
         }
         teamVm.load()
 
-        statsPagerJob = viewLifecycleOwner.lifecycleScope.launch {
-            while (isActive) {
-                delay(10_000)
-                val vp = binding.userStatsPager
-                val next = (vp.currentItem + 1) % (vp.adapter?.itemCount ?: 1)
-                vp.setCurrentItem(next, true)
-            }
-        }
-
-        // ================== ANNOUNCEMENTS (title + slider shimmer) ==================
+        // ----- ANNOUNCEMENTS -----
         binding.notificationTv.isVisible = false
         binding.announcementSlider.isVisible = false
         showNotificationTitleShimmer(true)
@@ -153,19 +138,17 @@ class HomeFragment : BaseFragment() {
         authVm.getAnnouncementImageUrls()
         authVm.announcementImageUrls.observe(viewLifecycleOwner) { urls ->
             val hasAny = !urls.isNullOrEmpty()
-
             if (hasAny) {
                 showNotificationTitleShimmer(false)
                 binding.notificationTv.isVisible = true
 
                 val annAdapter = AnnouncementImageAdapter(urls!!)
                 binding.announcementSlider.adapter = annAdapter
-
                 binding.announcementSlider.setPageTransformer { page, position ->
-                    val scale = 0.85f + (1 - abs(position)) * 0.15f
+                    val scale = 0.9f + (1 - kotlin.math.abs(position)) * 0.1f
                     page.scaleY = scale
                     page.scaleX = scale
-                    page.elevation = if (position == 0f) 8f else 0f
+                    page.translationX = -position * 20
                 }
 
                 showAnnouncementShimmer(false)
@@ -177,10 +160,7 @@ class HomeFragment : BaseFragment() {
                         delay(10_000)
                         val vp = binding.announcementSlider
                         val count = vp.adapter?.itemCount ?: 0
-                        if (count > 1) {
-                            val next = (vp.currentItem + 1) % count
-                            vp.setCurrentItem(next, true)
-                        }
+                        if (count > 1) vp.setCurrentItem((vp.currentItem + 1) % count, true)
                     }
                 }
             } else {
@@ -192,85 +172,56 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        // ================== NETWORK STATS SLIDER ==================
-        val netAdapter = NetworkStatsAdapter(emptyList())
-        binding.networkStatsPager.adapter = netAdapter
-
-        binding.networkStatsPager.setPageTransformer { page, position ->
-            val scale = 0.85f + (1 - abs(position)) * 0.15f
-            page.scaleY = scale
-            page.scaleX = scale
-            page.elevation = if (position == 0f) 8f else 0f
-        }
+        // ----- NETWORK MINI (3 cards in a row) -----
+        val netAdapter = NetworkMiniAdapter()
+        binding.rvNetworkMini.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.rvNetworkMini.adapter = netAdapter
 
         val cachedNet = readCachedNetworkStats()
         if (cachedNet != null) {
-            showNetworkStatsShimmer(false)
-            netAdapter.submitList(cachedNet)
+            showNetworkMiniShimmer(false)
+            netAdapter.submit(cachedNet)
         } else {
-            showNetworkStatsShimmer(true)
+            showNetworkMiniShimmer(true)
         }
 
         networkVm.stats.observe(viewLifecycleOwner) { list ->
             list ?: return@observe
-
             if (list.size >= 3) {
                 pref.setString(K_NET_MEMBERS, list[0].value)
                 pref.setString(K_NET_WITHDRAW, list[1].value)
                 pref.setString(K_NET_INVEST, list[2].value)
             }
-
-            if (!netFirstRealShown) {
-                netFirstRealShown = true
-                showNetworkStatsShimmer(false)
-            }
-            netAdapter.submitList(list)
+            if (!netFirstRealShown) { netFirstRealShown = true; showNetworkMiniShimmer(false) }
+            netAdapter.submit(list)
         }
         networkVm.startStatsListener()
-        networkVm.loadStats()
+        networkVm.load()
 
-        networkPagerJob = viewLifecycleOwner.lifecycleScope.launch {
-            while (isActive) {
-                delay(10_000)
-                val vp = binding.networkStatsPager
-                val count = vp.adapter?.itemCount ?: 0
-                if (count > 1) {
-                    val next = (vp.currentItem + 1) % count
-                    vp.setCurrentItem(next, true)
-                }
-            }
-        }
-
-        // ================== DOCUMENTS LIST ==================
+        // ----- DOCUMENTS -----
         val docsAdapter = DocumentsAdapter(emptyList()) { doc -> showDownloadDialog(doc) }
-        binding.rvDocuments.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvDocuments.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDocuments.adapter = docsAdapter
-
         networkVm.docs.observe(viewLifecycleOwner) { docs -> docs?.let { docsAdapter.submit(it) } }
         networkVm.load()
     }
 
-    // ----------- SHIMMER TOGGLES -----------
-
-    private fun showUserStatsShimmer(show: Boolean) {
-        binding.userStatsPager.isVisible = !show
-        binding.shimmerUserStats.isVisible = show
-        if (show) binding.shimmerUserStats.startShimmer() else binding.shimmerUserStats.stopShimmer()
+    // ===== Shimmers =====
+    private fun showStatsGridShimmer(show: Boolean) {
+        binding.rvStatsGrid.isVisible = !show
+        binding.shimmerStatsGrid.isVisible = show
+        if (show) binding.shimmerStatsGrid.startShimmer() else binding.shimmerStatsGrid.stopShimmer()
     }
-
-    private fun showNetworkStatsShimmer(show: Boolean) {
-        binding.networkStatsPager.isVisible = !show
-        binding.shimmerNetworkStats.isVisible = show
-        if (show) binding.shimmerNetworkStats.startShimmer() else binding.shimmerNetworkStats.stopShimmer()
+    private fun showNetworkMiniShimmer(show: Boolean) {
+        binding.rvNetworkMini.isVisible = !show
+        binding.shimmerNetworkMini.isVisible = show
+        if (show) binding.shimmerNetworkMini.startShimmer() else binding.shimmerNetworkMini.stopShimmer()
     }
-
     private fun showAnnouncementShimmer(show: Boolean) {
         binding.announcementSlider.isVisible = !show
         binding.shimmerAnnouncements.isVisible = show
         if (show) binding.shimmerAnnouncements.startShimmer() else binding.shimmerAnnouncements.stopShimmer()
     }
-
     private fun showNotificationTitleShimmer(show: Boolean) {
         val shimmer = binding.shimmerNotificationTitle
         shimmer.isVisible = show
@@ -278,10 +229,9 @@ class HomeFragment : BaseFragment() {
         if (show) shimmer.startShimmer() else shimmer.stopShimmer()
     }
 
-    // ----------- HELPERS -----------
-
+    // ===== Stats mapping → grid =====
     private fun updateStatsWithFx(
-        adapter: UserStatsAdapter,
+        adapter: StatGridAdapter,
         wallet: WalletRepo.WalletSnapshot,
         levels: List<TeamLevel>
     ) {
@@ -302,18 +252,14 @@ class HomeFragment : BaseFragment() {
             UserStatCard("Team Invested", walletVm.money(totalBusiness))
         )
 
-        // cache for next launch
         pref.setString(K_BALANCE, walletVm.money(balance))
         pref.setInt(K_DIRECT_USERS, directUsers)
         pref.setInt(K_INDIRECT_USERS, indirectUsers)
         pref.setString(K_TOTAL_BUSINESS, walletVm.money(totalBusiness))
         pref.setInt(K_TOKENS, tokens)
 
-        if (!statsFirstRealShown) {
-            statsFirstRealShown = true
-            showUserStatsShimmer(false)
-        }
-        adapter.submitList(cards)
+        if (!statsFirstRealShown) { statsFirstRealShown = true; showStatsGridShimmer(false) }
+        adapter.submit(cards)
     }
 
     private fun readCachedUserCards(): List<UserStatCard>? {
@@ -332,44 +278,20 @@ class HomeFragment : BaseFragment() {
         } else null
     }
 
-    private fun readCachedNetworkStats(): List<com.minerxgloble.minerxgloble.models.NetworkStat>? {
+    private fun readCachedNetworkStats(): List<NetworkStat>? {
         val m = pref.getString(K_NET_MEMBERS)
         val w = pref.getString(K_NET_WITHDRAW)
-        val inv = pref.getString(K_NET_INVEST)
-        return if (!m.isNullOrBlank() && !w.isNullOrBlank() && !inv.isNullOrBlank()) {
+        val v = pref.getString(K_NET_INVEST)
+        return if (!m.isNullOrBlank() && !w.isNullOrBlank() && !v.isNullOrBlank()) {
             listOf(
-                com.minerxgloble.minerxgloble.models.NetworkStat(m, "All Members in Network"),
-                com.minerxgloble.minerxgloble.models.NetworkStat(w, "Total Withdrawal"),
-                com.minerxgloble.minerxgloble.models.NetworkStat(inv, "Total Investment")
+                NetworkStat(desc = "All Members", value = m),
+                NetworkStat(desc = "Withdrawn",  value = w),
+                NetworkStat(desc = "Invested",   value = v)
             )
         } else null
     }
 
-    // optional: number "count up" helpers (best used inside ViewHolder bindings)
-    private fun TextView.countToInt(
-        from: Int,
-        to: Int,
-        duration: Long = 600,
-        format: (Int) -> String = { it.toString() }
-    ) {
-        if (from == to) { text = format(to); return }
-        val animator = ValueAnimator.ofInt(from, to).setDuration(duration)
-        animator.addUpdateListener { text = format(it.animatedValue as Int) }
-        animator.start()
-    }
-
-    private fun TextView.countToMoney(
-        from: Double,
-        to: Double,
-        duration: Long = 700,
-        format: (Double) -> String
-    ) {
-        if (from == to) { text = format(to); return }
-        val animator = ValueAnimator.ofFloat(from.toFloat(), to.toFloat()).setDuration(duration)
-        animator.addUpdateListener { text = format((it.animatedValue as Float).toDouble()) }
-        animator.start()
-    }
-
+    // ===== Download dialog (unchanged) =====
     private fun showDownloadDialog(doc: DocumentItem) {
         val ctx = requireContext()
         val view = layoutInflater.inflate(R.layout.dialoge_download_xml, null)
@@ -414,12 +336,8 @@ class HomeFragment : BaseFragment() {
                     DownloadManager.Request(Uri.parse(doc.fileUrl))
                         .setTitle(doc.title.ifBlank { safeName })
                         .setDescription(doc.description.ifBlank { "Downloading…" })
-                        .setNotificationVisibility(
-                            DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-                        )
-                        .setDestinationInExternalFilesDir(
-                            ctx, Environment.DIRECTORY_DOWNLOADS, safeName
-                        )
+                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        .setDestinationInExternalFilesDir(ctx, Environment.DIRECTORY_DOWNLOADS, safeName)
                         .setAllowedOverMetered(true)
                         .setAllowedOverRoaming(true)
                 )
@@ -433,20 +351,15 @@ class HomeFragment : BaseFragment() {
             )
         }
 
-        dialog.setOnDismissListener {
-            try { ctx.unregisterReceiver(receiver) } catch (_: Exception) {}
-        }
-
+        dialog.setOnDismissListener { try { ctx.unregisterReceiver(receiver) } catch (_: Exception) {} }
         dialog.show()
     }
 
     override fun onPause() {
         super.onPause()
-        statsPagerJob?.cancel()
         announcementPagerJob?.cancel()
-        networkPagerJob?.cancel()
-        binding.shimmerUserStats.stopShimmer()
-        binding.shimmerNetworkStats.stopShimmer()
+        binding.shimmerStatsGrid.stopShimmer()
+        binding.shimmerNetworkMini.stopShimmer()
         binding.shimmerAnnouncements.stopShimmer()
         binding.shimmerNotificationTitle.stopShimmer()
         networkVm.stopStatsListener()

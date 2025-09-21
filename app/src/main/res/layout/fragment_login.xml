@@ -74,7 +74,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
-                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardBackgroundColor="@color/main_card_color"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="12dp"
                     app:cardUseCompatPadding="true"

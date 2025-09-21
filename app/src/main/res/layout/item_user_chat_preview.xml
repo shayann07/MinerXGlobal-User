@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="16dp"
-    android:backgroundTint="#1A1A1A"
+    android:backgroundTint="@color/main_card_color"
     android:clickable="true"
     android:focusable="true"
     android:background="@drawable/transparent"

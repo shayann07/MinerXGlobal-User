@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:outlineAmbientShadowColor="#FF7B00"
         android:outlineSpotShadowColor="#FF7B00"
-        card_view:cardBackgroundColor="#1A1A1A"
+        card_view:cardBackgroundColor="@color/main_card_color"
         card_view:cardCornerRadius="20dp"
         card_view:cardElevation="12dp"
         card_view:cardUseCompatPadding="true"

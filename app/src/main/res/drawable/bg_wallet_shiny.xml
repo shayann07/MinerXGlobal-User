@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Rounded corners to match card -->
+    <corners android:radius="20dp" />
+
+    <!-- Gradient: black → gold → black (shiny effect) -->
+    <gradient
+        android:type="linear"
+        android:angle="135"
+        android:startColor="#000000"
+        android:centerColor="#D9BF72"
+        android:endColor="#000000"
+        android:useLevel="false" />
+
+    <!-- Optional: soft shadow/glow -->
+    <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
+</shape>

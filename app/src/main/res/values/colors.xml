@@ -15,7 +15,7 @@
     <color name="status_bar_color">#EE6924</color>
     <color name="light_status_bar_color">#EE6924</color>
     <color name="button_color">#EE6924</color>
-
+    <color name="main_card_color">#1A1A1A</color>
     <color name="snackbar_error">#F44336</color>    <!-- red-500 -->
     <color name="snackbar_success">#EE6924</color>
 
@@ -28,6 +28,7 @@
     <color name="mxg_black">#000000</color>
     <color name="mxg_white">#FFFFFF</color>
     <color name="mxg_white_80">#CCFFFFFF</color>
-    <color name="dialogSurface">#1A1A1A</color> <!-- replace with your brand color -->
+    <color name="dialogSurface">@color/main_card_color
+    </color> <!-- replace with your brand color -->
 
 </resources>

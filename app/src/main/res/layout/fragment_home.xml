@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/mxg_black">
 
-    <!-- Scroll container -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
@@ -15,14 +14,12 @@
         android:fillViewport="true"
         android:scrollbars="none">
 
-        <!-- Baseline Constraint content with gutters -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="24dp"
-            android:paddingBottom="96dp">
+            android:paddingBottom="24dp">
 
-            <!-- Gutters -->
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gStart"
                 android:layout_width="wrap_content"
@@ -37,7 +34,7 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="8dp" />
 
-            <!-- Top bar -->
+            <!-- TOPBAR (unchanged, just added contentDescriptions) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topbar"
                 android:layout_width="0dp"
@@ -53,7 +50,7 @@
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     android:background="@drawable/ic_profile"
-                    android:contentDescription="@string/app_name"
+                    android:contentDescription="@string/cd_profile_avatar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -115,114 +112,260 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- USER STATS (Pager + Shimmer overlap) -->
-            <FrameLayout
-                android:id="@+id/userStatsContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+            <!-- HERO WALLET include -->
+            <include
+                android:id="@+id/walletHero"
+                layout="@layout/item_wallet_hero"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/topbar">
+                app:layout_constraintTop_toBottomOf="@id/topbar" />
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/userStatsPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never" />
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerUserStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
-                    android:visibility="gone"
-                    app:shimmer_auto_start="false"
-                    app:shimmer_base_alpha="0.9"
-                    app:shimmer_duration="1100"
-                    app:shimmer_highlight_alpha="0.6"
-                    app:shimmer_intensity="0.35">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:outlineAmbientShadowColor="#FF7B00"
-                        android:outlineSpotShadowColor="#FF7B00"
-                        app:cardBackgroundColor="#1A1A1A"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="12dp"
-                        app:cardUseCompatPadding="true"
-                        app:strokeColor="@android:color/transparent">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/bg_skeleton_rounded" />
-                    </com.google.android.material.card.MaterialCardView>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </FrameLayout>
-
-            <!-- ANNOUNCEMENT HEADER (title + shimmer occupying same space) -->
-            <FrameLayout
-                android:id="@+id/notificationHeaderContainer"
+            <!-- QUICK ACTIONS -->
+            <LinearLayout
+                android:id="@+id/quickActions"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletHero">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDeposit"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/dialog_deposit_input_deposit"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/button_color"
+                    app:cornerRadius="16dp" />
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWithdraw"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/withdraw"
+                    android:textAllCaps="false"
+                    app:cornerRadius="16dp"
+                    app:iconTint="@color/orange"
+                    app:strokeColor="@color/orange"
+                    app:strokeWidth="1dp" />
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnInvite"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/invite"
+                    android:textAllCaps="false"
+                    app:cornerRadius="16dp"
+                    app:iconTint="@color/orange"
+                    app:strokeColor="@color/orange"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <!-- STATS GRID (2x2) -->
+            <TextView
+                android:id="@+id/statsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="12dp"
+                android:text="@string/overview"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/userStatsContainer">
+                app:layout_constraintTop_toBottomOf="@id/quickActions" />
 
-                <TextView
-                    android:id="@+id/notificationTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_home_announcement"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerNotificationTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:shimmer_auto_start="false"
-                    app:shimmer_base_alpha="0.9"
-                    app:shimmer_duration="1100"
-                    app:shimmer_highlight_alpha="0.6"
-                    app:shimmer_intensity="0.35">
-
-                    <View
-                        android:layout_width="160dp"
-                        android:layout_height="18dp"
-                        android:background="@drawable/bg_skeleton_rounded" />
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </FrameLayout>
-
-            <!-- ANNOUNCEMENTS (Pager + Shimmer overlap) -->
-            <FrameLayout
-                android:id="@+id/announcementContainer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStatsGrid"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/notificationHeaderContainer">
+                app:layout_constraintTop_toBottomOf="@id/statsTitle"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_stat_small" />
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/announcementSlider"
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerStatsGrid"
+                android:layout_width="0dp"
+                android:layout_height="172dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/statsTitle"
+                app:shimmer_auto_start="false"
+                app:shimmer_base_alpha="0.9"
+                app:shimmer_duration="1100"
+                app:shimmer_highlight_alpha="0.6"
+                app:shimmer_intensity="0.35">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/bg_card_matte" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/bg_card_matte" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- NETWORK MINI (3 across) -->
+            <TextView
+                android:id="@+id/networkTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_network_stats"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/rvStatsGrid" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNetworkMini"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/networkTitle"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_network_small" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerNetworkMini"
+                android:layout_width="0dp"
+                android:layout_height="92dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/networkTitle"
+                app:shimmer_auto_start="false"
+                app:shimmer_base_alpha="0.9"
+                app:shimmer_duration="1100"
+                app:shimmer_highlight_alpha="0.6"
+                app:shimmer_intensity="0.35">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_matte" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_matte" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card_matte" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- ANNOUNCEMENTS -->
+            <TextView
+                android:id="@+id/notificationTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_announcements"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/rvNetworkMini" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/announcementSlider"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
+                android:clipToPadding="false"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/notificationTv" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerNotificationTitle"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/rvNetworkMini"
+                app:shimmer_auto_start="false">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card_matte" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <FrameLayout
+                android:id="@+id/annShimmerWrap"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/shimmerNotificationTitle">
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmerAnnouncements"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
                     app:shimmer_auto_start="false"
                     app:shimmer_base_alpha="0.9"
@@ -235,181 +378,46 @@
                         android:layout_height="match_parent"
                         android:outlineAmbientShadowColor="#FF7B00"
                         android:outlineSpotShadowColor="#FF7B00"
-                        app:cardBackgroundColor="#1A1A1A"
+                        app:cardBackgroundColor="@color/main_card_color"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="12dp"
-                        app:cardUseCompatPadding="true"
-                        app:strokeColor="@android:color/transparent">
+                        app:cardUseCompatPadding="true">
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/bg_skeleton_rounded" />
+                            android:background="@drawable/bg_card_matte" />
                     </com.google.android.material.card.MaterialCardView>
                 </com.facebook.shimmer.ShimmerFrameLayout>
             </FrameLayout>
 
+            <!-- DOCUMENTS -->
             <TextView
-                android:id="@+id/emptyTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="12dp"
-                android:text="@string/fragment_home_no_announcement_available"
-                android:textColor="@android:color/white"
-                android:textSize="10sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/announcementContainer" />
-
-            <!-- NETWORK STATS header -->
-            <TextView
-                android:id="@+id/networkHeader"
+                android:id="@+id/docsTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingEnd="12dp"
-                android:text="@string/fragment_home_network_statistics"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/emptyTv" />
-
-            <!-- NETWORK STATS (Pager + Shimmer overlap) -->
-            <FrameLayout
-                android:id="@+id/networkStatsContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/networkHeader">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/networkStatsPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never" />
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerNetworkStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_pager_height"
-                    android:visibility="gone"
-                    app:shimmer_auto_start="false"
-                    app:shimmer_base_alpha="0.9"
-                    app:shimmer_duration="1100"
-                    app:shimmer_highlight_alpha="0.6"
-                    app:shimmer_intensity="0.35">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:outlineAmbientShadowColor="#FF7B00"
-                        android:outlineSpotShadowColor="#FF7B00"
-                        app:cardBackgroundColor="#1A1A1A"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="12dp"
-                        app:cardUseCompatPadding="true"
-                        app:strokeColor="@android:color/transparent">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/bg_skeleton_rounded" />
-                    </com.google.android.material.card.MaterialCardView>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </FrameLayout>
-
-            <!-- DOCUMENTS header -->
-            <TextView
-                android:id="@+id/docsHeader"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="22dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="12dp"
                 android:text="@string/fragment_home_documents"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/networkStatsContainer" />
+                app:layout_constraintTop_toBottomOf="@id/announcementSlider" />
 
-            <!-- DOCUMENTS list -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDocuments"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_document"
+                android:paddingBottom="24dp"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/docsHeader"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_document" />
-
-            <!-- EXPLORE header -->
-            <TextView
-                android:id="@+id/exploreHeading"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="12dp"
-                android:text="@string/fragment_home_minor_x_global_explorer"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/rvDocuments" />
-
-            <!-- EXPLORE image -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exploreCard"
-                android:layout_width="0dp"
-                android:layout_height="180dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/exploreHeading"
-                app:strokeColor="@android:color/transparent">
-
-                <ImageView
-                    android:id="@+id/exploreImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/explore_image"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/upgrade_system" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- EXPLORE description -->
-            <TextView
-                android:id="@+id/exploreDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginTop="12dp"
-                android:minLines="2"
-                android:text="@string/fragment_home_upgrade_your_system_with_cutting_edge_graphics"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/exploreCard" />
+                app:layout_constraintTop_toBottomOf="@id/docsTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
