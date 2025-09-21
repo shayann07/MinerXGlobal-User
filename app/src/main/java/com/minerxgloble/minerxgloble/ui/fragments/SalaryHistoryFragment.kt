@@ -81,7 +81,8 @@ class SalaryHistoryFragment : BaseFragment() {
                 "Rank Reward" to "rank-reward",
                 "Star Salary" to "star-salary",
                 "Deposit" to "Deposit",
-                "Withdraw" to "Withdraw"
+                "Withdraw" to "Withdraw",
+                "Lucky Draw " to "Lucky Draw Investment"
             )
 
             val labels = filterMap.keys.toTypedArray()

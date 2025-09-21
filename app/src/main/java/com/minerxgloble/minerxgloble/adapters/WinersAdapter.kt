@@ -27,6 +27,7 @@ class WinnersAdapter(
         val tvName: TextView = v.findViewById(R.id.tvName)
         val tvWeek: TextView = v.findViewById(R.id.tvWeek)
         val tvPrize: TextView = v.findViewById(R.id.tvPrize)
+        val tvUserId: TextView = v.findViewById(R.id.tvUserId)
         val ivMedal: ImageView = v.findViewById(R.id.ivMedal)
     }
 
@@ -45,6 +46,8 @@ class WinnersAdapter(
         h.tvWeek.text = "Week: $start → $end"
 
         h.tvPrize.text = if (w.prizeUsd > 0) "$${w.prizeUsd}" else "$—"
+        h.tvUserId.text = "ID: ${w.userId}"
+
         // Icon/tint is set in XML; you can switch icons by rank here if needed
     }
 

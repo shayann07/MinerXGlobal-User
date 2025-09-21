@@ -308,7 +308,6 @@ class StackFragment : BaseFragment() {
         snack.show()
     }
 
-    // ---- Notifications (local) ----
 
 
 

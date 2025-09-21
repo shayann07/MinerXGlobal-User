@@ -348,7 +348,7 @@ class BuyPlanRepo(
                         Fcm().sendFCMNotification(
                             targetDeviceToken = buyerToken,
                             title = "Congratulations!",
-                            body = "You received $FIRST_PLAN_TOKEN_BONUS free tokens on your first plan purchase.",
+                            body = "You received $FIRST_PLAN_TOKEN_BONUS free MXGN tokens on your first plan purchase.",
                             accessToken = accessToken
                         )
                     }

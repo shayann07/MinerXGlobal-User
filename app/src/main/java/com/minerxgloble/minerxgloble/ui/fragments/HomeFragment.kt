@@ -297,7 +297,7 @@ class HomeFragment : BaseFragment() {
 
         val cards = listOf(
             UserStatCard("Balance", walletVm.money(balance)),
-            UserStatCard("Tokens", tokens.toString()),
+            UserStatCard("MXGN Tokens", tokens.toString()),
             UserStatCard("Team Size", "Direct: $directUsers | Indirect: $indirectUsers"),
             UserStatCard("Team Invested", walletVm.money(totalBusiness))
         )

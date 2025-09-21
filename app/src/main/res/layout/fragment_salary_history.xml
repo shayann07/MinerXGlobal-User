@@ -180,6 +180,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:alpha="0.2"
+                        android:layout_gravity="center"
                         android:contentDescription="@string/fragment_deposit_transactions"
                         android:src="@drawable/ic_transactions"
                         app:tint="@color/grey" />

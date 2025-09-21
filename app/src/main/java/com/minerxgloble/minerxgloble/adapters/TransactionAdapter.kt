@@ -40,13 +40,16 @@ class TransactionAdapter(
         val isWithdraw = rawType.equals("withdraw", ignoreCase = true)
         val isDeposit = rawType.equals("deposit", ignoreCase = true)
         val isPlanPurchase = isPlanPurchase(rawType)
+        val isLuckyDraw=rawType.equals("Lucky Draw Investment", ignoreCase = true)
+
+
 
         // Title (pretty label)
         holder.tvType.text = labelType
 
         // Amount: outflows negative (Withdraw, Plan Purchase), others positive
         val amount = txn.amount ?: 0.0
-        val sign = if (isWithdraw || isPlanPurchase) "-" else "+"
+        val sign = if (isWithdraw || isPlanPurchase || isLuckyDraw) "-" else "+"
         holder.tvAmount.text = "$sign$${String.format(Locale.US, "%.2f", amount)}"
 
         // Content line
@@ -54,6 +57,7 @@ class TransactionAdapter(
             isDeposit -> "Deposited $${String.format(Locale.US, "%.2f", amount)}"
             isWithdraw -> "Withdrew $${String.format(Locale.US, "%.2f", amount)}"
             isPlanPurchase -> "Invested $${String.format(Locale.US, "%.2f", amount)}"
+            isLuckyDraw -> "Invested $${String.format(Locale.US, "%.2f", amount)}"
             else -> labelType
         }
 
@@ -106,6 +110,7 @@ class TransactionAdapter(
             "star-salary", "starsalary", "star_salary" -> "Star Salary"
 
             "plan purchase", "plan_purchase", "planpurchase" -> "Plan Purchase"
+
 
             "all" -> "All"
             else -> type.orEmpty().replace('-', ' ').replace('_', ' ')
