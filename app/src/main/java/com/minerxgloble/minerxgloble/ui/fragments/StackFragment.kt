@@ -67,7 +67,6 @@ class StackFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        createFirstPlanChannelIfNeeded()
 
         setupDrawerTrigger(view)
         ProfileImageUtil.loadOrRefresh(
@@ -114,13 +113,7 @@ class StackFragment : BaseFragment() {
             binding.buyBtn.isEnabled = !loading
         }
 
-        // 👇 Observe the first-plan bonus flag and notify
-        viewModel.firstPlanBonusAwarded.observe(viewLifecycleOwner) { awarded ->
-            if (awarded == true) {
-                postFirstPlanBonusNotification()
-                viewModel.clearFirstPlanBonusFlag()
-            }
-        }
+
 
         viewModel.buyPlanStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
@@ -317,36 +310,7 @@ class StackFragment : BaseFragment() {
 
     // ---- Notifications (local) ----
 
-    private fun createFirstPlanChannelIfNeeded() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "First Plan Bonus"
-            val desc = "Notifications for first-time plan purchase bonus"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(FIRST_PLAN_CHANNEL_ID, name, importance).apply {
-                description = desc
-            }
-            val nm = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nm.createNotificationChannel(channel)
-        }
-    }
 
-    private fun postFirstPlanBonusNotification() {
-        val title = "Congratulations!"
-        val message = "You received 50 free tokens on your first plan purchase 🎉"
 
-        val builder = NotificationCompat.Builder(requireContext(), FIRST_PLAN_CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo) // TODO: replace with your status bar icon
-            .setContentTitle(title)
-            .setContentText(message)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
 
-        val nm = NotificationManagerCompat.from(requireContext())
-        try {
-            nm.notify(FIRST_PLAN_NOTIFY_ID, builder.build())
-        } catch (_: SecurityException) {
-            // Android 13+ requires POST_NOTIFICATIONS permission; ignore if not granted.
-        }
-    }
 }

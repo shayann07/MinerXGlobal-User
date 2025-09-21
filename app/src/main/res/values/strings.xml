@@ -220,4 +220,9 @@ power.</string>
     <string name="no_transaction_history">No transaction history</string>
     <string name="no_plans_found">No plans found</string>
     <string name="enter_deposit_amount_in_usdt">Enter deposit amount in USDT</string>
+    <string name="invest_1">Invest $1</string>
+    <string name="confirm">Confirm</string>
+    <string name="lucky_draw">Lucky Draw</string>
+    <string name="winners_are_announced_every_sunday">Winners are announced every Sunday.</string>
+    <string name="token_usdt">Token USDT</string>
 </resources>

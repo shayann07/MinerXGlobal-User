@@ -61,6 +61,10 @@ class WalletFragment : BaseFragment() {
             // Card 3: Total Withdraw (server-created: earnings.totalWithdrawn)
             val totalWithdrawn = walletVm.nestedDouble(raw, "earnings.totalWithdrawn")
             binding.withdrawAmt.text = walletVm.money(totalWithdrawn)
+            // NEW: observe computed token USD and show it on the token card
+            walletVm.tokenUsd.observe(viewLifecycleOwner) { usd ->
+                binding.tokenAmt.text = walletVm.money(usd)
+            }
         }
 
         binding.depositBtn.setOnClickListener {

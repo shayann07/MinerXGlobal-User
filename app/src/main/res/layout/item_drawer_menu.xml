@@ -213,6 +213,31 @@
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menuLuckyDraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_lucky_spin"
+            app:tint="#FD9409" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/lucky_draw"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
     <!-- Profile -->
     <!-- <LinearLayout
          android:id="@+id/menuSupport"

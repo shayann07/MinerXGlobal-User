@@ -211,5 +211,9 @@
         android:id="@+id/salaryHistoryFragment"
         android:name="com.minerxgloble.minerxgloble.ui.fragments.SalaryHistoryFragment"
         android:label="SalaryHistoryFragment" />
+    <fragment
+        android:id="@+id/luckyDrawFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.LuckyDrawFragment"
+        android:label="LuckyDrawFragment" />
 
 </navigation>

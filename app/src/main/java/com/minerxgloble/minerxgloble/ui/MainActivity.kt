@@ -148,6 +148,7 @@ class MainActivity : AppCompatActivity() {
             R.id.menuTeam to R.id.teamLevelsFragment,
             R.id.menuSalary to R.id.salaryFragment,
             R.id.menuTransactions to R.id.salaryHistoryFragment,
+            R.id.menuLuckyDraw to R.id.luckyDrawFragment
         )
 
         // -------- Drawer: Home clears the entire stack; others navigate normally

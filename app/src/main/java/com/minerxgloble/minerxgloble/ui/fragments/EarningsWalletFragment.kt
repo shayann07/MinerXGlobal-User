@@ -107,6 +107,11 @@ class EarningsWalletFragment : BaseFragment() {
             // Big card earnings balance
             binding.walletCard.earningsBalance.text =
                 walletVm.money(walletVm.totalEarningsBalance(snap))
+
+        }
+        // NEW: observe computed token USD and show it on the token card
+        walletVm.tokenUsd.observe(viewLifecycleOwner) { usd ->
+            binding.tokenAmt.text = walletVm.money(usd)
         }
     }
 
