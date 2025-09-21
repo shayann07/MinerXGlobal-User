@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="24dp">
+
+            <!-- Guidelines (baseline) -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+            <!-- Centered content block -->
+            <LinearLayout
+                android:id="@+id/contentWrap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <!-- Brand -->
+                <ImageView
+                    android:id="@+id/brandLogo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/logo" />
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/title_top_margin"
+                    android:text="@string/fragment_login_let_s_sign_in"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <!-- Login Form Card (no bg_auth_card, no glow view) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/loginFormCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="12dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="@android:color/transparent"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="22dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/fragment_login_welcome_back"
+                            android:textColor="@android:color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="24dp"
+                            android:text="@string/fragment_login_sign_in_to_your_account"
+                            android:textColor="#CCCCCC"
+                            android:textSize="12sp" />
+
+                        <!-- Email -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/fragment_forget_password_email_address">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/emailInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Password -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:hint="@string/fragment_login_password"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/passwordInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Forgot Password -->
+                        <TextView
+                            android:id="@+id/forgotPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/fragment_login_forgot_password"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp" />
+
+                        <!-- Login Button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/loginBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="52dp"
+                            android:text="@string/fragment_login_login"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/button_color"
+                            app:cornerRadius="16dp" />
+
+                        <!-- Sign Up Section -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_login_don_t_have_an_account"
+                                android:textColor="#B4FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/signUpLink"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_login_sign_up"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="24dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

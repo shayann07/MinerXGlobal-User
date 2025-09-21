@@ -1,0 +1,352 @@
+package com.minerxgloble.minerxgloble.ui.fragments
+
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.app.AlertDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.res.ColorStateList
+import android.media.MediaPlayer
+import android.os.Build
+import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieDrawable
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
+import com.minerxgloble.minerxgloble.R
+import com.minerxgloble.minerxgloble.databinding.FragmentStackBinding
+import com.minerxgloble.minerxgloble.repos.BuyPlanRepo
+import com.minerxgloble.minerxgloble.utils.PlanStatus
+import com.minerxgloble.minerxgloble.utils.PrefService
+import com.minerxgloble.minerxgloble.utils.ProfileImageUtil
+import com.minerxgloble.minerxgloble.viewModels.BuyPlanViewModel
+import com.minerxgloble.minerxgloble.viewModels.WalletViewModel
+import com.minerxgloble.minerxgloble.viewModels.factory.BuyPlanViewModelFactory
+
+class StackFragment : BaseFragment() {
+
+    private var _binding: FragmentStackBinding? = null
+    private val binding get() = _binding!!
+
+    private val walletVm: WalletViewModel by activityViewModels()
+
+    private var successPlayer: MediaPlayer? = null
+    private var isCelebrating = false
+
+    private val viewModel: BuyPlanViewModel by viewModels {
+        BuyPlanViewModelFactory(
+            BuyPlanRepo(FirebaseFirestore.getInstance())
+        )
+    }
+
+    private lateinit var depositBalanceTv: TextView
+
+    // Notification constants
+    private val FIRST_PLAN_CHANNEL_ID = "first_plan_bonus_channel"
+    private val FIRST_PLAN_NOTIFY_ID = 1001
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View = FragmentStackBinding.inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        createFirstPlanChannelIfNeeded()
+
+        setupDrawerTrigger(view)
+        ProfileImageUtil.loadOrRefresh(
+            requireContext(),
+            uid = PrefService(requireContext()).getUserId().toString(),
+            binding.walletCard.profileImage
+        )
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateHome()
+                }
+            }
+        )
+
+        depositBalanceTv = binding.root.findViewById(R.id.depositBalance)
+
+        walletVm.wallet.observe(viewLifecycleOwner) { snap ->
+            if (snap == null) return@observe
+
+            val acc = snap.account
+            val raw = snap.raw
+
+            val bal = snap.account.investment.currentBalance
+            depositBalanceTv.text = walletVm.money(bal)
+
+            binding.totalInvestedAmount.text =
+                walletVm.money(acc.investment.totalInvestedInPlans)
+
+            binding.totalDepositAmt.text =
+                walletVm.money(acc.investment.totalDeposit)
+
+            val totalWithdrawn = walletVm.nestedDouble(raw, "earnings.totalWithdrawn")
+            binding.withdrawAmt.text = walletVm.money(totalWithdrawn)
+        }
+
+        binding.btnInvestedPlan.setOnClickListener {
+            findNavController().navigate(R.id.action_stackFragment_to_plansFragment2)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            if (loading) showLoading() else hideLoading()
+            binding.buyBtn.isEnabled = !loading
+        }
+
+        // 👇 Observe the first-plan bonus flag and notify
+        viewModel.firstPlanBonusAwarded.observe(viewLifecycleOwner) { awarded ->
+            if (awarded == true) {
+                postFirstPlanBonusNotification()
+                viewModel.clearFirstPlanBonusFlag()
+            }
+        }
+
+        viewModel.buyPlanStatus.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                PlanStatus.Success -> {
+                    val planName = viewModel.lastPurchasedPlanName.value ?: "Your Plan"
+                    val amount = viewModel.lastPurchasedAmount.value ?: 0.0
+
+                    binding.etAmt.text?.clear()
+                    hideLoading()
+                    viewModel.clearStatus()
+                    playPurchaseCelebrationThen {
+                        if (isAdded) showSuccessDialog(planName, amount)
+                    }
+                }
+                PlanStatus.InvalidAmount -> {
+                    showSnackbar("Invalid amount.")
+                    hideLoading()
+                    viewModel.clearStatus()
+                }
+                PlanStatus.NoPlanFound -> {
+                    showSnackbar("No plan matches this amount.")
+                    hideLoading()
+                    viewModel.clearStatus()
+                }
+                PlanStatus.NoUserFound -> {
+                    hideLoading()
+                    showSnackbar("User not found login again")
+                    viewModel.clearStatus()
+                }
+                PlanStatus.NotEnoughBalance -> {
+                    hideLoading()
+                    showSnackbar("Not enough balance")
+                    viewModel.clearStatus()
+                }
+                PlanStatus.Error -> {
+                    hideLoading()
+                    showSnackbar("Something went wrong. Try again.")
+                    viewModel.clearStatus()
+                }
+                null -> Unit
+            }
+        }
+
+        binding.buyBtn.setOnClickListener {
+            showLoading()
+            val amount = binding.etAmt.text?.toString()?.toDoubleOrNull()
+            if (amount == null || amount <= 0.0) {
+                showSnackbar("Enter a valid amount.")
+                hideLoading()
+                return@setOnClickListener
+            }
+
+            val userId = PrefService(requireContext()).getUserId()
+            if (userId.isNullOrBlank()) {
+                hideLoading()
+                showSnackbar("Please login first.")
+                return@setOnClickListener
+            }
+
+            viewModel.buyPlan(userId = userId, amount = amount)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun navigateHome() {
+        val navController = findNavController()
+        val popped = navController.popBackStack(R.id.homeFragment, false)
+        if (!popped) navController.navigate(R.id.homeFragment)
+    }
+
+    private fun showSuccessDialog(planName: String = "", amount: Double = 0.0) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_plan_purchase_success, null)
+
+        val planImage = dialogView.findViewById<ImageView>(R.id.planImage)
+        val planText = dialogView.findViewById<TextView>(R.id.planText)
+
+        val imageRes = when (planName.trim().lowercase()) {
+            "crypto forge" -> R.drawable.mining_1
+            "hash power"   -> R.drawable.mining_2
+            "block pulse"  -> R.drawable.mining_3
+            "core miner"   -> R.drawable.mining_4
+            "quantum rig"  -> R.drawable.mining_5
+            else           -> R.drawable.mining_1
+        }
+
+        planImage.setImageResource(imageRes)
+        planText.text = "You invested ${amount}$ in ${planName}"
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setGravity(Gravity.CENTER)
+        dialog.show()
+        dialogView.postDelayed({ dialog.dismiss() }, 3000)
+    }
+
+    private fun playPurchaseCelebrationThen(onEnd: () -> Unit) {
+        if (isCelebrating) return
+        val lottie = binding.lottieCelebration
+        isCelebrating = true
+
+        lottie.cancelAnimation()
+        lottie.removeAllAnimatorListeners()
+        lottie.repeatCount = 0
+        lottie.repeatMode  = LottieDrawable.RESTART
+        lottie.progress    = 0f
+        lottie.speed       = 1.0f
+        lottie.visibility  = View.VISIBLE
+
+        stopAndReleaseSuccessPlayer()
+        successPlayer = MediaPlayer.create(requireContext(), R.raw.success).apply {
+            isLooping = false
+            setOnErrorListener { mp, _, _ ->
+                try { mp.reset(); mp.release() } catch (_: Exception) {}
+                successPlayer = null
+                false
+            }
+            start()
+        }
+
+        var delivered = false
+        fun cleanup(callEnd: Boolean) {
+            if (!delivered && callEnd) {
+                delivered = true
+                if (isAdded) onEnd()
+            }
+            lottie.removeAllAnimatorListeners()
+            lottie.cancelAnimation()
+            lottie.visibility = View.GONE
+            stopAndReleaseSuccessPlayer()
+            isCelebrating = false
+        }
+
+        lottie.addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) = cleanup(callEnd = true)
+            override fun onAnimationCancel(animation: Animator) = cleanup(callEnd = false)
+        })
+
+        lottie.playAnimation()
+    }
+
+    private fun finishCelebration() {
+        binding.lottieCelebration.apply {
+            removeAllAnimatorListeners()
+            cancelAnimation()
+            visibility = View.GONE
+        }
+        stopAndReleaseSuccessPlayer()
+        isCelebrating = false
+    }
+
+    private fun stopAndReleaseSuccessPlayer() {
+        successPlayer?.let { mp ->
+            try {
+                mp.setOnErrorListener(null)
+                mp.setOnCompletionListener(null)
+                if (mp.isPlaying) mp.stop()
+            } catch (_: Exception) {}
+            try { mp.reset() } catch (_: Exception) {}
+            try { mp.release() } catch (_: Exception) {}
+        }
+        successPlayer = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        _binding?.lottieCelebration?.let { lottie ->
+            lottie.cancelAnimation()
+            lottie.visibility = View.GONE
+        }
+        stopAndReleaseSuccessPlayer()
+        isCelebrating = false
+    }
+
+    private fun showSnackbar(message: String, isError: Boolean = false) {
+        val snack = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
+        val bg = ContextCompat.getColor(
+            requireContext(),
+            if (isError) R.color.snackbar_error else R.color.snackbar_success
+        )
+        snack.view.backgroundTintList = ColorStateList.valueOf(bg)
+        snack.setTextColor(
+            ContextCompat.getColor(requireContext(), android.R.color.white)
+        )
+        snack.show()
+    }
+
+    // ---- Notifications (local) ----
+
+    private fun createFirstPlanChannelIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "First Plan Bonus"
+            val desc = "Notifications for first-time plan purchase bonus"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(FIRST_PLAN_CHANNEL_ID, name, importance).apply {
+                description = desc
+            }
+            val nm = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nm.createNotificationChannel(channel)
+        }
+    }
+
+    private fun postFirstPlanBonusNotification() {
+        val title = "Congratulations!"
+        val message = "You received 50 free tokens on your first plan purchase 🎉"
+
+        val builder = NotificationCompat.Builder(requireContext(), FIRST_PLAN_CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo) // TODO: replace with your status bar icon
+            .setContentTitle(title)
+            .setContentText(message)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+
+        val nm = NotificationManagerCompat.from(requireContext())
+        try {
+            nm.notify(FIRST_PLAN_NOTIFY_ID, builder.build())
+        } catch (_: SecurityException) {
+            // Android 13+ requires POST_NOTIFICATIONS permission; ignore if not granted.
+        }
+    }
+}

@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp">
+
+            <!-- Guidelines -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+            <!-- Top bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topbar"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/actionsRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/menu"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_window"
+                        android:contentDescription="@string/open_menu"
+                        android:padding="8dp" />
+
+                    <ImageView
+                        android:id="@+id/notification_ic"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/ic_bell"
+                        android:contentDescription="@string/notifications"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Wallet card -->
+            <FrameLayout
+                android:id="@+id/walletWrap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/topbar">
+
+                <include
+                    android:id="@+id/walletCard"
+                    layout="@layout/item_earnings_wallet_card" />
+            </FrameLayout>
+
+            <!-- Earnings breakdown (keep compat padding but trim inset with cardMaxElevation) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/earningsBreakdownCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:outlineAmbientShadowColor="#FF7B00"
+                android:outlineSpotShadowColor="#FF7B00"
+                app:cardBackgroundColor="#1A1A1A"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="10dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletWrap"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp">
+
+                    <ImageView
+                        android:id="@+id/watermarkImage"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_centerInParent="true"
+                        android:alpha="0.08"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/logo" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="4dp">
+
+                            <TextView
+                                android:id="@+id/titalRoiTv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_earnings_wallet_total_roi"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/amtRoi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_earnings_wallet_n_0"
+                                android:textColor="@color/orange"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="4dp">
+
+                            <TextView
+                                android:id="@+id/teamProfitTv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_earnings_wallet_team_earnings"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/teamProfitAmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_earnings_wallet_n_0"
+                                android:textColor="@color/orange"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="4dp">
+
+                            <TextView
+                                android:id="@+id/referralTv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_earnings_wallet_referral_earnings"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/referralAmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_earnings_wallet_n_0"
+                                android:textColor="@color/orange"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#22FFFFFF" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+
+                            <TextView
+                                android:id="@+id/totalEarnedTv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_earnings_wallet_total_earnings"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/totalEarnedAmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_earnings_wallet_n_0"
+                                android:textColor="@color/orange"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Actions -->
+            <LinearLayout
+                android:id="@+id/actionsRow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/earningsBreakdownCard">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/amountTransfer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:maxLines="1"
+                    android:minHeight="56dp"
+                    android:text="@string/fragment_earnings_wallet_transfer_funds"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:backgroundTint="#1C1C1C"
+                    app:cornerRadius="16dp" />
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/amountWithdrawBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:maxLines="1"
+                    android:minHeight="56dp"
+                    android:text="@string/fragment_earnings_wallet_withdraw_amount"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/button_color"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
+
+            <!-- Statistics -->
+            <TextView
+                android:id="@+id/tvLevels"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_earnings_wallet_statistics"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/actionsRow" />
+
+            <!-- 2-column grid -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/statsGrid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:alignmentMode="alignBounds"
+                app:columnCount="2"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/tvLevels"
+                app:rowCount="2"
+                app:useDefaultMargins="false">
+
+                <!-- Row 1, Col 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill_horizontal"
+                    app:strokeColor="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_money"
+                            app:tint="@color/orange" />
+
+                        <TextView
+                            android:id="@+id/totalInvestedAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_n_24_000"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/totalInvestedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_total_invested"
+                            android:textColor="@color/grey"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Row 1, Col 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill_horizontal"
+                    app:strokeColor="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_deposit"
+                            app:tint="@color/orange" />
+
+                        <TextView
+                            android:id="@+id/totalDepositAmt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_n_12_000"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_total_deposit"
+                            android:textColor="@color/grey"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Row 2, Col 1 (PULL UP slightly) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-6dp"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill_horizontal"
+                    app:strokeColor="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_withdraw"
+                            app:tint="@color/orange" />
+
+                        <TextView
+                            android:id="@+id/withdrawAmt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_n_6_000"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_earnings_wallet_total_withdraw"
+                            android:textColor="@color/grey"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.gridlayout.widget.GridLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/statsGrid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Black Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/black" />
+        </shape>
+    </item>
+
+    <!-- Center Logo -->
+    <item
+        android:drawable="@drawable/logo"
+        android:gravity="center" />
+
+</layer-list>

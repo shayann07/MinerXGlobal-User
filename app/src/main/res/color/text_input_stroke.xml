@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state -->
+    <item android:color="@color/status_bar_color" android:state_focused="true" />
+
+    <!-- Default unfocused state (Material grey: #A1A1A1 or use real one) -->
+    <item android:color="#9E9E9E" />
+</selector>

@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- default color; we’ll override in code -->
+    <solid android:color="@android:color/white"/>
+    <!-- ensure the shape is square, but size is driven by the View -->
+</shape>

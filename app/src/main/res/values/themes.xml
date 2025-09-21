@@ -1,0 +1,173 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Bitbloom" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/mxg_black</item>
+        <item name="colorPrimary">@color/mxg_white</item>
+        <item name="android:navigationBarColor">@color/mxg_black</item>
+        <item name="android:datePickerDialogTheme">@style/BitbloomDatePickerTheme</item>
+    </style>
+
+    <!-- DatePicker dialog theme -->
+    <style name="BitbloomDatePickerTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorAccent">@color/status_bar_color</item> <!-- header & selection accent -->
+        <item name="android:headerBackground">@color/light_status_bar_color
+        </item> <!-- header BG -->
+        <item name="android:colorControlHighlight">@color/status_bar_color
+        </item> <!-- selected day circle -->
+        <item name="android:colorControlActivated">@color/status_bar_color
+        </item> <!-- selected day circle -->
+        <item name="android:textColorPrimaryInverse">@color/white</item> <!-- header text -->
+        <item name="android:textColor">@color/status_bar_color</item> <!-- OK / CANCEL buttons -->
+        <item name="android:textColorPrimary">?attr/colorOnBackground</item> <!-- day numbers -->
+    </style>
+
+    <!-- App theme (now applies white cursor globally) -->
+    <style name="Theme.Bitbloom" parent="Base.Theme.Bitbloom">
+        <!-- Make all EditTexts (including TextInputEditText) use our white-cursor style -->
+        <item name="editTextStyle">@style/Widget.MXG.EditText.WhiteCursor</item>
+        <item name="android:editTextStyle">@style/Widget.MXG.EditText.WhiteCursor</item>
+
+        <!-- Extra safety: set cursor globally in case a widget ignores editTextStyle -->
+        <item name="android:textCursorDrawable">@drawable/cursor_white</item>
+    </style>
+
+    <!-- Global TextInput styles -->
+    <style name="Widget.Bitbloom.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="hintTextColor">@color/white</item>
+    </style>
+
+    <style name="Widget.Bitbloom.TextInput.Auth" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">26dp</item>
+        <item name="boxCornerRadiusTopEnd">26dp</item>
+        <item name="boxCornerRadiusBottomStart">26dp</item>
+        <item name="boxCornerRadiusBottomEnd">26dp</item>
+        <item name="boxStrokeColor">@color/text_input_stroke</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="FabShape.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- Ensures perfect circle -->
+    </style>
+
+    <style name="NoActiveIndicator" parent="@style/Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+        <item name="android:height">0dp</item>
+        <item name="android:width">0dp</item>
+    </style>
+
+    <style name="RoundedImageSmall" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ThemeOverlay.Custom.Dialog.Background" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- use your layer-list as the dialog window background -->
+        <item name="android:windowBackground">@drawable/glassy_bg_gradient</item>
+    </style>
+
+    <style name="FullScreenDialog.Glass" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/glassy_drawer_bg</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="NavItemActiveIndicator" parent="">
+        <item name="android:background">@drawable/bottom_nav_selected_bg</item>
+        <item name="android:insetLeft">8dp</item>
+        <item name="android:insetRight">8dp</item>
+        <item name="android:insetTop">4dp</item>
+        <item name="android:insetBottom">4dp</item>
+    </style>
+
+    <!-- Circular FAB style -->
+    <style name="App.Fab.Circle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <!-- Force full circle -->
+        <item name="shapeAppearanceOverlay">@style/App.Shape.Circle</item>
+        <!-- (optional) defaults -->
+        <item name="useCompatPadding">true</item>
+        <item name="rippleColor">#26FFFFFF</item>
+    </style>
+
+    <!-- Shape overlay that makes corners 50% -->
+    <style name="App.Shape.Circle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>  <!-- 50% of width/height => circle -->
+    </style>
+
+    <style name="Widget.Bitbloom.TextInput.Profile" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <!-- Orange outline stroke -->
+        <item name="boxStrokeColor">@color/text_input_stroke_orange</item>
+        <!-- Hint -->
+        <item name="hintTextColor">@color/text_input_hint_orange</item>
+        <item name="android:textColorHint">@color/text_input_hint_orange</item>
+        <!-- Icons if you use them -->
+        <item name="startIconTint">@color/text_input_hint_orange</item>
+        <item name="endIconTint">@color/text_input_hint_orange</item>
+    </style>
+
+    <style name="App.Shape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Text.MXG.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/mxg_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.MXG.Subtitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/mxg_white_80</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Material3.Dark.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppBottomSheetStyle</item>
+    </style>
+
+    <style name="AppBottomSheetStyle" parent="Widget.Material3.BottomSheet">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="TransparentBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheet</item>
+    </style>
+
+    <style name="TransparentBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemeOverlay_App_M3AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <!-- Optional typography tweaks -->
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.Material3.TitleMedium
+        </item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.Material3.BodyMedium
+        </item>
+    </style>
+
+    <style name="ShapeAppearance_App_Dialog_Rounded24" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="BottomNav.Text" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">12sp</item>          <!-- smaller label -->
+        <item name="lineHeight">14sp</item>                <!-- tighter line box -->
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Global EditText style that enforces a white caret -->
+    <style name="Widget.MXG.EditText.WhiteCursor" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@drawable/cursor_white</item>
+    </style>
+</resources>

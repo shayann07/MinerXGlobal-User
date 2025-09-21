@@ -1,0 +1,94 @@
+<!-- Receipt Content -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1A1A1A"
+        android:elevation="0dp"
+        app:cardCornerRadius="20dp"
+        android:background="@drawable/transparent"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_auth_card"
+            android:elevation="6dp"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/dialoge_recipt_transaction_details"
+                android:textColor="#C471FF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Total Payment -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/dialoge_recipt_total_payment"
+                android:textColor="#9663BA"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/invested_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <!-- Info List -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="85dp"
+                    android:orientation="vertical">
+
+                    <!-- Each Card -->
+                    <include
+                        android:id="@+id/card_userId"
+                        layout="@layout/item_receipt_card"
+                        android:tag="User ID" />
+
+                    <include
+                        android:id="@+id/card_paymentTime"
+                        layout="@layout/item_receipt_card"
+                        android:tag="Payment Time" />
+
+                    <include
+                        android:id="@+id/card_planName"
+                        layout="@layout/item_receipt_card"
+                        android:tag="Plan Name" />
+
+                    <include
+                        android:id="@+id/card_userName"
+                        layout="@layout/item_receipt_card"
+                        android:tag="User Name" />
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

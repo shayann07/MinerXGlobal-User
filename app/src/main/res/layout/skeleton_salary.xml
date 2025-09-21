@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <!-- Top bar (64dp) with right actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/skeleton_circle_rect" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/skeleton_circle_rect" />
+        </LinearLayout>
+
+        <!-- Centered title (22sp approx height) -->
+        <View
+            android:layout_width="160dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/skeleton_rounded_rect" />
+
+        <!-- Card 1: summaryCard -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/skeleton_card_rect"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <!-- month + chip -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="14dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_pill_rect" />
+
+            <!-- big amount -->
+            <View
+                android:layout_width="140dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <!-- hint -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <!-- compact stats row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/skeleton_rounded_rect" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/skeleton_rounded_rect" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/skeleton_rounded_rect" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Card 2: progressCard -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/skeleton_card_rect"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Self row -->
+            <View
+                android:layout_width="140dp"
+                android:layout_height="14dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_bar_rect" />
+
+            <!-- Direct row -->
+            <View
+                android:layout_width="140dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_bar_rect" />
+
+            <!-- Indirect row -->
+            <View
+                android:layout_width="140dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_bar_rect" />
+        </LinearLayout>
+
+        <!-- Card 3: remainingCard -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/skeleton_card_rect"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <View
+                android:layout_width="110dp"
+                android:layout_height="14dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_rounded_rect" />
+
+            <!-- three vertical chips -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/skeleton_pill_rect" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/skeleton_pill_rect" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/skeleton_pill_rect" />
+        </LinearLayout>
+
+        <!-- CTA (same size & margins as real) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/skeleton_button_rect" />
+
+        <!-- Spacer (matches fragment) -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+    </LinearLayout>
+</ScrollView>

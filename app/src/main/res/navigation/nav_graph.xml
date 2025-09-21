@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.SignupFragment"
+        android:label="Signup"
+        tools:layout="@layout/fragment_signup" />
+
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.ForgetPasswordFragment"
+        android:label="Forget Password"
+        tools:layout="@layout/fragment_forget_password" />
+
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.NewPasswordFragment"
+        android:label="New Password"
+        tools:layout="@layout/fragment_new_password" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_teamLevelsFragment"
+            app:destination="@id/teamLevelsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_walletFragment"
+            app:destination="@id/walletFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_earningsWalletFragment"
+            app:destination="@id/earningsWalletFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.WalletFragment"
+        android:label="Wallet"
+        tools:layout="@layout/fragment_wallet">
+
+        <action
+            android:id="@+id/action_walletFragment_to_depositFragment"
+            app:destination="@id/depositFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/teamLevelsFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.TeamLevelsFragment"
+        android:label="Team"
+        tools:layout="@layout/fragment_team_levels" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/salaryFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.SalaryFragment"
+        android:label="SalaryFragment"
+        tools:layout="@layout/fragment_salary" />
+
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.WithdrawFragment"
+        android:label="WithdrawFragment"
+        tools:layout="@layout/fragment_withdraw" />
+
+    <fragment
+        android:id="@+id/stackFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.StackFragment"
+        android:label="StackFragment">
+
+        <action
+            android:id="@+id/action_stackFragment_to_plansFragment2"
+            app:destination="@id/plansFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rankFragment2"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.RankFragment"
+        android:label="RankFragment" />
+
+    <fragment
+        android:id="@+id/plansFragment2"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.PlansFragment"
+        android:label="PlansFragment" />
+
+    <fragment
+        android:id="@+id/earningsWalletFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.EarningsWalletFragment"
+        android:label="EarningsWalletFragment">
+
+        <action
+            android:id="@+id/action_earningsWalletFragment_to_withdrawFragment"
+            app:destination="@id/withdrawFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.DepositFragment"
+        android:label="DepositFragment" />
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.chat.ChatFragment"
+        android:label="ChatFragment" >
+
+        <action
+            android:id="@+id/action_chatFragment_to_detailChatFragment"
+            app:destination="@id/detailChatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailChatFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.chat.DetailChatFragment"
+        android:label="DetailChatFragment" />
+
+    <fragment
+        android:id="@+id/salaryHistoryFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.SalaryHistoryFragment"
+        android:label="SalaryHistoryFragment" />
+
+</navigation>

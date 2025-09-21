@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#3A1D66"
+                android:endColor="#1B2A6E"
+                android:angle="315" />
+        </shape>
+    </item>
+    <!-- diagonal beam -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#443B82F6"
+                android:endColor="#00A855F7"
+                android:angle="315"/>
+        </shape>
+    </item>
+    <!-- arc highlight -->
+    <item android:gravity="bottom">
+        <shape android:shape="oval">
+            <size android:width="420dp" android:height="260dp"/>
+            <stroke android:width="2dp" android:color="#33FFFFFF"/>
+            <solid android:color="#00000000"/>
+        </shape>
+    </item>
+</layer-list>

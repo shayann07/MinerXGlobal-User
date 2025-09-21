@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/bg_auth_card"
+    android:padding="1dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/levelCardSkeleton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="18dp">
+
+            <!-- Left icon frame: 90x90 + 1dp inner padding (same as item) -->
+            <FrameLayout
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="14dp"
+                android:padding="1dp">
+
+                <!-- Placeholder in place of ImageView -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_skeleton_rounded" />
+            </FrameLayout>
+
+            <!-- Right column -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Title + chip row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Title placeholder (0dp + weight=1 like your TextView) -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="18dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_skeleton_rounded" />
+
+                    <!-- Chip placeholder (min height 28dp, marginStart 12dp) -->
+                    <View
+                        android:layout_width="72dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_skeleton_rounded" />
+                </LinearLayout>
+
+                <!-- teamBusiness line (approx 70% width) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="12dp"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/bg_skeleton_rounded" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.3" />
+                </LinearLayout>
+
+                <!-- directBusiness line (approx 60% width) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="12dp"
+                        android:layout_weight="0.6"
+                        android:background="@drawable/bg_skeleton_rounded" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.4" />
+                </LinearLayout>
+
+                <!-- rewardAmount line (approx 40% width, slightly taller) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="14dp"
+                        android:layout_weight="0.4"
+                        android:background="@drawable/bg_skeleton_rounded" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.6" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

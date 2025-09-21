@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black">
+
+    <!-- Scroll container -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <!-- Baseline Constraint content with gutters -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="96dp">
+
+            <!-- Gutters -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+            <!-- Top bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topbar"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:background="@drawable/ic_profile"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/titleWrap"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/avatar"
+                    app:layout_constraintEnd_toStartOf="@id/actionsRight"
+                    app:layout_constraintStart_toEndOf="@id/avatar"
+                    app:layout_constraintTop_toTopOf="@id/avatar">
+
+                    <TextView
+                        android:id="@+id/hiName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hi_name"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_home_welcome_to_minor_x_globe"
+                        android:textColor="@color/mxg_white_80"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/actionsRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/menu"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_window"
+                        android:contentDescription="@string/open_menu"
+                        android:padding="8dp" />
+
+                    <ImageView
+                        android:id="@+id/notification_ic"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/ic_bell"
+                        android:contentDescription="@string/notifications"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- USER STATS (Pager + Shimmer overlap) -->
+            <FrameLayout
+                android:id="@+id/userStatsContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/topbar">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/userStatsPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerUserStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:outlineAmbientShadowColor="#FF7B00"
+                        android:outlineSpotShadowColor="#FF7B00"
+                        app:cardBackgroundColor="#1A1A1A"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="12dp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@android:color/transparent">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </com.google.android.material.card.MaterialCardView>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+
+            <!-- ANNOUNCEMENT HEADER (title + shimmer occupying same space) -->
+            <FrameLayout
+                android:id="@+id/notificationHeaderContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/userStatsContainer">
+
+                <TextView
+                    android:id="@+id/notificationTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_home_announcement"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerNotificationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <View
+                        android:layout_width="160dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/bg_skeleton_rounded" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+
+            <!-- ANNOUNCEMENTS (Pager + Shimmer overlap) -->
+            <FrameLayout
+                android:id="@+id/announcementContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/notificationHeaderContainer">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/announcementSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:visibility="gone" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerAnnouncements"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:outlineAmbientShadowColor="#FF7B00"
+                        android:outlineSpotShadowColor="#FF7B00"
+                        app:cardBackgroundColor="#1A1A1A"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="12dp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@android:color/transparent">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </com.google.android.material.card.MaterialCardView>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/emptyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_no_announcement_available"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/announcementContainer" />
+
+            <!-- NETWORK STATS header -->
+            <TextView
+                android:id="@+id/networkHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_network_statistics"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/emptyTv" />
+
+            <!-- NETWORK STATS (Pager + Shimmer overlap) -->
+            <FrameLayout
+                android:id="@+id/networkStatsContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/networkHeader">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/networkStatsPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerNetworkStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/home_pager_height"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:outlineAmbientShadowColor="#FF7B00"
+                        android:outlineSpotShadowColor="#FF7B00"
+                        app:cardBackgroundColor="#1A1A1A"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="12dp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@android:color/transparent">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </com.google.android.material.card.MaterialCardView>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+
+            <!-- DOCUMENTS header -->
+            <TextView
+                android:id="@+id/docsHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_documents"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/networkStatsContainer" />
+
+            <!-- DOCUMENTS list -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDocuments"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="8dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/docsHeader"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_document" />
+
+            <!-- EXPLORE header -->
+            <TextView
+                android:id="@+id/exploreHeading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_minor_x_global_explorer"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/rvDocuments" />
+
+            <!-- EXPLORE image -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/exploreCard"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/exploreHeading"
+                app:strokeColor="@android:color/transparent">
+
+                <ImageView
+                    android:id="@+id/exploreImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/explore_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upgrade_system" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- EXPLORE description -->
+            <TextView
+                android:id="@+id/exploreDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="12dp"
+                android:minLines="2"
+                android:text="@string/fragment_home_upgrade_your_system_with_cutting_edge_graphics"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/exploreCard" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

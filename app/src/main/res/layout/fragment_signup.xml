@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black"
+    android:fitsSystemWindows="true">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="100dp">
+
+            <!-- Guidelines (baseline) -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+            <!-- Centered content block -->
+            <LinearLayout
+                android:id="@+id/contentWrap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <!-- Brand -->
+                <ImageView
+                    android:id="@+id/brandLogo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="48dp"
+                    android:contentDescription="@string/cd_brand_logo"
+                    android:src="@drawable/logo" />
+
+                <!-- Page title -->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/title_top_margin"
+                    android:text="@string/fragment_login_sign_up"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <!-- Main card (no glow view, no bg_auth_card) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/signupFormCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="12dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="@android:color/transparent"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="22dp">
+
+                        <!-- Heading -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/fragment_signup_create_account"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
+                            android:text="@string/fragment_signup_fill_the_details_below"
+                            android:textColor="#CCCCCC"
+                            android:textSize="12sp" />
+
+                        <!-- First Name -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/fragment_signup_first_name">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Last Name -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/fragment_signup_last_name">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/lastNameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Email -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/fragment_forget_password_email_address">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/emailInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Phone -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/fragment_signup_phone_number">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phoneInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Password -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/fragment_login_password"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/passwordInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Referral -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Bitbloom.TextInput.Auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/fragment_signup_referral_code_optional">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/referralInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textColor="@android:color/white" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- CTA -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/signUpBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:minHeight="52dp"
+                            android:text="@string/fragment_login_sign_up"
+                            android:textAllCaps="false"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/button_color"
+                            app:cornerRadius="16dp" />
+
+                        <!-- Already have an account? -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginVertical="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_signup_already_have_an_account"
+                                android:textColor="#B4FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/loginLink"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_login_login"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="24dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

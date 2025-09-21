@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/walletFragment"
+        android:icon="@drawable/card"
+        android:title="Wallet" />
+
+    <item
+        android:id="@+id/plansFragment"
+        android:icon="@drawable/scan_menu"
+        android:title="Plans"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/teamLevelsFragment"
+        android:icon="@drawable/ic_my_team"
+        android:title="Team" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile_bottom_nav"
+        android:title="Profile" />
+</menu>

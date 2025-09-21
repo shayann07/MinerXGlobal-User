@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_auth_card">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSurface"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="84dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp">
+
+            <!-- Icon (44dp) -->
+            <View
+                android:id="@+id/skIcon"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Amount (right, bold line) -->
+            <View
+                android:id="@+id/skAmount"
+                android:layout_width="96dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Status (under amount) -->
+            <View
+                android:id="@+id/skStatus"
+                android:layout_width="72dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toEndOf="@id/skAmount"
+                app:layout_constraintTop_toBottomOf="@id/skAmount" />
+
+            <!-- Title (left, constrained to amount) -->
+            <View
+                android:id="@+id/skTitle"
+                android:layout_width="0dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toStartOf="@id/skAmount"
+                app:layout_constraintStart_toEndOf="@id/skIcon"
+                app:layout_constraintTop_toTopOf="@id/skAmount" />
+
+            <!-- Content (two-line area; we just use one bar matching first line width) -->
+            <View
+                android:id="@+id/skContent"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toStartOf="@id/skAmount"
+                app:layout_constraintStart_toEndOf="@id/skIcon"
+                app:layout_constraintTop_toBottomOf="@id/skTitle" />
+
+            <!-- Date (bottom left) -->
+            <View
+                android:id="@+id/skDate"
+                android:layout_width="90dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/skTitle"
+                app:layout_constraintTop_toBottomOf="@id/skContent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

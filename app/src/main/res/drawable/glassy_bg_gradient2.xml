@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 1. Background sweep: blue to violet -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="135"
+                android:centerColor="#673AB7"
+                android:endColor="#ED374E9D"
+                android:startColor="#EA4E3B8C"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- 2. Soft radial glow dead center -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:centerX="50%"
+                android:centerY="50%"
+                android:endColor="#00FFFFFF"
+                android:gradientRadius="180dp"
+                android:startColor="#66FFFFFF"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- 3. Diagonal light band (bottom-left to top-right) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="315"
+                android:centerColor="#22000000"
+                android:endColor="#00000000"
+                android:startColor="#00000000"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- 4. Frost layer (glass effect) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="90"
+                android:centerColor="#08FFFFFF"
+                android:endColor="#04FFFFFF"
+                android:startColor="#11FFFFFF" />
+        </shape>
+    </item>
+
+</layer-list>

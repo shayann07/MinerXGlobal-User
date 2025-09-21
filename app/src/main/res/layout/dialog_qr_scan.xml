@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:strokeWidth="0dp"
+    card_view:cardBackgroundColor="#1A1A1A"
+    card_view:cardCornerRadius="20dp"
+    card_view:strokeColor="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Dialog Timer -->
+        <TextView
+            android:id="@+id/tvTimerDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/dialog_qr_scan_time_left_00_00_00"
+            android:textColor="@color/orange"
+            android:textSize="16sp" />
+        <!-- Amount -->
+        <TextView
+            android:id="@+id/amountVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/dialog_qr_scan_amount_200"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- QR Code -->
+        <ImageView
+            android:id="@+id/ivQRCode"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- BEP20 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/dialog_qr_scan_bep20"
+            android:textColor="@color/orange"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Instruction -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/dialog_qr_scan_deposit_amount_on_this_address"
+            android:textColor="@color/orange"
+            android:textSize="11sp" />
+
+        <!-- Address and Copy -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_dialog_black"
+            android:backgroundTint="@color/orange"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/sendingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/copyButton"
+                android:padding="11dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/copyButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_link" />
+        </RelativeLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

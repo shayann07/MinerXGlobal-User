@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#1A1A1A"
+    app:cardCornerRadius="20dp"
+    app:strokeColor="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="26dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="6dp">
+
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="2dp"
+                android:paddingBottom="6dp"
+                android:text="@string/dialog_deposit_input_currency_usdt_bep20"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipNetwork"
+                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:checkable="false"
+                android:text="BEP-20"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#242424"
+                app:chipCornerRadius="23dp"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="0dp" />
+        </LinearLayout>
+
+        <!-- Withdraw Amount -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilWithdrawAmount"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:hint="@string/dialog_deposit_input_amount"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:helperText="Min 10 • Network fee applies"
+            app:helperTextTextColor="@color/mxg_white_80"
+            app:hintTextColor="@color/mxg_white_80"
+            app:prefixTextColor="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWithdrawAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/enter_deposit_amount_in_usdt"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLength="12"
+                android:paddingVertical="12dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/mxg_white_80" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- BEP-20 Address -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/dialog_withdraw_input_bep20_address_0x"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="@color/orange"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/mxg_white_80">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions"
+                android:paddingVertical="12dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/mxg_white_80" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Info banner -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/infoBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#242424"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@android:color/transparent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tvTip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_weight="1"
+                    android:text="Withdraw to your own USDT (BEP-20) address only. Wrong network may result in loss. Fees are deducted from the amount."
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="@string/dialog_deposit_input_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                app:backgroundTint="@android:color/transparent"
+                app:strokeColor="@android:color/transparent" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="48dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWithdraw"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="@string/dialog_withdraw_input_withdraw"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:backgroundTint="@color/orange" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

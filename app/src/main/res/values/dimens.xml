@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="space_24">24dp</dimen>
+    <dimen name="logo_size">160dp</dimen>
+    <dimen name="title_top_margin">32dp</dimen>
+    <dimen name="subtitle_top_margin">8dp</dimen>
+    <dimen name="content_bottom_inset">96dp</dimen>
+    <dimen name="home_pager_height">200dp</dimen>
+</resources>

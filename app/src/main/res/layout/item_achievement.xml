@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Star floating above -->
+        <ImageView
+            android:id="@+id/imgStar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_star" />
+
+        <!-- Card below -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAchievement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/glassy_bg_gradient"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@android:color/transparent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/glassy_bg_gradient"
+                android:padding="16dp">
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/item_achievement_achievement_1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Direct Business -->
+                <TextView
+                    android:id="@+id/tvDirect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTitle"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/item_achievement_direct_business"
+                    android:textColor="#FFA726"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDirectValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDirect"
+                    android:layout_alignStart="@id/tvDirect"
+                    android:layout_marginTop="4dp"
+                    android:text=""
+                    android:textColor="#FFA726"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Indirect Business -->
+                <TextView
+                    android:id="@+id/tvIndirect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@string/item_achievement_in_direct_business"
+                    android:textColor="#00C853"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvIndirectValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvIndirect"
+                    android:layout_alignStart="@id/tvIndirect"
+                    android:layout_marginTop="4dp"
+                    android:text=""
+                    android:textColor="#00C853"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Collected Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCollected"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDirectValue"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:minHeight="46dp"
+                    android:text="@string/item_achievement_collected"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/blue"
+                    app:cornerRadius="20dp" />
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</LinearLayout>

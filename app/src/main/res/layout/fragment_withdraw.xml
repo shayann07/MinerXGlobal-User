@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black">
+
+    <!-- Scrollable container -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp">
+
+            <!-- Gutters -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+            <!-- Top bar actions -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topbar"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/actionsRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/menu"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ic_window"
+                        android:contentDescription="@string/open_menu"
+                        android:padding="8dp" />
+
+                    <ImageView
+                        android:id="@+id/notification_ic"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/ic_bell"
+                        android:contentDescription="@string/notifications"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Wallet card -->
+            <FrameLayout
+                android:id="@+id/walletWrap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/topbar">
+
+                <include
+                    android:id="@+id/walletCard"
+                    layout="@layout/item_home_wallet_card" />
+            </FrameLayout>
+
+            <!-- Withdraw CTA -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWithdraw"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/dialog_withdraw_input_withdraw"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/button_color"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_deposit"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="24dp"
+                app:iconTint="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletWrap" />
+
+            <!-- Section header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sectionHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/btnWithdraw">
+
+                <TextView
+                    android:id="@+id/tvTransactions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/fragment_deposit_transactions"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/filterAllBtn"
+                    app:layout_constraintEnd_toStartOf="@id/filterAllBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/filterAllBtn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:minWidth="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:text="@string/fragment_deposit_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp"
+                    app:backgroundTint="#2D2927"
+                    app:cornerRadius="18dp"
+                    app:icon="@drawable/ic_filter_list"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconTint="@color/orange"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/orange"
+                    app:strokeWidth="0dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Transactions list -->
+            <FrameLayout
+                android:id="@+id/transactionListContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/sectionHeader">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/transactionRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="80dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_transaction" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerTransactions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="80dp"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <LinearLayout
+                        android:id="@+id/skeletonTxnList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@drawable/divider_rank_list_gap"
+                        android:orientation="vertical"
+                        android:showDividers="middle" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Celebration Lottie overlay -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieCelebration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:visibility="gone"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/money_rain"
+        app:lottie_speed="1" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

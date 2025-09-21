@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="72dp"
+    android:viewportWidth="1000"
+    android:viewportHeight="200">
+
+    <!-- ▼ Drop shadow (10 vp lower) -->
+    <group android:translateY="10">
+        <path
+            android:fillColor="#33000000"
+            android:pathData="
+                M0,200
+                L1000,200
+
+                L994,76
+                A76,66 0 0 0 918,10
+                L82,10
+                A76,66 0 0 0 6,76
+
+                L1,190
+                Z" />
+    </group>
+
+    <!-- ▼ Main nav-bar -->
+    <path
+        android:fillColor="@color/nav_bar_color"
+        android:pathData="
+            M0,200
+            L1000,200
+
+            L994,76
+            A76,66 0 0 0 918,10
+
+            L82,10
+            A76,66 0 0 0 6,76
+
+            L1,190
+            Z" />
+</vector>

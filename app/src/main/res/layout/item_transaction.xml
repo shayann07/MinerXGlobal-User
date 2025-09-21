@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSurface"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:outlineAmbientShadowColor="#FF7B00"
+        android:outlineSpotShadowColor="#FF7B00"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="84dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp">
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/vector_bg"
+                android:padding="8dp"
+                android:src="@drawable/ic_withdraw2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/orange" />
+
+            <!-- Amount -->
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_transaction_n_1000"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_transaction_pending"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/tvAmount"
+                app:layout_constraintTop_toBottomOf="@id/tvAmount"
+                app:layout_goneMarginTop="2dp" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/dialog_withdraw_input_withdraw"
+                android:textColor="@color/orange"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/tvAmount"
+                app:layout_constraintStart_toEndOf="@id/ivIcon"
+                app:layout_constraintTop_toTopOf="@id/tvAmount"
+                app:layout_goneMarginEnd="8dp" />
+
+            <!-- Content -->
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/item_transaction_n_1000_has_been_withdrawn_from_your_account"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/tvAmount"
+                app:layout_constraintStart_toEndOf="@id/ivIcon"
+                app:layout_constraintTop_toBottomOf="@id/tvType"
+                app:layout_goneMarginEnd="8dp" />
+
+            <!-- Date -->
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/item_transaction_n_28_january_2025_12_00_am"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvType"
+                app:layout_constraintTop_toBottomOf="@id/tvContent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

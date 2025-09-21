@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 1) Dark card base (you can tweak this color) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1A0F1E"/>
+            <corners android:radius="16dp"/>
+        </shape>
+    </item>
+
+    <!-- 2) Yellow spot (upper‐left) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="200dp"
+                android:centerX="0.25"
+                android:centerY="0.30"
+                android:startColor="#66FFD740"
+            android:endColor="#00FFD740"
+            />
+        </shape>
+    </item>
+
+    <!-- 3) Magenta spot (lower‐right) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp"/>
+            <gradient
+                android:type="radial"
+                android:gradientRadius="160dp"
+                android:centerX="0.75"
+                android:centerY="0.70"
+                android:startColor="#66FF4080"
+            android:endColor="#00FF4080"
+            />
+        </shape>
+    </item>
+
+</layer-list>

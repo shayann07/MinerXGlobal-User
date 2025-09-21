@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:visibility="gone">
+
+   <FrameLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:padding="@dimen/dp_10"
+       android:background="@drawable/bg_loader_card">
+       <!-- Center the X loader -->
+       <com.minerxgloble.minerxgloble.ui.animation.XLogoLoadingView
+           android:id="@+id/x_loader"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_gravity="center" />
+   </FrameLayout>
+</FrameLayout>

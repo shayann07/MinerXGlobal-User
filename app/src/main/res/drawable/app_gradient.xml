@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="360dp"
+    android:height="640dp"
+    android:viewportWidth="360"
+    android:viewportHeight="640">
+
+    <!-- 0) Base: violet ↔ black-purple -->
+    <path android:pathData="M0,0 L360,0 L360,640 L0,640 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="360"
+                android:endY="640"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item
+                    android:color="#843D1C7E"
+                    android:offset="0.0" /> <!-- violet -->
+                <item
+                    android:color="#7F5395"
+                    android:offset="1.0" /> <!-- black-purple -->
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 2) Aurora blob (deep violet blend) -->
+    <path android:pathData="M0,0 L360,0 L360,640 L0,640 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="70"
+                android:centerY="200"
+                android:gradientRadius="260"
+                android:type="radial">
+                <item
+                    android:color="#773C174A"
+                    android:offset="0.0" />
+                <item
+                    android:color="#332A174A"
+                    android:offset="0.6" />
+                <item
+                    android:color="#001B0014"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 3) Neon purple blob -->
+    <path android:pathData="M0,0 L360,0 L360,640 L0,640 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="300"
+                android:centerY="360"
+                android:gradientRadius="300"
+                android:type="radial">
+                <item
+                    android:color="#59A855F7"
+                    android:offset="0.0" />
+                <item
+                    android:color="#33A855F7"
+                    android:offset="0.55" />
+                <item
+                    android:color="#00A855F7"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 4) Magenta highlight -->
+    <path android:pathData="M0,0 L360,0 L360,640 L0,640 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="320"
+                android:centerY="560"
+                android:gradientRadius="240"
+                android:type="radial">
+                <item
+                    android:color="#10EC4899"
+                    android:offset="0.0" />
+                <item
+                    android:color="#10EC4899"
+                    android:offset="0.7" />
+                <item
+                    android:color="#00EC4899"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 5) Rings -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M290,470 m-110,0 a110,110 0 1,0 220,0 a110,110 0 1,0 -220,0"
+        android:strokeWidth="2"
+        android:strokeColor="#0D2A174A" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M290,470 m-140,0 a140,140 0 1,0 280,0 a140,140 0 1,0 -280,0"
+        android:strokeWidth="1"
+        android:strokeColor="#0E2A174A" />
+
+    <!-- 6) Shards -->
+    <path
+        android:fillAlpha="0.35"
+        android:pathData="M220,90 L270,40 L340,90 L300,150 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="340"
+                android:endY="150"
+                android:startX="220"
+                android:startY="40"
+                android:type="linear">
+                <item
+                    android:color="#66A855F7"
+                    android:offset="0.0" />
+                <item
+                    android:color="#332A174A"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path
+        android:fillAlpha="0.30"
+        android:pathData="M40,380 L120,320 L170,380 L110,450 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="170"
+                android:endY="450"
+                android:startX="40"
+                android:startY="320"
+                android:type="linear">
+                <item
+                    android:color="#2BA855F7"
+                    android:offset="0.0" />
+                <item
+                    android:color="#332A174A"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 7) Lines -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M30,520 L140,520 L170,490 L260,490"
+        android:strokeWidth="1"
+        android:strokeColor="#07FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M300,260 L340,260 L340,300"
+        android:strokeWidth="1"
+        android:strokeColor="#12A855F7" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M60,160 L120,160 L150,130"
+        android:strokeWidth="1"
+        android:strokeColor="#552A174A" />
+
+    <!-- 8) Stars -->
+    <path
+        android:pathData="M95,145 h0.01"
+        android:strokeWidth="3"
+        android:strokeColor="#49FFFFFF" />
+    <path
+        android:pathData="M130,520 h0.01"
+        android:strokeWidth="3"
+        android:strokeColor="#34FFFFFF" />
+    <path
+        android:pathData="M325,305 h0.01"
+        android:strokeWidth="3"
+        android:strokeColor="#5CA855F7" />
+    <path
+        android:pathData="M260,100 h0.01"
+        android:strokeWidth="3"
+        android:strokeColor="#3C2A174A" />
+</vector>

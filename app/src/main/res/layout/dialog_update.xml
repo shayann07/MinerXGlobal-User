@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:padding="20dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="24dp"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="16dp">
+
+            <!-- Main Title -->
+            <TextView
+                android:id="@+id/updateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="@string/dialog_update_update_required"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle / Description -->
+            <TextView
+                android:id="@+id/updateDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"
+                android:text="@string/dialog_update_new_update_available_please_update"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <!-- ProgressBar & status label -->
+            <FrameLayout
+                android:id="@+id/updateProgressContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/updateCircle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    app:indicatorColor="@color/light_blue"
+                    app:indicatorSize="46dp"
+                    app:trackColor="#A0FFFFFF"
+                    app:trackThickness="6dp" />
+
+                <TextView
+                    android:id="@+id/updateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="56dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_update_downloading"
+                    android:textColor="#B2FFFFFF"
+                    android:textSize="13sp" />
+            </FrameLayout>
+
+            <!-- Update Now Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateNowBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/dialog_update_update_now"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:backgroundTint="@color/orange"
+                app:cornerRadius="18dp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

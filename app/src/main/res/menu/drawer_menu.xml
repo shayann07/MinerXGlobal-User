@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/direct_active_ic"
+        android:title="Dashboard" />
+  <!--  <item
+        android:id="@+id/teamRankingFragment"
+        android:icon="@drawable/ic_team"
+        android:title="Team" />-->
+    <item
+        android:id="@+id/depositAmountFragment"
+        android:icon="@drawable/ic_deposit"
+        android:title="Deposit" />
+    <item
+        android:id="@+id/withdrawAmountFragment"
+        android:icon="@drawable/ic_withdraw"
+        android:title="Withdraw" />
+    <!--<item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/ic_support"
+        android:title="Support" />-->
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
+</menu>

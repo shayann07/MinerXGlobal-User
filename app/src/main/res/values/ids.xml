@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_salary_eligible" type="id"/>
+    <item name="tilAmount" type="id" />
+    <item name="btnCancel" type="id" />
+    <item name="tvCurrency" type="id" />
+    <item name="notificationTv" type="id" />
+</resources>

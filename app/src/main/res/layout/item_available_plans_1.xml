@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="0dp"
+    card_view:cardBackgroundColor="@android:color/transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@drawable/dark_bg"> <!-- Custom background pattern -->
+
+        <!-- Simulated Chip Icon -->
+        <ImageView
+            android:id="@+id/chip_icon"
+            android:layout_width="32dp"
+            android:layout_height="24dp"
+            android:background="@drawable/chip_bg"
+            android:backgroundTint="@android:color/darker_gray"
+            android:src="@drawable/ic_chip"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp" />
+
+        <!-- NFC Icon -->
+        <ImageView
+            android:id="@+id/nfc_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/chip_icon"
+            android:src="@drawable/pay_pass" />
+
+        <!-- Plan Title -->
+        <TextView
+            android:id="@+id/plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_available_plans_1_bitcoin_premium"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_below="@id/chip_icon"
+            android:layout_marginTop="12dp" />
+
+        <!-- Invested Amount Label -->
+        <TextView
+            android:id="@+id/amount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_available_plans_1_min_investment_amount"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_below="@id/plan_title"
+            android:layout_marginTop="20dp" />
+
+        <!-- Invested Amount Value -->
+        <TextView
+            android:id="@+id/amount_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_available_plans_1_n_4_000"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_below="@id/amount_label" />
+
+        <!-- ROI Info -->
+        <TextView
+            android:id="@+id/roi_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_available_plans_1_daily_roi"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/amount_value"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/roi_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_available_plans_1_n_5"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_below="@id/roi_label"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="4dp" />
+
+        <!-- Expiry Date -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/expiryLayout"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/planDaysTitle"
+                android:text="@string/item_available_plans_1_plan_days"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/planDays"
+                android:text="@string/item_available_plans_1_n_02_30"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/startLayout"
+            android:layout_toRightOf="@id/amount_label"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startDateTitle"
+                android:text="@string/item_available_plans_1_start_date"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startDate"
+                android:text="@string/item_available_plans_1_n_02_30"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <!-- Bonus Icon and Text -->
+        <LinearLayout
+            android:id="@+id/bonusLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nfc_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="68dp"
+            android:visibility="gone"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:id="@+id/bonusIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_star"
+                app:tint="#FFEB3B"
+                android:layout_marginEnd="6dp"/>
+
+            <TextView
+                android:id="@+id/bonusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_available_plans_1_bonus_5"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

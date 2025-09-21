@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:background="@drawable/bg_auth_card"
+    android:padding="1dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#1A1A1A"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="26dp">
+
+            <!-- Image halo (84dp) -->
+            <FrameLayout
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/bg_auth_card"
+                android:padding="1dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_skeleton_rounded" />
+            </FrameLayout>
+
+            <!-- Text + Info (mirrors item_plan) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Plan Name -->
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+                <!-- Range (2dp top like item) -->
+                <View
+                    android:layout_width="130dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+                <!-- 3 columns (Daily / Direct / Payout) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <!-- Col 1 -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="50dp"
+                            android:layout_height="12dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </LinearLayout>
+
+                    <!-- Col 2 -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <View
+                            android:layout_width="50dp"
+                            android:layout_height="12dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </LinearLayout>
+
+                    <!-- Col 3 -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="50dp"
+                            android:layout_height="12dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+
+                        <View
+                            android:layout_width="80dp"
+                            android:layout_height="16dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_skeleton_rounded" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

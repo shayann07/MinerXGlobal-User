@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mxg_black">
+
+    <!-- Wrap content + overlay so shimmer can sit above everything -->
+    <FrameLayout
+        android:id="@+id/contentWrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Your existing scrollable content (unchanged) -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp">
+
+                <!-- Guidelines (baseline gutters) -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="8dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="8dp" />
+
+                <!-- Top bar: right actions -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/topbar"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:id="@+id/actionsRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/menu"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/ic_window"
+                            android:contentDescription="@string/open_menu"
+                            android:padding="8dp" />
+
+                        <ImageView
+                            android:id="@+id/notification_ic"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/ic_bell"
+                            android:contentDescription="@string/notifications"
+                            android:padding="8dp" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Title (centered) -->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:text="@string/fragment_salary_salary"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+                <!-- HERO: month + preview -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/summaryCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    app:strokeColor="@android:color/transparent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- subtle watermark -->
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:alpha="0.08"
+                            android:src="@drawable/logo" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="18dp">
+
+                            <!-- top row: month + mode -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvMonthKey"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/fragment_salary_n_2025_09"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chipMode"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fragment_salary_preview"
+                                    app:chipBackgroundColor="@android:color/transparent"
+                                    app:chipStrokeColor="@color/orange"
+                                    app:chipStrokeWidth="1dp" />
+                            </LinearLayout>
+
+                            <!-- big amount + current star -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvSalaryPreview"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fragment_earnings_wallet_n_0"
+                                    android:textColor="@color/white"
+                                    android:textSize="32sp"
+                                    android:textStyle="bold" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chipCurrentStar"
+                                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="@string/fragment_salary_star_0"
+                                    android:textColor="@color/white"
+                                    app:chipBackgroundColor="@color/orange" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvIfMonthEndedHint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/fragment_salary_at_end_of_month"
+                                android:textColor="@color/grey"
+                                android:textSize="12sp" />
+
+                            <!-- compact stats row -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="14dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:paddingVertical="6dp">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@drawable/ic_team_business" />
+
+                                    <TextView
+                                        android:id="@+id/tvSelfInvestAmount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="6dp"
+                                        android:text="@string/fragment_earnings_wallet_n_0"
+                                        android:textColor="@color/white"
+                                        android:textSize="13sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:paddingVertical="6dp">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@drawable/direct_active_ic" />
+
+                                    <TextView
+                                        android:id="@+id/tvDirectActive"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="6dp"
+                                        android:text="@string/fragment_earnings_wallet_n_0"
+                                        android:textColor="@color/white"
+                                        android:textSize="13sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:paddingVertical="6dp">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@drawable/indirect_active_ic" />
+
+                                    <TextView
+                                        android:id="@+id/indirectActive"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="6dp"
+                                        android:text="@string/fragment_earnings_wallet_n_0"
+                                        android:textColor="@color/white"
+                                        android:textSize="13sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- PROGRESS TRACKER -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/progressCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/summaryCard"
+                    app:strokeColor="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Self -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvSelfHeader"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_salary_self"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvSelfProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_salary_n_0_100"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progressSelf"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="6dp"
+                            app:indicatorColor="@color/orange"
+                            app:trackColor="#262626" />
+
+                        <!-- Direct -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvDirectHeader"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_salary_direct"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvDirectProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_salary_n_0_1000"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progressDirect"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="6dp"
+                            app:indicatorColor="@color/orange"
+                            app:trackColor="#262626" />
+
+                        <!-- Indirect -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvIndirectHeader"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/fragment_salary_indirect"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvIndirectProgress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_salary_n_0_3000"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progressIndirect"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="6dp"
+                            app:indicatorColor="@color/orange"
+                            app:trackColor="#262626" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- NEXT STAR SUMMARY -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/remainingCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#FF7B00"
+                    android:outlineSpotShadowColor="#FF7B00"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/progressCard"
+                    app:strokeColor="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/tvNextStar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fragment_salary_next_star"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvNextSalary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/fragment_salary_salary_1"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
+                        <!-- vertical chip stack -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipRemainSelf"
+                                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fragment_salary_self_0"
+                                app:chipBackgroundColor="@android:color/transparent"
+                                app:chipStrokeColor="@color/orange"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipRemainDirect"
+                                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/fragment_salary_direct_0"
+                                app:chipBackgroundColor="@android:color/transparent"
+                                app:chipStrokeColor="@color/orange"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipRemainIndirect"
+                                style="@style/Widget.Material3.Chip.Assist.Elevated"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/fragment_salary_indirect_0"
+                                app:chipBackgroundColor="@android:color/transparent"
+                                app:chipStrokeColor="@color/orange"
+                                app:chipStrokeWidth="1dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- CTA -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnContact"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/fragment_salary_collect_salary"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/orange"
+                    app:cornerRadius="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/remainingCard" />
+
+                <!-- spacer -->
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/gEnd"
+                    app:layout_constraintStart_toStartOf="@id/gStart"
+                    app:layout_constraintTop_toBottomOf="@id/btnContact" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Shimmer overlay -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:shimmer_auto_start="false"
+            app:shimmer_base_alpha="0.6"
+            app:shimmer_duration="1100"
+            app:shimmer_highlight_alpha="1.0"
+            app:shimmer_repeat_count="-1">
+
+            <!-- Skeleton mirrors paddings/gutters -->
+            <include layout="@layout/skeleton_salary" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

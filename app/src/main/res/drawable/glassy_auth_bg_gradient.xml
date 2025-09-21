@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- subtle drop-shadow -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#20000000" />
+        </shape>
+    </item>
+
+    <!-- translucent card background -->
+    <item
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="90"
+                android:endColor="#666F4BA4"
+                android:startColor="#6620244D"
+                android:type="linear" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#B4FFFFFF</color>
+    <color name="blue">#EE6924</color>
+    <color name="seaGreen">#11CABE</color>
+    <color name="darkSeaGreen">#1BA27A</color>
+    <color name="yellow">#FFBB38</color>
+    <color name="red">#FF4B4A</color>
+    <color name="gray">#B9B9B9</color>
+    <color name="dark_blue">#1B0041B2</color>
+    <color name="light_blue">#EE6924</color>
+    <color name="nav_bar_color">#131417</color>
+    <color name="status_bar_color">#EE6924</color>
+    <color name="light_status_bar_color">#EE6924</color>
+    <color name="button_color">#EE6924</color>
+
+    <color name="snackbar_error">#F44336</color>    <!-- red-500 -->
+    <color name="snackbar_success">#EE6924</color>
+
+    <color name="transparent_black_light">#BB000000</color> <!-- subtle dim -->
+
+    <color name="ticket_pending">#FFC107</color>  <!-- amber / warning -->
+    <color name="ticket_closed">#4CAF50</color>   <!-- material green 500 -->
+    <color name="orange">#EE6924</color>   <!-- material green 500 -->
+
+    <color name="mxg_black">#000000</color>
+    <color name="mxg_white">#FFFFFF</color>
+    <color name="mxg_white_80">#CCFFFFFF</color>
+    <color name="dialogSurface">#1A1A1A</color> <!-- replace with your brand color -->
+
+</resources>

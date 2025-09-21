@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="359dp"
+    android:height="126dp"
+    android:viewportWidth="359"
+    android:viewportHeight="126">
+
+  <group>
+    <!-- Clipping path for rounded corners -->
+    <clip-path
+        android:pathData="M0.24,12.8C0.24,8.32 0.24,6.08 1.11,4.37C1.88,2.86 3.1,1.64 4.61,0.87C6.32,0 8.56,0 13.04,0H345.44C349.92,0 352.16,0 353.87,0.87C355.38,1.64 356.6,2.86 357.37,4.37C358.24,6.08 358.24,8.32 358.24,12.8V113.2C358.24,117.68 358.24,119.92 357.37,121.63C356.6,123.14 355.38,124.36 353.87,125.13C352.16,126 349.92,126 345.44,126H13.04C8.56,126 6.32,126 4.61,125.13C3.1,124.36 1.88,123.14 1.11,121.63C0.24,119.92 0.24,117.68 0.24,113.2V12.8Z" />
+
+    <!-- Background shape with gradient -->
+    <path
+        android:pathData="M0.24,12.8C0.24,8.32 0.24,6.08 1.11,4.37C1.88,2.86 3.1,1.64 4.61,0.87C6.32,0 8.56,0 13.04,0H345.44C349.92,0 352.16,0 353.87,0.87C355.38,1.64 356.6,2.86 357.37,4.37C358.24,6.08 358.24,8.32 358.24,12.8V113.2C358.24,117.68 358.24,119.92 357.37,121.63C356.6,123.14 355.38,124.36 353.87,125.13C352.16,126 349.92,126 345.44,126H13.04C8.56,126 6.32,126 4.61,125.13C3.1,124.36 1.88,123.14 1.11,121.63C0.24,119.92 0.24,117.68 0.24,113.2V12.8Z">
+      <aapt:attr name="android:fillColor">
+        <gradient
+            android:startX="179.5"
+            android:startY="0"
+            android:endX="179.5"
+            android:endY="126"
+            android:type="linear">
+          <!-- top burnt orange -->
+          <item android:offset="0" android:color="#EE6924"/>
+          <!-- fade towards black -->
+          <item android:offset="1" android:color="#FF000000"/>
+        </gradient>
+      </aapt:attr>
+    </path>
+  </group>
+</vector>

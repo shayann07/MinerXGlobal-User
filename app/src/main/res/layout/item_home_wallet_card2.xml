@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <!-- container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+        <!-- Glass panel -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#26FFFFFF"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/glass_panel_bg"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <!-- Header Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Title pill -->
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/chip_neon_pill"
+                        android:importantForAccessibility="yes"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="@string/item_home_wallet_card2_my_balance"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <!-- Details link (bigger touch target) -->
+                    <TextView
+                        android:id="@+id/tvDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:text=""
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- Balance Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Amount -->
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_home_wallet_card2_n_0_00"
+                        android:textColor="@android:color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <!-- Unit (smaller for visual hierarchy) -->
+                    <TextView
+                        android:id="@+id/tvUnit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/item_home_wallet_card2_usdt"
+                        android:textColor="#D8FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Status badge -->
+                    <TextView
+                        android:id="@+id/tvBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/badge_glow"
+                        android:contentDescription="@string/item_home_wallet_card2_wallet_status_active"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="@string/item_home_wallet_card2_active"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Subtext -->
+                <TextView
+                    android:id="@+id/tvSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/item_home_wallet_card2_synced_wallet_secure"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="12sp" />
+
+                <!-- Divider (ultra subtle) -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="14dp"
+                    android:background="#14FFFFFF" />
+
+                <!-- Actions -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Primary action: gradient button -->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnInvest"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_primary_neon"
+                        android:contentDescription="@string/item_home_wallet_card2_invest"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/item_home_wallet_card2_invest"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+
+                    <!-- Secondary action: outline (optional, remove if not needed) -->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnHistory"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_outline_neon"
+                        android:contentDescription="@string/item_home_wallet_card2_view_transaction_history"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/item_home_wallet_card2_history"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

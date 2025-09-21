@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="170dp"
+                android:startColor="#00000000"
+                android:endColor="#3300D4FF"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+
+    <item
+        android:insetLeft="4dp"
+        android:insetTop="4dp"
+        android:insetRight="4dp"
+        android:insetBottom="4dp">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent"/>
+            <stroke
+                android:width="16dp"
+                android:color="#9A00D1FF"/>
+        </shape>
+    </item>
+
+    <item
+        android:insetLeft="4dp"
+        android:insetTop="4dp"
+        android:insetRight="4dp"
+        android:insetBottom="4dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="sweep"
+                android:startColor="#FF00D1FF"
+                android:centerColor="#FF5E00FF"
+                android:endColor="#FF00F0FF"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+
+    <item
+        android:insetLeft="28dp"
+        android:insetTop="28dp"
+        android:insetRight="28dp"
+        android:insetBottom="28dp">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent"/>
+            <stroke
+                android:width="2dp"
+                android:color="#99FFFFFF"/>
+        </shape>
+    </item>
+
+</layer-list>
