@@ -18,6 +18,7 @@ import com.minerxgloble.minerxgloble.viewModels.factory.AuthViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.minerxgloble.minerxgloble.ui.MainActivity
 
 class LoginFragment : BaseFragment() {
 
@@ -69,6 +70,15 @@ class LoginFragment : BaseFragment() {
             when (result) {
                 LoginResult.SUCCESS -> {
                     PrefService(requireContext()).saveLogin()
+                    view?.let { v ->
+                        val imm = androidx.core.content.ContextCompat
+                            .getSystemService(requireContext(), android.view.inputmethod.InputMethodManager::class.java)
+                        imm?.hideSoftInputFromWindow(v.windowToken, 0)
+                        v.clearFocus()
+                    }
+
+// Tell Activity to hold the bar until Home is ready
+                    (requireActivity() as? MainActivity)?.deferBottomBarForNextHome()
 
                     val navOptions = androidx.navigation.NavOptions.Builder()
                         .setPopUpTo(R.id.loginFragment, true)

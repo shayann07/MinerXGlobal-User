@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Base darker graphite gradient -->
-    <item>
-        <shape android:shape="rectangle">
-            <gradient
-                android:type="linear"
-                android:angle="180"
-                android:startColor="#050505"
-                android:centerColor="#0C0C0C"
-                android:endColor="#141414"/>
-        </shape>
-    </item>
-
-    <!-- Darker diagonal brushed lines -->
-    <item>
-        <shape android:shape="rectangle">
-            <gradient
-                android:type="linear"
-                android:angle="135"
-                android:startColor="#33000000"
-                android:centerColor="#11000000"
-                android:endColor="#33000000"
-                android:tileMode="repeat"/>
-            <!-- tighter spacing for heavier look -->
-            <size android:width="6dp" android:height="6dp"/>
-        </shape>
-    </item>
-
-    <!-- More subtle metallic highlight across middle -->
+    <!-- Base gradient: deep blue → violet -->
     <item>
         <shape android:shape="rectangle">
             <gradient
                 android:type="linear"
                 android:angle="270"
-                android:startColor="#00000000"
-                android:centerColor="#0DFFFFFF"
-                android:endColor="#00000000"/>
+                android:startColor="#1C1F3A"
+                android:centerColor="#2C2150"
+                android:endColor="#341A38"/>
         </shape>
     </item>
 
-    <!-- Stronger vignette for depth -->
-    <item>
+    <!-- Cyan glow (top-left, softer edges, bigger radius) -->
+    <item android:gravity="top|start">
         <shape android:shape="rectangle">
             <gradient
-                android:type="linear"
-                android:angle="0"
-                android:startColor="#66000000"
-                android:centerColor="#00000000"
-                android:endColor="#66000000"/>
+                android:type="radial"
+                android:centerX="25%"
+                android:centerY="18%"
+                android:gradientRadius="700dp"
+                android:startColor="#2240E6FF"
+                android:centerColor="#0F40E6FF"
+                android:endColor="#0040E6FF"/>
+        </shape>
+    </item>
+
+    <!-- Sunset glow (top-right, smoother) -->
+    <item android:gravity="top|end">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="78%"
+                android:centerY="28%"
+                android:gradientRadius="700dp"
+                android:startColor="#26FF9F43"
+                android:centerColor="#12FF9F43"
+                android:endColor="#00FF9F43"/>
+        </shape>
+    </item>
+
+    <!-- Magenta glow (bottom-center, wide spread for blending) -->
+    <item android:gravity="bottom|center_horizontal">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="50%"
+                android:centerY="100%"
+                android:gradientRadius="820dp"
+                android:startColor="#26E640A1"
+                android:centerColor="#10E640A1"
+                android:endColor="#00E640A1"/>
         </shape>
     </item>
 

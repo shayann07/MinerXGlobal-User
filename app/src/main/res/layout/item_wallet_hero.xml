@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="170dp">
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+    <!-- Animated liquid gold card -->
+    <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
         android:id="@+id/walletHeroCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="@drawable/ripple_dark"
         android:outlineAmbientShadowColor="#FF7B00"
         android:outlineSpotShadowColor="#FF7B00"
-        card_view:cardCornerRadius="24dp"
-        card_view:cardElevation="12dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:strokeColor="@android:color/transparent"
-        card_view:strokeWidth="0dp">
+        app:cardCornerRadius="24dp"
+        android:layout_margin="16dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_wallet_shiny"
             android:orientation="vertical"
             android:padding="18dp">
 
@@ -51,6 +52,90 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+            <!-- QUICK ACTIONS -->
+            <LinearLayout
+                android:id="@+id/quickActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletHero">
+
+                <!-- Row: Deposit / Withdraw -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDeposit"
+
+
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/main_card_color"
+                        android:text="@string/dialog_deposit_input_deposit"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:ellipsize="end"
+                        app:strokeColor="@color/orange"
+                        app:cornerRadius="16dp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnWithdraw"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="@string/withdraw"
+                        android:textAllCaps="false"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:ellipsize="end"
+                        app:cornerRadius="16dp"
+
+                        android:backgroundTint="@color/orange"
+                        app:iconTint="@color/orange"
+                        app:strokeColor="@color/orange"
+                        app:strokeWidth="1dp" />
+                </LinearLayout>
+
+                <!-- Spacing between rows -->
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="12dp" />
+
+                <!-- Referral “input” (full width, same edges as buttons) -->
+                <TextView
+                    android:id="@+id/inputReferral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_referral_home"
+                    android:drawablePadding="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:drawableEndCompat="@drawable/ic_link"
+                    app:drawableTint="#A2EE6924" />
+            </LinearLayout>
+
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
 </FrameLayout>

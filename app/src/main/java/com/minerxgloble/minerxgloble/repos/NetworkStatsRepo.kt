@@ -28,6 +28,41 @@ class NetworkStatsRepo {
                 onUpdate(snapshot?.data)
             }
     }
+    // ADD in the same class: NetworkStatsRepo
+    suspend fun fetchTokenRate(): Double? {
+        val snap = db.collection("mxgToken")
+            .document("tokenRate")
+            .get()
+            .await()
+
+        // Accepts number stored as int/double/string; normalize to Double
+        val raw = snap.get("rate")
+        return when (raw) {
+            is Number -> raw.toDouble()
+            is String -> raw.toDoubleOrNull()
+            else -> null
+        }
+    }
+
+    fun listenTokenRate(onUpdate: (Double?) -> Unit): ListenerRegistration {
+        return db.collection("mxgToken")
+            .document("tokenRate")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.e("NetworkStatsRepo", "listenTokenRate error", e)
+                    onUpdate(null)
+                    return@addSnapshotListener
+                }
+                val raw = snapshot?.get("rate")
+                val rate = when (raw) {
+                    is Number -> raw.toDouble()
+                    is String -> raw.toDoubleOrNull()
+                    else -> null
+                }
+                onUpdate(rate)
+            }
+    }
+
 
     suspend fun fetchDocuments(): List<DocumentItem> {
         val snap = db.collection("documents").get().await()

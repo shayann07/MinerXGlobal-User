@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mxg_black">
+    android:background="@drawable/bg_mxg_deposit_gradient">
 
     <!-- ① Scroll container -->
     <androidx.core.widget.NestedScrollView
@@ -115,7 +115,7 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Header card (kept style; copy aligned to draw) -->
+            <!-- Header card (animated liquid gold) -->
             <FrameLayout
                 android:id="@+id/headerWrap"
                 android:layout_width="0dp"
@@ -125,14 +125,14 @@
                 app:layout_constraintStart_toStartOf="@id/gStart"
                 app:layout_constraintTop_toBottomOf="@id/topbar">
 
-                <com.google.android.material.card.MaterialCardView
+                <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
                     android:id="@+id/headerCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
-                    app:cardBackgroundColor="@color/main_card_color"
+                    app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="12dp"
                     app:cardUseCompatPadding="true"
@@ -163,7 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="36dp"
-                            android:background="@drawable/bg_referral"
+                            android:background="@drawable/bg_referral_home"
                             android:drawablePadding="8dp"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -175,8 +175,9 @@
                             android:textSize="12sp"
                             app:drawableTint="#A2EE6924" />
                     </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
             </FrameLayout>
+
 
             <!-- Invest button (PLACED RIGHT BELOW THE CARD) -->
             <com.google.android.material.button.MaterialButton

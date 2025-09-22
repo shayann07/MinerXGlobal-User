@@ -4,7 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mxg_black">
+    android:background="@drawable/bg_mxg_deposit_gradient">
 
     <!-- Wrap content + overlay so shimmer can sit above everything -->
     <FrameLayout
@@ -96,14 +96,14 @@
                     app:layout_constraintStart_toStartOf="@id/gStart"
                     app:layout_constraintTop_toBottomOf="@id/topbar" />
 
-                <!-- HERO: month + preview -->
-                <com.google.android.material.card.MaterialCardView
+                <!-- HERO: month + preview (animated liquid gold) -->
+                <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
                     android:id="@+id/summaryCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
-                    app:cardBackgroundColor="@color/main_card_color"
+                    app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="10dp"
                     app:cardMaxElevation="10dp"
@@ -111,20 +111,14 @@
                     app:layout_constraintEnd_toEndOf="@id/gEnd"
                     app:layout_constraintStart_toStartOf="@id/gStart"
                     app:layout_constraintTop_toBottomOf="@id/title"
-                    app:strokeColor="@android:color/transparent">
+                    app:strokeColor="@android:color/transparent"
+                    app:strokeWidth="0dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <!-- subtle watermark -->
-                        <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_gravity="center"
-                            android:alpha="0.08"
-                            android:src="@drawable/logo" />
-
+                        <!-- content -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -279,7 +273,7 @@
                             </LinearLayout>
                         </LinearLayout>
                     </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
 
                 <!-- PROGRESS TRACKER -->
                 <com.google.android.material.card.MaterialCardView
@@ -297,6 +291,17 @@
                     app:layout_constraintStart_toStartOf="@id/gStart"
                     app:layout_constraintTop_toBottomOf="@id/summaryCard"
                     app:strokeColor="@android:color/transparent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:alpha="0.08"
+                            android:src="@drawable/logo" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -405,6 +410,7 @@
                             app:indicatorColor="@color/orange"
                             app:trackColor="#262626" />
                     </LinearLayout>
+                    </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- NEXT STAR SUMMARY -->

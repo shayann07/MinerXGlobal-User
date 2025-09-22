@@ -7,22 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.minerxgloble.minerxgloble.R
 import com.minerxgloble.minerxgloble.adapters.WinnersAdapter
 import com.minerxgloble.minerxgloble.databinding.FragmentLuckyDrawBinding
 import com.minerxgloble.minerxgloble.repos.LuckyDrawRepository
-import com.minerxgloble.minerxgloble.viewModels.LuckyDrawViewModel
-import com.minerxgloble.minerxgloble.viewModels.factory.LuckyDrawVMFactory
 import com.minerxgloble.minerxgloble.utils.PrefService
 import com.minerxgloble.minerxgloble.utils.ProfileImageUtil
+import com.minerxgloble.minerxgloble.viewModels.LuckyDrawViewModel
+import com.minerxgloble.minerxgloble.viewModels.factory.LuckyDrawVMFactory
 import kotlinx.coroutines.flow.collectLatest
 
 class LuckyDrawFragment : BaseFragment() {
@@ -44,22 +44,22 @@ class LuckyDrawFragment : BaseFragment() {
         super.onViewCreated(v, s)
 
         setupDrawerTrigger(v)
-        // --- Use your PrefService to fetch the custom MXG userId ---
+
+        // Custom MXG userId
         val mxgUserId = PrefService(requireContext()).getUserId().orEmpty()
-// greet user
+
+        // Greet
         PrefService(requireContext()).getString("name")?.takeIf { it.isNotBlank() }?.let { full ->
             binding.hiName.text = getString(R.string.hi_name, full.substringBefore(" "))
         }
 
-        ProfileImageUtil.loadOrRefresh(
-            requireContext(),
-            uid = mxgUserId,
-            binding.avatar
-        )
+        // Avatar
+        ProfileImageUtil.loadOrRefresh(requireContext(), uid = mxgUserId, imageView = binding.avatar)
+
         // If userId missing, disable invest and inform user
         if (mxgUserId.isBlank()) {
             binding.btnInvest.isEnabled = false
-            Toast.makeText(requireContext(), "User ID not found. Please log in again.", Toast.LENGTH_SHORT).show()
+            showSnackbar("User ID not found. Please log in again.", isError = true)
         } else {
             vm.bindUser(mxgUserId)
         }
@@ -74,25 +74,28 @@ class LuckyDrawFragment : BaseFragment() {
         // Collect UI state
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             vm.ui.collectLatest { ui ->
-                // shimmer
+                // Shimmer
                 binding.shimmerWinners.isVisible = ui.loading
-                if (ui.loading) binding.shimmerWinners.startShimmer()
-                else binding.shimmerWinners.stopShimmer()
+                if (ui.loading) binding.shimmerWinners.startShimmer() else binding.shimmerWinners.stopShimmer()
 
-                // winners list
+                // Winners list
                 winnersAdapter.submit(ui.winners)
 
-                // header: total invested text
+                // Header text
                 binding.tvMyTotalInvested.text =
                     "Your total invested in draw: $${String.format("%.0f", ui.myTotalInvested)}"
 
-                // invest button state
+                // Global loader via BaseFragment
+                if (ui.investInFlight) showLoading() else hideLoading()
+
+                // Invest button state
                 binding.btnInvest.isEnabled = !ui.investInFlight && mxgUserId.isNotBlank()
                 binding.btnInvest.alpha = if (ui.investInFlight) 0.6f else 1f
 
-                // toast
+                // Snackbar (replaces Toast)
                 ui.toast?.let {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    // If your VM encodes success/error, map it here; default success style
+                    showSnackbar(it)
                     vm.clearToast()
                 }
             }
@@ -113,17 +116,38 @@ class LuckyDrawFragment : BaseFragment() {
 
         dialog.findViewById<TextView>(R.id.dlTitle)?.text = getString(R.string.invest_1)
         dialog.findViewById<TextView>(R.id.dlSubtitle)?.text =
-            "Do you Want to invest $1 dollar in the Lucky Draw?"
+            "Do you want to invest $1 in the Lucky Draw?"
 
         dialog.findViewById<MaterialButton>(R.id.btnDownload)?.apply {
             text = getString(R.string.confirm)
             setOnClickListener {
+                // Immediate feedback via BaseFragment loader
+                showLoading()
+                binding.btnInvest.isEnabled = false
+
                 vm.investOneDollar()
                 dialog.dismiss()
             }
         }
 
         dialog.show()
+    }
+
+    /** Centralized Snackbar helper (anchors to bottom nav if visible) */
+    private fun showSnackbar(message: String, isError: Boolean = false) {
+        val host = requireActivity().findViewById<View>(android.R.id.content)
+        val snack = Snackbar.make(host, message, Snackbar.LENGTH_LONG)
+
+        val bottomNav = requireActivity().findViewById<View?>(R.id.bottomNavBar)
+        if (bottomNav?.isShown == true) snack.setAnchorView(bottomNav)
+
+        val bg = ContextCompat.getColor(
+            requireContext(), if (isError) R.color.snackbar_error else R.color.snackbar_success
+        )
+        snack.setBackgroundTint(bg)
+        snack.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+        androidx.core.view.ViewCompat.setElevation(snack.view, 100f)
+        snack.show()
     }
 
     override fun onDestroyView() {

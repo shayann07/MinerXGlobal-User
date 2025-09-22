@@ -2,7 +2,9 @@ package com.minerxgloble.minerxgloble.ui.fragments
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Build
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -73,23 +75,37 @@ class TeamLevelsFragment : BaseFragment() {
         binding.inputReferral.apply {
             val referralLink = "https://minerxglobal.com/?ref=$userCode"
             setText(referralLink)
-            setTextColor(resources.getColor(android.R.color.white))
+            setTextColor(ContextCompat.getColor(context, android.R.color.white))
             isFocusable = false
             isClickable = true
+
+            // (Optional) make text selectable on long-press
+            setTextIsSelectable(true)
+
             setOnTouchListener { _, e ->
                 if (e.action == MotionEvent.ACTION_UP) {
                     val end = compoundDrawablesRelative[2] ?: return@setOnTouchListener false
                     val touchableStart = width - paddingEnd - end.intrinsicWidth
                     if (e.x >= touchableStart) {
                         val cb = requireContext().getSystemService(ClipboardManager::class.java)
-                        cb.setPrimaryClip(ClipData.newPlainText("Referral Link", referralLink))
+                        cb?.setPrimaryClip(ClipData.newPlainText("Referral Link", referralLink))
+
+                        // Give click/haptic feedback (optional)
                         performClick()
+                        performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+
+                        // 👇 Show Snackbar only on lower Android versions
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                            showSnackbar("Referral link copied to clipboard")
+                        }
+
                         return@setOnTouchListener true
                     }
                 }
                 false
             }
         }
+
 
         // Observe VM
         vm.levels.observe(viewLifecycleOwner) { list ->

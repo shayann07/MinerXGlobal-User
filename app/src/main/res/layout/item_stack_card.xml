@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <!-- Overlapping circular image (keep id) -->
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="92dp"
@@ -21,15 +21,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Main card (baseline look) -->
-    <com.google.android.material.card.MaterialCardView
+    <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
         android:id="@+id/cardSurface"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-46dp"
         android:outlineAmbientShadowColor="#FF7B00"
         android:outlineSpotShadowColor="#FF7B00"
-        app:cardBackgroundColor="@color/main_card_color"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardMaxElevation="10dp"
@@ -64,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/bg_referral"
+                android:background="@drawable/bg_referral_home"
                 android:ellipsize="end"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
@@ -74,5 +73,5 @@
                 android:textColor="@color/white"
                 android:textSize="15sp" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
 </androidx.constraintlayout.widget.ConstraintLayout>

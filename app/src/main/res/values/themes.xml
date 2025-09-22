@@ -170,4 +170,14 @@
     <style name="Widget.MXG.EditText.WhiteCursor" parent="Widget.AppCompat.EditText">
         <item name="android:textCursorDrawable">@drawable/cursor_white</item>
     </style>
+
+    <declare-styleable name="AppMovingGradientView">
+        <attr name="mg_colorStart" format="color"/>
+        <attr name="mg_colorMid"   format="color"/>
+        <attr name="mg_colorEnd"   format="color"/>
+        <attr name="mg_angleDeg"   format="float"/>   <!-- 0 = horizontal, 90 = vertical -->
+        <attr name="mg_durationMs" format="integer"/> <!-- animation cycle -->
+        <attr name="mg_mirrorRepeat" format="boolean"/>
+        <attr name="mg_autoStart" format="boolean"/>
+    </declare-styleable>
 </resources>

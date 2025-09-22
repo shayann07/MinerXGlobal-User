@@ -3,6 +3,7 @@ package com.minerxgloble.minerxgloble.utils
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,6 +24,11 @@ object NotificationBottomSheetUtil {
         val prefManager = NotificationPreferenceManager(context)
         var notifications = prefManager.getNotifications(userId)
 
+        if (notifications.isEmpty()) {
+            view.findViewById<TextView>(R.id.noTv).visibility = View.VISIBLE
+        }else{
+            view.findViewById<TextView>(R.id.noTv).visibility = View.GONE
+        }
         val adapter = NotificationAdapter(notifications)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter

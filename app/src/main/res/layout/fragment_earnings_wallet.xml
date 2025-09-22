@@ -4,7 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mxg_black">
+    android:background="@drawable/bg_mxg_deposit_gradient">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContainer"
@@ -243,6 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
                 android:layout_marginTop="16dp"
+                android:padding="4dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
@@ -252,6 +253,7 @@
                     android:id="@+id/amountTransfer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:insetLeft="0dp"
@@ -259,12 +261,15 @@
                     android:insetRight="0dp"
                     android:insetBottom="0dp"
                     android:maxLines="1"
+                    android:backgroundTint="@color/main_card_color"
                     android:minHeight="56dp"
                     android:text="@string/fragment_earnings_wallet_transfer_funds"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
+                    app:strokeColor="@color/orange"
+                    android:width="1dp"
                     android:textSize="14sp"
-                    app:backgroundTint="#1C1C1C"
+
                     app:cornerRadius="16dp" />
 
                 <Space

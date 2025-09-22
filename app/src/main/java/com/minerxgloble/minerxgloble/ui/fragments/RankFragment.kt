@@ -2,12 +2,15 @@ package com.minerxgloble.minerxgloble.ui.fragments
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Build
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -69,23 +72,37 @@ class RankFragment : BaseFragment() {
         binding.inputReferral.apply {
             val referralLink = "https://minerxglobal.com/?ref=$userId"
             setText(referralLink)
-            setTextColor(resources.getColor(android.R.color.white))
+            setTextColor(ContextCompat.getColor(context, android.R.color.white))
             isFocusable = false
             isClickable = true
+
+            // (Optional) make text selectable on long-press
+            setTextIsSelectable(true)
+
             setOnTouchListener { _, e ->
                 if (e.action == MotionEvent.ACTION_UP) {
                     val end = compoundDrawablesRelative[2] ?: return@setOnTouchListener false
                     val touchableStart = width - paddingEnd - end.intrinsicWidth
                     if (e.x >= touchableStart) {
                         val cb = requireContext().getSystemService(ClipboardManager::class.java)
-                        cb.setPrimaryClip(ClipData.newPlainText("Referral Link", referralLink))
+                        cb?.setPrimaryClip(ClipData.newPlainText("Referral Link", referralLink))
+
+                        // Give click/haptic feedback (optional)
                         performClick()
+                        performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+
+                        // 👇 Show Snackbar only on lower Android versions
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                          showSnackbar("Referral link copied to clipboard")
+                        }
+
                         return@setOnTouchListener true
                     }
                 }
                 false
             }
         }
+
 
         // Recycler
         binding.rankRewardsRecycler.layoutManager = LinearLayoutManager(requireContext())
@@ -246,6 +263,22 @@ class RankFragment : BaseFragment() {
             .show()
     }
 
+    private fun showSnackbar(message: String, isError: Boolean = false) {
+        val host = requireActivity().findViewById<View>(android.R.id.content)
+        val snack = Snackbar.make(host, message, Snackbar.LENGTH_LONG)
+
+        val bottomNav = requireActivity().findViewById<View?>(R.id.bottomNavBar)
+        if (bottomNav?.isShown == true) snack.setAnchorView(bottomNav)
+
+        val bg = ContextCompat.getColor(
+            requireContext(), if (isError) R.color.snackbar_error else R.color.snackbar_success
+        )
+        snack.setBackgroundTint(bg)
+        snack.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+
+        androidx.core.view.ViewCompat.setElevation(snack.view, 100f)
+        snack.show()
+    }
     private fun fmt(value: Double): String = DecimalFormat("#.##").format(value)
 
     override fun onPause() {

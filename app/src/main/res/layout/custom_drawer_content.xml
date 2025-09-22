@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@color/black"
+    android:background="@drawable/bg_mxg_drawer_gradient"
     android:orientation="vertical">
 
     <!-- 👤 Profile Section -->
@@ -60,7 +60,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
+
             android:orientation="vertical">
 
             <include layout="@layout/item_drawer_menu" />

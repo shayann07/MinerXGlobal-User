@@ -19,7 +19,6 @@ class SplashFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var overlay: DropIntroOverlay? = null
-    private var isAnimationFinished = false
     private var hasNavigated = false
 
     override fun onCreateView(
@@ -38,63 +37,39 @@ class SplashFragment : Fragment() {
                 soundEnabled = true,
                 hapticsEnabled = true,
                 useVibratorApi = false,
-                removeOnFinish = false, // we'll fade & remove manually
-                finishDelayMs = 350L
+                // remove immediately once the animation completes – no extra fade
+                removeOnFinish = true,
+                finishDelayMs = 0L
             )
         ) {
-            // Natural end of the animation
-            isAnimationFinished = true
-            smoothNavigate()
+            // Animation finished naturally → navigate right away
+            navigateOnce()
         }
 
-        // Tap-to-skip on the overlay itself (it sits on top of the layout)
+        // Tap-to-skip: finish visuals instantly and navigate right away
         overlay?.setOnClickListener {
-            if (!isAnimationFinished) {
-                // 1) Instantly finish the animation visuals
-                overlay?.forceFinish()   // must forward to DropIntroView.forceFinish()
-                isAnimationFinished = true
-            }
-            // 2) Smooth fade + navigate (debounced)
-            smoothNavigate()
+            overlay?.forceFinish()
+            navigateOnce()
         }
     }
 
-    private fun smoothNavigate() {
+    private fun navigateOnce() {
         if (hasNavigated) return
         hasNavigated = true
 
-        // Quick fade-out of the overlay before navigating to make it feel smooth
-        val ov = overlay
-        if (ov != null) {
-            ov.isClickable = false
-            ov.animate()
-                .alpha(0f)
-                .setDuration(180L)
-                .withEndAction {
-                    ov.cancel()          // stop any timers/cleanup inside overlay
-                    overlay = null
-                    doNavigate()
-                }
-                .start()
-        } else {
-            doNavigate()
-        }
-    }
-
-    private fun doNavigate() {
         val nav = findNavController()
         if (nav.currentDestination?.id != R.id.splashFragment) return
 
         val isLoggedIn = PrefService(requireContext()).checkLogin()
 
         val opts = navOptions {
+            // keep lightweight nav anims (or remove this block entirely if you prefer none)
             anim {
                 enter = R.anim.mxg_fade_in
                 exit = R.anim.mxg_fade_out
                 popEnter = R.anim.mxg_fade_in
                 popExit = R.anim.mxg_fade_out
             }
-            // ✨ Key line: remove Splash from back stack
             popUpTo(R.id.splashFragment) { inclusive = true }
             launchSingleTop = true
         }
@@ -105,7 +80,6 @@ class SplashFragment : Fragment() {
             nav.navigate(SplashFragmentDirections.actionSplashToLogin(), opts)
         }
     }
-
 
     override fun onDestroyView() {
         overlay?.cancel()

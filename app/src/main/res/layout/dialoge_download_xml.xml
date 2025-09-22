@@ -96,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="@string/dialoge_download_xml_download"
+
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     app:backgroundTint="@color/orange"

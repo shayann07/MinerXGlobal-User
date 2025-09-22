@@ -231,5 +231,6 @@ power.</string>
     <string name="fragment_home_announcements">Announcements</string>
     <string name="overview">Overview</string>
     <string name="cd_profile_avatar">Profile avatar</string>
+    <string name="no_notifications_to_show">No notifications to show</string>
 
 </resources>

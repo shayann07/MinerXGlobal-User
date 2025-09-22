@@ -72,6 +72,9 @@
                         android:contentDescription="@string/notifications"
                         android:padding="8dp" />
                 </LinearLayout>
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Wallet card area -->

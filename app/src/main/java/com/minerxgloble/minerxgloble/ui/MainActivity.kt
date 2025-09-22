@@ -53,6 +53,12 @@ class MainActivity : AppCompatActivity() {
 
     private val HOME_DEST = R.id.homeFragment
 
+    // MainActivity.kt
+    private var deferBarUntilHomeReady = false
+
+    private lateinit var drawerItemViews: Map<Int, View>
+    private lateinit var drawerRoutes: Map<Int, Int> // keep accessible in multiple places
+
     // 🔒 Grace window so Firebase can restore session before we judge null currentUser
     private var authGraceOver = false
     private val authGraceMs = 1500L
@@ -75,8 +81,12 @@ class MainActivity : AppCompatActivity() {
         val authRepo = AuthRepository(
             FirebaseAuth.getInstance(), FirebaseFirestore.getInstance(), PrefService(this)
         )
-        val authUid = FirebaseAuth.getInstance().currentUser?.uid.orEmpty()   // Firebase Auth UID (doc id)
-        val mxg = PrefService(this).getUserId().orEmpty()                     // MXG-xxxx (legacy/fallback)
+        val authUid =
+            FirebaseAuth.getInstance().currentUser?.uid.orEmpty()   // Firebase Auth UID (doc id)
+        val mxg = PrefService(this).getUserId()
+            .orEmpty()                     // MXG-xxxx (legacy/fallback)
+
+
 
         viewModel = ViewModelProvider(
             this, ProfileViewModelFactory(authRepo, authUid)
@@ -106,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         }
         updater = RemoteUpdateManager(this).also { it.clearFlagsIfUpdated() }
 
-        setupSocialLinks()
+
 
         // ⬇️ Show cached avatar immediately and refresh cache on app open
         val uidForAvatar = PrefService(this).getUserId().orEmpty()
@@ -137,10 +147,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val drawerRoutes = mapOf(
+        drawerRoutes = mapOf(
             R.id.menuHome to R.id.homeFragment,
-            R.id.menuDeposit to R.id.depositFragment,          // Deposit/Investment
-            R.id.menuWithdraw to R.id.withdrawFragment,        // Earnings/Withdraw
             R.id.menuProfile to R.id.profileFragment,
             R.id.menuRank to R.id.rankFragment2,
             R.id.menuInvestmentWallet to R.id.walletFragment,
@@ -151,10 +159,29 @@ class MainActivity : AppCompatActivity() {
             R.id.menuLuckyDraw to R.id.luckyDrawFragment
         )
 
+// Cache the actual row views and give them the selector background
+        drawerItemViews = drawerRoutes.keys.associateWith { menuId ->
+            binding.navigationView.findViewById<View>(menuId).apply {
+                background =
+                    ContextCompat.getDrawable(this@MainActivity, R.drawable.bg_drawer_item_selector)
+                isClickable = true
+            }
+        }
+
+
         // -------- Drawer: Home clears the entire stack; others navigate normally
         drawerRoutes.forEach { (menuId, destId) ->
             binding.navigationView.findViewById<View>(menuId)?.setOnClickListener {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
+
+                // update highlight immediately
+                setDrawerChecked(menuId)
+
+                // avoid redundant nav
+                val navHost =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHost.navController
+
                 if (navController.currentDestination?.id == destId) return@setOnClickListener
 
                 if (destId == HOME_DEST) {
@@ -164,6 +191,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
 
         binding.navigationView.findViewById<View>(R.id.logout)?.setOnClickListener {
             showLogoutConfirmation()
@@ -181,11 +209,21 @@ class MainActivity : AppCompatActivity() {
             R.id.signupFragment,
         )
         navController.addOnDestinationChangedListener { _, dest, _ ->
-            val visible = dest.id in barDestinations
-            binding.bottomNavBar.isVisible = visible && dest.id !in hideNavScreens
-            binding.fabScan?.isVisible = visible && dest.id !in hideNavScreens
+            val barDestinations = setOf(
+                R.id.homeFragment, R.id.walletFragment, R.id.plansFragment,
+                R.id.teamLevelsFragment, R.id.profileFragment
+            )
+            val hideNavScreens = setOf(R.id.loginFragment, R.id.signupFragment)
+
+            val shouldShowBar = (dest.id in barDestinations) && (dest.id !in hideNavScreens) && !deferBarUntilHomeReady
+            binding.bottomNavBar.isVisible = shouldShowBar
+            binding.fabScan?.isVisible = shouldShowBar
+
             binding.bottomNavBar.menu.findItem(dest.id)?.isChecked = true
+            val activeMenuId = drawerRoutes.entries.firstOrNull { it.value == dest.id }?.key
+            setDrawerChecked(activeMenuId)
         }
+
 
         setupDrawer(navController, barDestinations)
 
@@ -196,25 +234,41 @@ class MainActivity : AppCompatActivity() {
         // -------- Back: if on a bottom-tab (not Home) → go Home clearing entire stack; else default
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                val navHost =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHost.navController
+
+                // 1) If drawer is open (even partially), close it and STOP.
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START) ||
+                    binding.drawerLayout.isDrawerVisible(GravityCompat.START)
+                ) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return
                 }
 
+               /* // 2) If on a bottom-tab (not Home), go Home clearing stack.
+                val barDestinations = setOf(
+                    R.id.homeFragment,
+                    R.id.walletFragment,
+                    R.id.plansFragment,
+                    R.id.teamLevelsFragment,
+                    R.id.profileFragment
+                )
                 val cur = navController.currentDestination?.id
                 if (cur != null && cur != HOME_DEST && cur in barDestinations) {
                     goHomeClearingAll()
                     return
-                }
+                }*/
 
-                // Default back (pop or finish)
-                isEnabled = false
-                onBackPressedDispatcher.onBackPressed()
+                // 3) Otherwise try to pop; if nothing to pop, finish the Activity.
+                if (!navController.popBackStack()) {
+                    finish()
+                }
             }
         })
-    }
 
-    private fun setupDrawer(
+    }
+        private fun setupDrawer(
         navController: androidx.navigation.NavController,
         barDestinations: Set<Int>
     ) {
@@ -222,6 +276,9 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 if (binding.bottomNavBar.isVisible) binding.bottomNavBar.alpha = 1f - slideOffset
                 binding.navHostFragment.translationX = drawerView.width * slideOffset
+
+                // Block touches while the drawer is at least partially open
+                setContentTouchBlocked(slideOffset > 0f)
             }
 
             override fun onDrawerOpened(drawerView: View) {
@@ -239,6 +296,10 @@ class MainActivity : AppCompatActivity() {
                     binding.customDrawerHeader.drawerImageView.setImageResource(R.drawable.ic_profile)
                     return
                 }
+                val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val destId = navHost.navController.currentDestination?.id
+                val activeMenuId = drawerRoutes.entries.firstOrNull { it.value == destId }?.key
+                setDrawerChecked(activeMenuId)
 
                 // keep VM in sync (in case account switched without Activity recreation)
                 viewModel.setAuthUid(currentAuthUid, mxg, attachListener = true)
@@ -287,12 +348,25 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    fun deferBottomBarForNextHome() {
+        deferBarUntilHomeReady = true
+        binding.bottomNavBar.isVisible = false
+        binding.fabScan?.isVisible = false
+    }
 
+    fun onHomeFirstFrameReady() {
+        if (deferBarUntilHomeReady) {
+            deferBarUntilHomeReady = false
+            binding.bottomNavBar.isVisible = true
+            binding.fabScan?.isVisible = true
+        }
+    }
 
     private fun detachUserDocGuard() {
         userDocListener?.remove()
         userDocListener = null
     }
+
 
     /** ✅ Hard verify: only sign out for disabled/not-found. Network issues won’t boot user. */
     private fun hardVerifyAuth() {
@@ -379,6 +453,11 @@ class MainActivity : AppCompatActivity() {
         val mxg = PrefService(this).getUserId()
         viewModel.setAuthUid(currentAuthUid, mxg, attachListener = true)
     }
+    private fun setDrawerChecked(menuId: Int?) {
+        drawerItemViews.values.forEach { it.isActivated = false }
+        menuId?.let { id -> drawerItemViews[id]?.isActivated = true }
+    }
+
 
     private fun showLogoutConfirmation() {
         val dlg = AlertDialog.Builder(this)
@@ -425,6 +504,7 @@ class MainActivity : AppCompatActivity() {
         // wire any drawer header social icons here if present
     }
 
+
     /** Drawer name + email text */
     private fun bindDrawerProfile(profile: Map<String, Any?>?) {
         if (profile == null) {
@@ -459,6 +539,20 @@ class MainActivity : AppCompatActivity() {
         snackbar.setBackgroundTint(bgColor)
         snackbar.setTextColor(textColor)
         snackbar.show()
+    }
+    // Add this helper in MainActivity (e.g., under other private functions)
+    private fun setContentTouchBlocked(block: Boolean) {
+        val content = binding.navHostFragment
+        if (block) {
+            // Consume all touches while drawer is open/sliding
+            content.setOnTouchListener { _, _ -> true }
+            content.isClickable = true      // ensure it can receive the touch to consume
+            content.isFocusable = false
+        } else {
+            // Restore normal interaction
+            content.setOnTouchListener(null)
+            content.isClickable = true
+        }
     }
 
 
