@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.minerxgloble.minerxgloble.R
 import com.minerxgloble.minerxgloble.databinding.FragmentSplashBinding
+import com.minerxgloble.minerxgloble.ui.MainActivity
 import com.minerxgloble.minerxgloble.ui.animation.DropIntroOverlay
 import com.minerxgloble.minerxgloble.utils.PrefService
 
@@ -60,10 +61,16 @@ class SplashFragment : Fragment() {
         val nav = findNavController()
         if (nav.currentDestination?.id != R.id.splashFragment) return
 
+        // ⬇️ Hide bottom bar until Home reports its first frame
+        (requireActivity() as? MainActivity)?.deferBottomBarForNextHome()
+
+        // ⬇️ Make sure the overlay is gone right now
+        overlay?.cancel()
+        overlay = null
+
         val isLoggedIn = PrefService(requireContext()).checkLogin()
 
         val opts = navOptions {
-            // keep lightweight nav anims (or remove this block entirely if you prefer none)
             anim {
                 enter = R.anim.mxg_fade_in
                 exit = R.anim.mxg_fade_out
@@ -74,10 +81,13 @@ class SplashFragment : Fragment() {
             launchSingleTop = true
         }
 
-        if (isLoggedIn) {
-            nav.navigate(SplashFragmentDirections.actionSplashToHome(), opts)
-        } else {
-            nav.navigate(SplashFragmentDirections.actionSplashToLogin(), opts)
+        // ⬇️ Post to the next frame so Splash is fully detached before we swap
+        binding.root.post {
+            if (isLoggedIn) {
+                nav.navigate(SplashFragmentDirections.actionSplashToHome(), opts)
+            } else {
+                nav.navigate(SplashFragmentDirections.actionSplashToLogin(), opts)
+            }
         }
     }
 

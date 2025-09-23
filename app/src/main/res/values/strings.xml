@@ -73,7 +73,7 @@ Amount</string>
     <string name="fragment_forget_password_enter_your_email_to_receive_a_reset">Enter your email to receive a reset code</string>
     <string name="fragment_forget_password_email_address">Email address</string>
     <string name="fragment_forget_password_send_code">Send Code</string>
-    <string name="fragment_home_welcome_to_minor_x_globe">Welcome to Minor X Global</string>
+    <string name="fragment_home_welcome_to_minor_x_globe">Welcome to Miner X Global</string>
     <string name="fragment_home_announcement">Announcement</string>
     <string name="fragment_home_no_announcement_available">No Announcement Available</string>
     <string name="fragment_home_network_statistics">Network statistics</string>

@@ -88,10 +88,7 @@ class HomeFragment : BaseFragment() {
     private var statsFirstRealShown = false
     private var netFirstRealShown = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        postponeEnterTransition()
-    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -141,7 +138,7 @@ class HomeFragment : BaseFragment() {
         binding.walletHero.inputReferral.apply {
             val referralLink = "https://minerxglobal.com/?ref=$userId"
             setText(referralLink)
-            setTextColor(ContextCompat.getColor(context, android.R.color.white))
+            setTextColor(ContextCompat.getColor(context, android.R.color.black))
             isFocusable = false
             isClickable = true
 

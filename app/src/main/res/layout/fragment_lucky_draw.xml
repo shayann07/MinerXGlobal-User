@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:text="Lucky Draw"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -166,12 +166,13 @@
                             android:background="@drawable/bg_referral_home"
                             android:drawablePadding="8dp"
                             android:ellipsize="end"
-                            android:gravity="center_vertical"
+
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="10dp"
                             android:singleLine="true"
+                            android:textAlignment="center"
                             android:text="Your total invested in draw: $0"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="12sp"
                             app:drawableTint="#A2EE6924" />
                     </LinearLayout>

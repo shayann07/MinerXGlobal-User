@@ -151,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:text="@string/fragment_team_levels_levels"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -168,10 +168,10 @@
                             android:paddingVertical="10dp"
                             android:singleLine="true"
                             android:text=""
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="12sp"
                             app:drawableEndCompat="@drawable/ic_link"
-                            app:drawableTint="#A2EE6924" />
+                            app:drawableTint="@color/black" />
                     </LinearLayout>
                 </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
             </FrameLayout>

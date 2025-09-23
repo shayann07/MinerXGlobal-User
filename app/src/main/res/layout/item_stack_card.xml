@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/item_home_wallet_card_minerx_deposit_wallet"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:singleLine="true"
                 android:text="@string/item_network_stats_text"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
     </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>

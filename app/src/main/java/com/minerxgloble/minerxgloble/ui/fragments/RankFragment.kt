@@ -72,7 +72,7 @@ class RankFragment : BaseFragment() {
         binding.inputReferral.apply {
             val referralLink = "https://minerxglobal.com/?ref=$userId"
             setText(referralLink)
-            setTextColor(ContextCompat.getColor(context, android.R.color.white))
+            setTextColor(ContextCompat.getColor(context, android.R.color.black))
             isFocusable = false
             isClickable = true
 
