@@ -4,19 +4,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.minerxgloble.minerxgloble.models.LightPlanPreview
+
 import com.minerxgloble.minerxgloble.models.UserPlanUi
 import com.minerxgloble.minerxgloble.repos.BuyPlanRepo
 import com.minerxgloble.minerxgloble.utils.PlanStatus
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 enum class StatusFilter { ALL, ACTIVE, EXPIRED }
-
+data class UiPlan(
+    val id: String,
+    val name: String,
+    val minAmount: Double,
+    val maxAmount: Double?,   // null = unlimited
+    val payoutPercent: Double
+)
 class BuyPlanViewModel(
     private val repo: BuyPlanRepo = BuyPlanRepo()
 ) : ViewModel() {
 
+
+
+    private val _plansCache = MutableLiveData<List<UiPlan>>(emptyList())
+    val plansCache: LiveData<List<UiPlan>> = _plansCache
+
+
+    private var plansListener: ListenerRegistration? = null
+
     private val _buyPlanStatus = MutableLiveData<PlanStatus?>()
     val buyPlanStatus: LiveData<PlanStatus?> = _buyPlanStatus
+
+
 
     private val _lastPurchasedPlanName = MutableLiveData<String?>()
     val lastPurchasedPlanName: LiveData<String?> = _lastPurchasedPlanName
@@ -25,8 +47,6 @@ class BuyPlanViewModel(
     val lastPurchasedAmount: LiveData<Double?> = _lastPurchasedAmount
 
     // 👇 NEW: notify UI if first-plan bonus happened
-    private val _firstPlanBonusAwarded = MutableLiveData<Boolean?>()
-    val firstPlanBonusAwarded: LiveData<Boolean?> = _firstPlanBonusAwarded
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -48,7 +68,6 @@ class BuyPlanViewModel(
                     is BuyPlanRepo.BuyResult.Success -> {
                         _lastPurchasedPlanName.value = result.planName
                         _lastPurchasedAmount.value = result.amount
-                        _firstPlanBonusAwarded.value = result.firstPlanBonus   // 👈 set flag
                         _buyPlanStatus.value = PlanStatus.Success
                         loadPurchasedPlans(userId)
                     }
@@ -67,8 +86,7 @@ class BuyPlanViewModel(
 
     fun clearStatus() { _buyPlanStatus.value = null }
 
-    // allow UI to clear the bonus event after consuming
-    fun clearFirstPlanBonusFlag() { _firstPlanBonusAwarded.value = null }
+
 
     private val _plans = MutableLiveData<List<UserPlanUi>>(emptyList())
     val plans: LiveData<List<UserPlanUi>> = _plans
@@ -107,6 +125,39 @@ class BuyPlanViewModel(
         _appliedFilter.value = newFilter
         applyFilter(newFilter)
     }
+
+
+    // Call this once (e.g., in init { ... } of your VM or from the fragment on first view)
+    fun startPlansCache(db: FirebaseFirestore = FirebaseFirestore.getInstance()) {
+        if (plansListener != null) return // already listening
+        plansListener = db.collection("plans").addSnapshotListener { snap, _ ->
+            val list = snap?.documents?.mapNotNull { d ->
+                val name   = d.getString("planName") ?: return@mapNotNull null
+                val minAmt = d.getDouble("minAmount") ?: return@mapNotNull null
+                val maxAmt = d.getDouble("maxAmount")
+                val payout = d.getDouble("totalPayout") ?: return@mapNotNull null
+                UiPlan(d.id, name, minAmt, maxAmt, payout)
+            }?.sortedBy { it.minAmount } ?: emptyList()
+            _plansCache.postValue(list)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        plansListener?.remove()
+        plansListener = null
+    }
+
+    /** Synchronous, zero-network plan pick from cache */
+    fun pickPlanFromCache(amount: Double): UiPlan? {
+        val plans = _plansCache.value.orEmpty()
+        if (amount <= 0.0 || plans.isEmpty()) return null
+        // same rule: amount in [min, max], choose highest min that matches
+        return plans.filter { p -> amount >= p.minAmount && (p.maxAmount == null || amount <= p.maxAmount) }
+            .maxByOrNull { it.minAmount }
+    }
+
+
 
     fun refreshPurchasedPlans() {
         lastUserId?.let { loadPurchasedPlans(it) }

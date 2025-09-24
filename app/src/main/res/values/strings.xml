@@ -232,5 +232,89 @@ power.</string>
     <string name="overview">Overview</string>
     <string name="cd_profile_avatar">Profile avatar</string>
     <string name="no_notifications_to_show">No notifications to show</string>
+    <string name="cancel">cancel</string>
+    <string name="support">Support</string>
+    <string name="expand">expand</string>
+
+    <!-- FAQ title + questions -->
+    <string name="faq_title">Miner X – Frequently Asked Questions</string>
+    <string name="faq_q1">1) What is Miner X?</string>
+    <string name="faq_q2">2) What mining machine packages are available?</string>
+    <string name="faq_q3">3) What is Daily ROI?</string>
+    <string name="faq_q4">4) How does Direct Income and Level Income work?</string>
+    <string name="faq_q5">5) What are Ranks &amp; Rewards?</string>
+    <string name="faq_q6">6) How does the Lucky Draw work?</string>
+    <string name="faq_q7">7) Do I get any tokens with my investment?</string>
+    <string name="faq_q8">8) What are the deposit and withdrawal rules?</string>
+    <string name="faq_q9">9) Is support available?</string>
+
+    <!-- Answers (HTML-formatted) -->
+    <string name="faq_intro"><![CDATA[
+Miner X is a global platform for crypto mining and staking. We provide mining rigs, buy/sell machines (e.g., Antminer S19 Pro, Whatsminer M30S, AvalonMiner 1246) and offer investment plans for consistent earnings.
+]]></string>
+
+    <string name="faq_packages_rich"><![CDATA[
+<b>Crypto Forge</b><br/>
+$10–$50 • Daily ROI 1–2% • Total Return 2.5x<br/><br/>
+<b>Hash Power</b><br/>
+$51–$500 • Daily ROI 1–2% • Total Return 3x<br/><br/>
+<b>Block Pulse</b><br/>
+$501–$10,000 • Daily ROI 1–2% • Total Return 3.5x<br/><br/>
+<b>Core Miner</b><br/>
+$10,000–$50,000 • Daily ROI 1–2% • Total Return 4x<br/><br/>
+<b>Quantum Rig</b><br/>
+$50,000+ • Daily ROI 1–2% • Total Return 5x
+]]></string>
+
+    <string name="faq_daily_roi"><![CDATA[
+Daily ROI is the 1–2% return you earn each day on your investment, creating sustainable passive income.
+]]></string>
+
+    <string name="faq_direct_level_income"><![CDATA[
+<b>Direct Income</b><br/>
+Earn 10% commission on every direct referral.<br/><br/>
+<b>Level Income (5 levels)</b><br/>
+• Level 1 — 10%<br/>
+• Level 2 — 7%<br/>
+• Level 3 — 4%<br/>
+• Level 4 — 3%<br/>
+• Level 5 — 3%
+]]></string>
+
+    <string name="faq_ranks_rewards"><![CDATA[
+<b>Ranks &amp; Rewards</b><br/>
+Members can climb ranks (Silver, Gold, Platinum, Diamond, etc.) by growing their team and investments.<br/><br/>
+<b>Rewards include</b><br/>
+• Direct Business Rewards<br/>
+• Direct Investment Rewards<br/>
+• Self Investment Bonuses<br/>
+• Monthly Salary
+]]></string>
+
+    <string name="faq_lucky_draw"><![CDATA[
+<b>Lucky Draw</b><br/>
+A Lucky Draw is held every week. To participate, invest at least $1 during the week. Ten winners are selected, and the prize pool (after a small company fee) is shared equally among them.
+]]></string>
+
+    <string name="faq_tokens"><![CDATA[
+<b>Tokens</b><br/>
+On your first investment, you receive 50 free tokens. Each withdrawal has a 5% fee that goes into token liquidity, helping the token price grow steadily.
+]]></string>
+
+    <string name="faq_withdrawals"><![CDATA[
+<b>Deposit &amp; Withdrawal Rules</b><br/>
+• Minimum Deposit: $10<br/>
+• Minimum Withdrawal: $10<br/>
+• Withdrawal Fee: 5%<br/>
+• Withdrawal Time: ~12 hours<br/>
+• Currency: USDT (BEP20)
+]]></string>
+
+    <string name="faq_support"><![CDATA[
+<b>Support</b><br/>
+Yes, Miner X offers 24/7 customer support for deposits, withdrawals, staking, and buy/sell queries.
+]]></string>
+
+
 
 </resources>

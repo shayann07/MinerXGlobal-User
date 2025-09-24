@@ -1,4 +1,4 @@
-package com.trustledger.aitrustledger.models.chat
+package com.minerxgloble.minerxgloble.models.chat
 
 
 data class ChatPreview(

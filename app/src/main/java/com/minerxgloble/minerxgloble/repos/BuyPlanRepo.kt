@@ -353,15 +353,11 @@ class BuyPlanRepo(
                         )
                     }
 
-                    // Referrer push, if we could resolve a token earlier
-                    if (!refUserToken.isNullOrBlank()) {
+                    // Notify only eligible referrers (active + positive bonus) and only if we have a device token
+                    if (refIsActiveOutside && potentialBonus > 0.0 && !refUserToken.isNullOrBlank()) {
                         val rounded = String.format("%,.2f", potentialBonus)
-                        val (title, body) =
-                            if (refIsActiveOutside && potentialBonus > 0.0) {
-                                "Referral bonus received" to "You earned $rounded from your referral's ${{result.planName}} purchase."
-                            } else {
-                                "Your referral bought a plan" to "Your referral purchased ${{result.planName}}."
-                            }
+                        val title = "Referral bonus received"
+                        val body  = "You earned $rounded from your referral's plan purchase."
 
                         Fcm().sendFCMNotification(
                             targetDeviceToken = refUserToken!!,
@@ -370,6 +366,8 @@ class BuyPlanRepo(
                             accessToken = accessToken
                         )
                     }
+// else: don't send any notification
+
                 } else {
                     Log.w(TAG, "[$trace] Skipping FCM push: access token is null/blank")
                 }
@@ -405,6 +403,7 @@ class BuyPlanRepo(
                 emptyList()
             }
         }
+
 
     // ------- internal helpers -------
 

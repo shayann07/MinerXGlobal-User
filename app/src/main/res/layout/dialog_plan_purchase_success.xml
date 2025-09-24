@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/planImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
                 android:contentDescription="@string/cd_brand_logo"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:src="@drawable/mining_1" />
 
             <TextView

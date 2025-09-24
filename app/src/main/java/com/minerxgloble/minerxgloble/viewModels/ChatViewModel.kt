@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.minerxgloble.minerxgloble.repos.chat.ChatRepository
 import com.trustledger.aitrustledger.models.chat.Admin
-import com.trustledger.aitrustledger.models.chat.ChatPreview
+import com.minerxgloble.minerxgloble.models.chat.ChatPreview
 import com.trustledger.aitrustledger.models.chat.Message
 
 class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {

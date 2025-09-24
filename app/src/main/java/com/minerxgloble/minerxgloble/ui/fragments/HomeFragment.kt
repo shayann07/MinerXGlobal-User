@@ -138,7 +138,7 @@ class HomeFragment : BaseFragment() {
         binding.walletHero.inputReferral.apply {
             val referralLink = "https://minerxglobal.com/?ref=$userId"
             setText(referralLink)
-            setTextColor(ContextCompat.getColor(context, android.R.color.black))
+            setTextColor(ContextCompat.getColor(context, android.R.color.white))
             isFocusable = false
             isClickable = true
 

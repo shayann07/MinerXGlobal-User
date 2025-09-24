@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="40dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardUseCompatPadding="false"
+        card_view:cardElevation="0dp"
+        card_view:strokeWidth="0dp"
+        card_view:strokeColor="@android:color/transparent"
+        card_view:cardBackgroundColor="@color/main_card_color">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="12dp">
+
+            <!-- Bigger mining image -->
+            <ImageView
+                android:id="@+id/confirmPlanImage"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mining_2"
+                android:contentDescription="@string/cd_brand_logo" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Plan Purchase"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:paddingTop="12dp"
+                android:paddingBottom="4dp" />
+
+            <!-- Plan name -->
+            <TextView
+                android:id="@+id/tvPlanName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plan: —"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:paddingBottom="6dp" />
+
+            <!-- Range (added for light preview) -->
+            <TextView
+                android:id="@+id/tvRange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Range: —"
+                android:textSize="14sp"
+                android:textColor="@color/white" />
+
+            <!-- Entered amount -->
+            <TextView
+                android:id="@+id/tvAmountEntered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amount entered: —"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:paddingTop="2dp"
+                android:paddingBottom="10dp" />
+
+            <!-- Thin divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#24FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Total payout (percent only) -->
+            <TextView
+                android:id="@+id/tvTotalPayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total payout: —"
+                android:textSize="14sp"
+                android:textColor="@color/white" />
+
+            <!-- Action buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:paddingTop="16dp"
+                android:paddingBottom="2dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancel"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="@string/cancel" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/orange"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

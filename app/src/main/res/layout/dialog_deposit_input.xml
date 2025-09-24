@@ -69,7 +69,7 @@
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
-            app:helperText="Min 10 • Fees vary by network"
+            app:helperText="Minimum Deposit 10$ • Fees vary by network"
             app:helperTextTextColor="@color/mxg_white_80"
             app:hintTextColor="@color/mxg_white_80"
             app:prefixTextColor="@android:color/white">
@@ -133,7 +133,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/orange"
                 app:backgroundTint="@android:color/transparent"
-                app:strokeColor="@android:color/transparent" />
+                />
 
             <Space
                 android:layout_width="12dp"

@@ -49,6 +49,7 @@
                 android:textColor="#90FFFFFF"
                 android:textSize="12sp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <ScrollView
@@ -64,7 +65,35 @@
             android:orientation="vertical">
 
             <include layout="@layout/item_drawer_menu" />
+            <!-- ────────── Social links ────────── -->
+            <LinearLayout
+                android:id="@+id/socialLinksRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingVertical="16dp">
 
+                <!-- WhatsApp -->
+                <ImageButton
+                    android:id="@+id/btnWhatsApp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_whatsapp" />
+
+                <!-- Telegram -->
+                <ImageButton
+                    android:id="@+id/btnTelegram"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_telegram" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

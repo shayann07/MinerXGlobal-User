@@ -125,6 +125,8 @@ class ProfileFragment : BaseFragment() {
             if (data == null) return@observe
 
             val name  = (data["name"] as? String).orEmpty()
+            val lastname=(data["lastName"] as? String).orEmpty()
+            val fullName = "$name $lastname"
             val userId =(data["uid"] as? String).orEmpty()
             val email = (data["email"] as? String).orEmpty()
             val phone = (data["phoneNumber"] as? String)
@@ -133,7 +135,7 @@ class ProfileFragment : BaseFragment() {
 
             _binding?.let { b ->
                 b.tvEmailTop.text = userId
-                b.etUsername.setText(name)
+                b.etUsername.setText(fullName)
                 b.etEmail.setText(email)
                 originalPhoneNumber = phone
                 b.etPhone.setText(phone)

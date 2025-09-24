@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <!-- Animated liquid gold card -->
-    <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/walletHeroCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardBackgroundColor="@color/orange"
         app:strokeColor="@android:color/transparent"
         app:strokeWidth="0dp">
 
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MinerX Deposit Wallet"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="Total USD"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="$0.0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
             <!-- QUICK ACTIONS -->
@@ -106,10 +106,10 @@
                         android:ellipsize="end"
                         app:cornerRadius="16dp"
 
-                        android:backgroundTint="@color/orange"
+                        android:backgroundTint="@color/main_card_color"
                         app:iconTint="@color/orange"
                         app:strokeColor="@color/orange"
-                        app:strokeWidth="1dp" />
+                        app:strokeWidth="0dp" />
                 </LinearLayout>
 
                 <!-- Spacing between rows -->
@@ -131,12 +131,12 @@
                     android:paddingVertical="10dp"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
                     app:drawableEndCompat="@drawable/ic_link"
                     app:drawableTint="@color/black" />
             </LinearLayout>
 
         </LinearLayout>
-    </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
+    </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

@@ -19,11 +19,11 @@
 
     <item
         android:id="@+id/teamLevelsFragment"
-        android:icon="@drawable/ic_my_team"
+        android:icon="@drawable/ic_team_hollow"
         android:title="Team" />
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_profile_bottom_nav"
+        android:icon="@drawable/ic_profile_drawer"
         android:title="Profile" />
 </menu>

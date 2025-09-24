@@ -12,7 +12,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.minerxgloble.minerxgloble.utils.PrefService
 import com.trustledger.aitrustledger.models.chat.Admin
-import com.trustledger.aitrustledger.models.chat.ChatPreview
+import com.minerxgloble.minerxgloble.models.chat.ChatPreview
 import com.trustledger.aitrustledger.models.chat.Message
 
 
@@ -169,7 +169,7 @@ class ChatRepository(private val context: Context) {
                     val existingChat = chatPreviews[otherId]
                     if (existingChat == null || timestamp > existingChat.timestamp) {
                         chatPreviews[otherId] =
-                            ChatPreview(otherId, "Fetching...", message, timestamp)
+                            ChatPreview(otherId, "Admin", message, timestamp)
                     }
                 }
 

@@ -251,6 +251,33 @@
     </LinearLayout>
     <!-- Profile -->
     <LinearLayout
+        android:id="@+id/menuSupport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_support"
+            app:tint="#FD9409" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/support"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <!-- Profile -->
+    <LinearLayout
         android:id="@+id/menuProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -273,6 +300,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/item_drawer_menu_profile"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menuFaqs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_faqs"
+            app:tint="#FD9409" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="FAQ's"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>

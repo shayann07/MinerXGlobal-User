@@ -18,7 +18,7 @@ import com.minerxgloble.minerxgloble.adapters.chat.ChatPreviewAdapter
 import com.minerxgloble.minerxgloble.repos.chat.ChatViewModelFactory
 
 import com.trustledger.aitrustledger.models.chat.Admin
-import com.trustledger.aitrustledger.models.chat.ChatPreview
+import com.minerxgloble.minerxgloble.models.chat.ChatPreview
 
 
 class ChatFragment : Fragment(), ChatPreviewAdapter.OnChatPreviewClickListener {

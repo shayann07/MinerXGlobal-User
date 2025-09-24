@@ -97,13 +97,13 @@
                     app:layout_constraintTop_toBottomOf="@id/topbar" />
 
                 <!-- HERO: month + preview (animated liquid gold) -->
-                <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/summaryCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
-                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardBackgroundColor="@color/orange"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="10dp"
                     app:cardMaxElevation="10dp"
@@ -138,7 +138,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="@string/fragment_salary_n_2025_09"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/fragment_salary_preview"
                                     android:textColor="@color/white"
-                                    app:chipBackgroundColor="@color/black"
+                                    app:chipBackgroundColor="@color/main_card_color"
                                     app:chipStrokeColor="@color/orange"
                                     app:chipStrokeWidth="1dp" />
                             </LinearLayout>
@@ -167,7 +167,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/fragment_earnings_wallet_n_0"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textSize="32sp"
                                     android:textStyle="bold" />
 
@@ -179,7 +179,7 @@
                                     android:layout_marginStart="10dp"
                                     android:text="@string/fragment_salary_star_0"
                                     android:textColor="@color/white"
-                                    app:chipBackgroundColor="@color/orange" />
+                                    app:chipBackgroundColor="@color/main_card_color" />
                             </LinearLayout>
 
                             <TextView
@@ -189,7 +189,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="4dp"
                                 android:text="@string/fragment_salary_at_end_of_month"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
 
                             <!-- compact stats row -->
@@ -212,7 +212,7 @@
                                         android:layout_width="18dp"
                                         android:layout_height="18dp"
                                         android:src="@drawable/ic_team_business"
-                                        app:tint="@color/black" />
+                                        app:tint="@color/white" />
 
                                     <TextView
                                         android:id="@+id/tvSelfInvestAmount"
@@ -220,7 +220,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="6dp"
                                         android:text="@string/fragment_earnings_wallet_n_0"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/white"
                                         android:textSize="13sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -237,7 +237,7 @@
                                         android:layout_width="18dp"
                                         android:layout_height="18dp"
                                         android:src="@drawable/direct_active_ic"
-                                        app:tint="@color/black" />
+                                        app:tint="@color/white" />
 
                                     <TextView
                                         android:id="@+id/tvDirectActive"
@@ -245,7 +245,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="6dp"
                                         android:text="@string/fragment_earnings_wallet_n_0"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/white"
                                         android:textSize="13sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -262,7 +262,7 @@
                                         android:layout_width="18dp"
                                         android:layout_height="18dp"
                                         android:src="@drawable/indirect_active_ic"
-                                        android:tint="@color/black"/>
+                                        app:tint="@color/white" />
 
                                     <TextView
                                         android:id="@+id/indirectActive"
@@ -270,14 +270,14 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="6dp"
                                         android:text="@string/fragment_earnings_wallet_n_0"
-                                        android:textColor="@color/black"
+                                        android:textColor="@color/white"
                                         android:textSize="13sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </FrameLayout>
-                </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- PROGRESS TRACKER -->
                 <com.google.android.material.card.MaterialCardView

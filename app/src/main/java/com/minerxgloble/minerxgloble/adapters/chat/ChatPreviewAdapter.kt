@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.minerxgloble.minerxgloble.R
-import com.trustledger.aitrustledger.models.chat.ChatPreview
+import com.minerxgloble.minerxgloble.models.chat.ChatPreview
 import java.text.DateFormat
 import java.util.Date
 

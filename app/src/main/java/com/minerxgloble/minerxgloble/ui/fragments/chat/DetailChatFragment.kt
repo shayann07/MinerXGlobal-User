@@ -36,6 +36,7 @@ class DetailChatFragment : Fragment() {
     private var isNewChat: Boolean = false
     private var tokenFetched = false
 
+    private var welcomeSent = false   // add at class level
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,6 +53,7 @@ class DetailChatFragment : Fragment() {
         adminName = arguments?.getString("adminName")
         isNewChat = arguments?.getBoolean("isNewChat") == true
 
+        Log.d("DetailChat", "userId=$userId, adminId=$adminId, isNewChat=$isNewChat")
 //        Toast.makeText(requireContext(), "userId=$userId, adminId=$adminId", Toast.LENGTH_SHORT).show()
 
         if (userId.isNullOrEmpty() || adminId.isNullOrEmpty()) {
@@ -75,6 +77,8 @@ class DetailChatFragment : Fragment() {
             binding.recyclerViewChat.scrollToPosition(messages.size - 1)
 
             if (isNewChat && messages.isEmpty()) {
+                welcomeSent = true                    // guard BEFORE sending
+                isNewChat = false
                 val welcomeMessage = "Hello admin, I have a query."
                 chatViewModel.sendMessage(adminId!!, welcomeMessage, userId!!)
                 sendNotification()

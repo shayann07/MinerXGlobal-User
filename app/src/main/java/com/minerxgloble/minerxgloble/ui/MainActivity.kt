@@ -1,7 +1,10 @@
 package com.minerxgloble.minerxgloble.ui
 
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -156,7 +159,9 @@ class MainActivity : AppCompatActivity() {
             R.id.menuTeam to R.id.teamLevelsFragment,
             R.id.menuSalary to R.id.salaryFragment,
             R.id.menuTransactions to R.id.salaryHistoryFragment,
-            R.id.menuLuckyDraw to R.id.luckyDrawFragment
+            R.id.menuLuckyDraw to R.id.luckyDrawFragment,
+            R.id.menuSupport to R.id.chatFragment,
+            R.id.menuFaqs to R.id.faqsFragment
         )
 
 // Cache the actual row views and give them the selector background
@@ -500,9 +505,7 @@ class MainActivity : AppCompatActivity() {
         dlg.show()
     }
 
-    private fun setupSocialLinks() {
-        // wire any drawer header social icons here if present
-    }
+
 
 
     /** Drawer name + email text */
@@ -513,8 +516,10 @@ class MainActivity : AppCompatActivity() {
             binding.customDrawerHeader.drawerImageView.setImageResource(R.drawable.ic_profile)
             return
         }
-        binding.customDrawerHeader.userNameTextView.text =
-            profile["name"]?.toString().orEmpty()
+        val fName= profile["name"]?.toString().orEmpty()
+        val lName= profile["lastName"]?.toString().orEmpty()
+        val fullName = "$fName $lName"
+        binding.customDrawerHeader.userNameTextView.text =fullName
         binding.customDrawerHeader.userEmailTextView.text =
             profile["email"]?.toString().orEmpty()
     }
@@ -567,4 +572,38 @@ class MainActivity : AppCompatActivity() {
             .build()
         navController.navigate(HOME_DEST, null, opts)
     }
+    // ─── 2. helper that tries the app first, then falls back to browser ───
+    private fun openLink(packageName: String, appUri: String, webUri: String = appUri) {
+        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(appUri)).setPackage(packageName)
+        try {
+            startActivity(appIntent)
+        } catch (_: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(webUri)))
+        }
+    }
+
+    // ─── 3. one-stop wiring for the three buttons ─────────────────
+    private fun setupSocialLinks() {
+        /* WhatsApp channel */
+        binding.navigationView.findViewById<View>(R.id.btnWhatsApp).setOnClickListener {
+            openLink(
+                packageName = "com.whatsapp",
+                /* If the WhatsApp app is installed this link opens the channel directly;
+                   otherwise the browser page loads. */
+                appUri = "https://whatsapp.com/channel/0029Vb5ZfdOKQuJNBXCF890H"
+            )
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        /* Telegram channel */
+        binding.navigationView.findViewById<View>(R.id.btnTelegram).setOnClickListener {
+            openLink(
+                packageName = "org.telegram.messenger",
+                appUri = "tg://resolve?domain=bitbloomuk",
+                webUri = "https://t.me/bitbloomuk"
+            )
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
 }

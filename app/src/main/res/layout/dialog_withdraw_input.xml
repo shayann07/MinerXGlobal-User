@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/main_card_color"
     app:cardCornerRadius="20dp"
+
     app:strokeColor="@android:color/transparent">
 
     <LinearLayout
@@ -67,7 +68,7 @@
             app:boxStrokeWidth="1dp"
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
-            app:helperText="Min 10 • Network fee applies"
+            app:helperText="Minimum 10$ • Network fee applies"
             app:helperTextTextColor="@color/mxg_white_80"
             app:hintTextColor="@color/mxg_white_80"
             app:prefixTextColor="@android:color/white">
@@ -162,7 +163,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/orange"
                 app:backgroundTint="@android:color/transparent"
-                app:strokeColor="@android:color/transparent" />
+               />
 
             <Space
                 android:layout_width="12dp"

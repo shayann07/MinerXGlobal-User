@@ -126,7 +126,7 @@
                 app:layout_constraintStart_toStartOf="@id/gStart"
                 app:layout_constraintTop_toBottomOf="@id/topbar">
 
-                <com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/headerCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
                     android:foreground="@drawable/ripple_dark"
-                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardBackgroundColor="@color/orange"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="12dp"
                     app:cardUseCompatPadding="true"
@@ -154,7 +154,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:text="@string/fragment_rank_rewards"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -176,7 +176,7 @@
                             app:drawableEndCompat="@drawable/ic_link"
                             app:drawableTint="@color/black" />
                     </LinearLayout>
-                </com.minerxgloble.minerxgloble.ui.animation.LiquidGradientCard>
+                </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
 
 

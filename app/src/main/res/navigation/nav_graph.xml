@@ -221,5 +221,10 @@
         android:id="@+id/luckyDrawFragment"
         android:name="com.minerxgloble.minerxgloble.ui.fragments.LuckyDrawFragment"
         android:label="LuckyDrawFragment" />
+    <fragment
+        android:id="@+id/faqsFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.FaqsFragment"
+        android:label="fragment_faqs"
+        tools:layout="@layout/fragment_faqs" />
 
 </navigation>
