@@ -448,6 +448,322 @@
                 app:layout_constraintTop_toBottomOf="@id/docsTitle"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_document" />
+            <!-- ───────── OUR PARTNERS ───────── -->
+            <TextView
+                android:id="@+id/partnersTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="12dp"
+                android:text="@string/fragment_home_our_partners"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@id/rvDocuments"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintEnd_toEndOf="@id/gEnd" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/partnersGrid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="24dp"
+                app:columnCount="3"
+                app:rowCount="4"
+                app:layout_constraintTop_toBottomOf="@id/partnersTitle"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintEnd_toEndOf="@id/gEnd">
+
+                <!-- Row 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_uniswap"
+                        android:src="@drawable/ic_uniswap_logo_and_wordmark" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_crypto_com"
+                        android:src="@drawable/ic_crypto_com_1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_bybit"
+                        android:src="@drawable/ic_bybit_3" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Row 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_coinbase"
+                        android:src="@drawable/ic_coinbase_1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_bitget"
+                        android:src="@drawable/ic_bitget" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_kraken"
+                        android:src="@drawable/ic_kraken_4" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Row 3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_okx"
+                        android:src="@drawable/ic_okx_1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_binance"
+                        android:src="@drawable/ic_binance_logo_1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="14dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_kucoin"
+                        android:src="@drawable/ic_kucoin_seeklogo" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Row 4 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_new_york_life"
+                        android:src="@drawable/ic_new_york_life_1" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="6dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="Skadden"
+                        android:maxLines="1"
+                        android:textColor="#2938BD"
+                        android:textSize="12sp"
+                        android:textAllCaps="true"
+
+                         />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_margin="6dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:layout_columnWeight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:importantForAccessibility="no"
+                        android:contentDescription="@string/cd_partner_logo_jpmorgan"
+                        android:src="@drawable/jp_morgan_chase" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

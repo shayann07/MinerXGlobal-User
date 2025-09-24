@@ -89,8 +89,7 @@ class MainActivity : AppCompatActivity() {
         val mxg = PrefService(this).getUserId()
             .orEmpty()                     // MXG-xxxx (legacy/fallback)
 
-
-
+        setupSocialLinks()
         viewModel = ViewModelProvider(
             this, ProfileViewModelFactory(authRepo, authUid)
         )[ProfileViewModel::class.java]
@@ -98,6 +97,7 @@ class MainActivity : AppCompatActivity() {
 // Prime the VM once (attaches listener + warms cache)
         viewModel.setAuthUid(authUid, mxg)
         viewModel.ensureProfileFresh() // optional initial refresh
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -572,38 +572,52 @@ class MainActivity : AppCompatActivity() {
             .build()
         navController.navigate(HOME_DEST, null, opts)
     }
-    // ─── 2. helper that tries the app first, then falls back to browser ───
-    private fun openLink(packageName: String, appUri: String, webUri: String = appUri) {
-        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(appUri)).setPackage(packageName)
+    private fun openLink(
+        packageName: String,
+        appUri: String,
+        webUri: String = appUri
+    ) {
+        val context = this
+        val pm = context.packageManager
         try {
-            startActivity(appIntent)
-        } catch (_: ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(webUri)))
+            // If the target app is installed, try the appUri first
+            pm.getPackageInfo(packageName, 0)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(appUri)).apply {
+                setPackage(packageName)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+        } catch (_: Exception) {
+            // Fallback to browser
+            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webUri))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(webIntent)
         }
     }
 
     // ─── 3. one-stop wiring for the three buttons ─────────────────
     private fun setupSocialLinks() {
-        /* WhatsApp channel */
+        /* WhatsApp channel (Miner X Global Official) */
         binding.navigationView.findViewById<View>(R.id.btnWhatsApp).setOnClickListener {
+            val channelUrl = "https://whatsapp.com/channel/0029VbB0BZI3mFY6qBqSmw12"
             openLink(
                 packageName = "com.whatsapp",
-                /* If the WhatsApp app is installed this link opens the channel directly;
-                   otherwise the browser page loads. */
-                appUri = "https://whatsapp.com/channel/0029Vb5ZfdOKQuJNBXCF890H"
+                appUri = channelUrl,
+                webUri = channelUrl
             )
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
 
-        /* Telegram channel */
+        /* Telegram channel (Miner X Global Official) */
         binding.navigationView.findViewById<View>(R.id.btnTelegram).setOnClickListener {
             openLink(
                 packageName = "org.telegram.messenger",
-                appUri = "tg://resolve?domain=bitbloomuk",
-                webUri = "https://t.me/bitbloomuk"
+                appUri = "tg://resolve?domain=minerxglobalofficial",
+                webUri = "https://t.me/minerxglobalofficial"
             )
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
     }
+
 
 }

@@ -236,6 +236,20 @@ power.</string>
     <string name="support">Support</string>
     <string name="expand">expand</string>
 
+    <string name="fragment_home_our_partners">Our Partners</string>
+    <string name="cd_partner_logo_uniswap">Uniswap logo</string>
+    <string name="cd_partner_logo_crypto_com">Crypto.com logo</string>
+    <string name="cd_partner_logo_bybit">Bybit logo</string>
+    <string name="cd_partner_logo_coinbase">Coinbase logo</string>
+    <string name="cd_partner_logo_bitget">Bitget logo</string>
+    <string name="cd_partner_logo_kraken">Kraken logo</string>
+    <string name="cd_partner_logo_okx">OKX logo</string>
+    <string name="cd_partner_logo_binance">Binance logo</string>
+    <string name="cd_partner_logo_kucoin">KuCoin logo</string>
+    <string name="cd_partner_logo_new_york_life">New York Life logo</string>
+    <string name="cd_partner_logo_skadden">Skadden logo</string>
+    <string name="cd_partner_logo_jpmorgan">JPMorgan Chase logo</string>
+
     <!-- FAQ title + questions -->
     <string name="faq_title">Miner X – Frequently Asked Questions</string>
     <string name="faq_q1">1) What is Miner X?</string>
@@ -247,6 +261,8 @@ power.</string>
     <string name="faq_q7">7) Do I get any tokens with my investment?</string>
     <string name="faq_q8">8) What are the deposit and withdrawal rules?</string>
     <string name="faq_q9">9) Is support available?</string>
+
+
 
     <!-- Answers (HTML-formatted) -->
     <string name="faq_intro"><![CDATA[
