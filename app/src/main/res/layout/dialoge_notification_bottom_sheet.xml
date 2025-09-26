@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/bg_mxg_drawer_gradient"
+            android:background="@drawable/bg_mxg_deposit_gradient"
             android:padding="16dp">
 
 

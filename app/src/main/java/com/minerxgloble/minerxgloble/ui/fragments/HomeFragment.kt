@@ -123,7 +123,7 @@ class HomeFragment : BaseFragment() {
 
         walletVm.wallet.observe(viewLifecycleOwner) { snap ->
             snap ?: return@observe
-            val balance = snap.account.earnings.totalEarned
+            val balance = snap.account.investment.currentBalance
             binding.walletHero.tvWalletAmount.text = walletVm.money(balance)
         }
 

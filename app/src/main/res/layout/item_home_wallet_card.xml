@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="@string/item_home_wallet_card_n_24_000_usd"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />

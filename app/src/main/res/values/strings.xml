@@ -235,6 +235,7 @@ power.</string>
     <string name="cancel">cancel</string>
     <string name="support">Support</string>
     <string name="expand">expand</string>
+    <string name="team_users_title_fmt">Team Users — Level %1$d (%2$s)</string>
 
     <string name="fragment_home_our_partners">Our Partners</string>
     <string name="cd_partner_logo_uniswap">Uniswap logo</string>
@@ -261,7 +262,6 @@ power.</string>
     <string name="faq_q7">7) Do I get any tokens with my investment?</string>
     <string name="faq_q8">8) What are the deposit and withdrawal rules?</string>
     <string name="faq_q9">9) Is support available?</string>
-
 
 
     <!-- Answers (HTML-formatted) -->
@@ -330,7 +330,10 @@ On your first investment, you receive 50 free tokens. Each withdrawal has a 5% f
 <b>Support</b><br/>
 Yes, Miner X offers 24/7 customer support for deposits, withdrawals, staking, and buy/sell queries.
 ]]></string>
-
+    <string name="profile">Profile</string>
+    <string name="upline_referrer">Upline Referrer</string>
+    <string name="done">Done</string>
+    <string name="expired">expired</string>
 
 
 </resources>

@@ -112,7 +112,11 @@
         android:id="@+id/teamLevelsFragment"
         android:name="com.minerxgloble.minerxgloble.ui.fragments.TeamLevelsFragment"
         android:label="Team"
-        tools:layout="@layout/fragment_team_levels" />
+        tools:layout="@layout/fragment_team_levels" >
+        <action
+            android:id="@+id/action_teamLevelsFragment_to_teamUserFragment"
+            app:destination="@id/teamUserFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -226,5 +230,10 @@
         android:name="com.minerxgloble.minerxgloble.ui.fragments.FaqsFragment"
         android:label="fragment_faqs"
         tools:layout="@layout/fragment_faqs" />
+    <fragment
+        android:id="@+id/teamUserFragment"
+        android:name="com.minerxgloble.minerxgloble.ui.fragments.TeamUserFragment"
+        android:label="fragment_team_user"
+        tools:layout="@layout/fragment_team_user" />
 
 </navigation>

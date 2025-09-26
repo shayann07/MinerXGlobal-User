@@ -16,13 +16,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 enum class StatusFilter { ALL, ACTIVE, EXPIRED }
+// ViewModel
 data class UiPlan(
     val id: String,
     val name: String,
     val minAmount: Double,
-    val maxAmount: Double?,   // null = unlimited
-    val payoutPercent: Double
+    val maxAmount: Double?,
+    val payoutPercent: Double,   // total payout %
+    val roiPercent: Double,      // daily ROI %
+    val directPercent: Double    // direct profit %
 )
+
 class BuyPlanViewModel(
     private val repo: BuyPlanRepo = BuyPlanRepo()
 ) : ViewModel() {
@@ -136,8 +140,11 @@ class BuyPlanViewModel(
                 val minAmt = d.getDouble("minAmount") ?: return@mapNotNull null
                 val maxAmt = d.getDouble("maxAmount")
                 val payout = d.getDouble("totalPayout") ?: return@mapNotNull null
-                UiPlan(d.id, name, minAmt, maxAmt, payout)
+                val roi    = d.getDouble("dailyPercentage") ?: return@mapNotNull null
+                val direct = d.getDouble("directProfit") ?: return@mapNotNull null
+                UiPlan(d.id, name, minAmt, maxAmt, payout, roi, direct)
             }?.sortedBy { it.minAmount } ?: emptyList()
+
             _plansCache.postValue(list)
         }
     }

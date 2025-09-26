@@ -6,17 +6,12 @@ import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -95,7 +90,7 @@ class ProfileFragment : BaseFragment() {
         setupDrawerTrigger(view)
         _binding?.let { b ->
             // Username & email are read-only
-            listOf(b.etUsername, b.etEmail).forEach { et ->
+            listOf(b.etUsername, b.etEmail,b.etUpline).forEach { et ->
                 et.isFocusable = false
                 et.isFocusableInTouchMode = false
                 et.isCursorVisible = false
@@ -129,6 +124,7 @@ class ProfileFragment : BaseFragment() {
             val fullName = "$name $lastname"
             val userId =(data["uid"] as? String).orEmpty()
             val email = (data["email"] as? String).orEmpty()
+            val referrer=(data["referralCode"] as? String).orEmpty()
             val phone = (data["phoneNumber"] as? String)
                 ?: (data["phoneNo"] as? String)
                 ?: ""
@@ -139,6 +135,7 @@ class ProfileFragment : BaseFragment() {
                 b.etEmail.setText(email)
                 originalPhoneNumber = phone
                 b.etPhone.setText(phone)
+                b.etUpline.setText(referrer)
             }
 
             // Load avatar

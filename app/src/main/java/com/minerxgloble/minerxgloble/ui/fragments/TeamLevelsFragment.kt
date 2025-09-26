@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +23,7 @@ import com.minerxgloble.minerxgloble.databinding.FragmentTeamLevelsBinding
 import com.minerxgloble.minerxgloble.utils.PrefService
 import com.minerxgloble.minerxgloble.utils.ProfileImageUtil
 import com.minerxgloble.minerxgloble.viewModels.TeamLevelViewModel
+import com.minerxgloble.minerxgloble.viewModels.TeamSelectionViewModel
 
 class TeamLevelsFragment : BaseFragment() {
 
@@ -35,6 +38,8 @@ class TeamLevelsFragment : BaseFragment() {
     // guard to avoid redundant population loops
     private var lastSkeletonWidth = 0
     private var lastSkeletonHeight = 0
+
+    private val selectionVM: TeamSelectionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,12 +63,18 @@ class TeamLevelsFragment : BaseFragment() {
             requireContext(), uid = userCode, imageView = binding.avatar
         )
 
-        // Recycler + adapter
         adapter = TeamLevelAdapter { item ->
-            val msg =
-                if (item.levelUnlocked) "Level ${item.level} is unlocked" else "Level ${item.level} is locked"
-            showSnackbar(msg)
+            selectionVM.select(item)
+
+            if (item.levelUnlocked) {
+                // Navigate when unlocked
+                findNavController().navigate(R.id.action_teamLevelsFragment_to_teamUserFragment)
+            } else {
+                // Show snackbar only for locked
+                showSnackbar("Level ${item.level} is locked")
+            }
         }
+
         binding.teamLevelRv.layoutManager = LinearLayoutManager(requireContext())
         binding.teamLevelRv.setHasFixedSize(true)
         binding.teamLevelRv.adapter = adapter

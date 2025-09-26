@@ -8,5 +8,8 @@ data class TeamLevel(
     val totalDeposit: Double,
     val totalBuyingProfit: Double,
     val investedAmount: Double,    // ← NEW
-    val levelUnlocked: Boolean
+    val levelUnlocked: Boolean,
+
+    // 🔽 NEW: minimal users of THIS level only (userId, name, status)
+    val users: List<TeamUser> = emptyList()
 )

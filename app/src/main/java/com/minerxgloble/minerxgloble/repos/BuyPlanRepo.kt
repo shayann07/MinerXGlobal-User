@@ -180,9 +180,9 @@ class BuyPlanRepo(
                 val nowTs = FieldValue.serverTimestamp()
 
                 // cumulative invested total → activation threshold & first-plan detection
-                val prevTotalInPlans = (balances?.get("totalInvestedInPlans") as? Number)?.toDouble() ?: 0.0
+                val prevTotalInPlans = (balances["totalInvestedInPlans"] as? Number)?.toDouble() ?: 0.0
                 val newTotalInPlans  = prevTotalInPlans + amount
-                val shouldActivate   = newTotalInPlans >= 50.0
+                val shouldActivate   = newTotalInPlans >= 10.0
                 val isFirstPlanEver  = prevTotalInPlans == 0.0
                 firstPlanEverFlag = isFirstPlanEver
 

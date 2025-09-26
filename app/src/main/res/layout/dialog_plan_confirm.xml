@@ -4,123 +4,204 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="40dp"
+    android:layout_margin="32dp"
     android:gravity="center"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="20dp"
+        card_view:cardCornerRadius="22dp"
         card_view:cardUseCompatPadding="false"
         card_view:cardElevation="0dp"
         card_view:strokeWidth="0dp"
-        card_view:strokeColor="@android:color/transparent"
+        card_view:strokeColor="#22FFFFFF"
         card_view:cardBackgroundColor="@color/main_card_color">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
             android:paddingTop="18dp"
-            android:paddingBottom="12dp">
+            android:paddingBottom="14dp">
 
-            <!-- Bigger mining image -->
+            <!-- Header image -->
             <ImageView
                 android:id="@+id/confirmPlanImage"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
-                android:adjustViewBounds="true"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/cd_brand_logo"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mining_2"
-                android:contentDescription="@string/cd_brand_logo" />
+                android:src="@drawable/mining_2" />
 
             <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Confirm Plan Purchase"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/white"
-                android:gravity="center_horizontal"
-                android:paddingTop="12dp"
-                android:paddingBottom="4dp" />
+                android:gravity="center" />
 
-            <!-- Plan name -->
+            <!-- Subheader line: Plan name -->
             <TextView
                 android:id="@+id/tvPlanName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Plan: —"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textColor="@color/white"
-                android:paddingBottom="6dp" />
+                android:alpha="0.92"
+                android:gravity="center" />
 
-            <!-- Range (added for light preview) -->
-            <TextView
-                android:id="@+id/tvRange"
+            <!-- Summary “chips” row -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Range: —"
-                android:textSize="14sp"
-                android:textColor="@color/white" />
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <!-- Entered amount -->
-            <TextView
-                android:id="@+id/tvAmountEntered"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Amount entered: —"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:paddingTop="2dp"
-                android:paddingBottom="10dp" />
+                <!-- Entered amount chip -->
+                <TextView
+                    android:id="@+id/tvAmountEntered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/bg_chip_translucent"
+                    android:text="Amount entered: —"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:alpha="0.95" />
 
-            <!-- Thin divider -->
+
+            </LinearLayout>
+
+            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#24FFFFFF"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="10dp"
+                android:background="#22FFFFFF" />
 
-            <!-- Total payout (percent only) -->
-            <TextView
-                android:id="@+id/tvTotalPayout"
+            <!-- Two-column details grid -->
+            <LinearLayout
+                android:id="@+id/detailsGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total payout: —"
-                android:textSize="14sp"
-                android:textColor="@color/white" />
+                android:orientation="vertical">
 
-            <!-- Action buttons -->
+                <!-- Row: ROI (daily) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ROI (daily)"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:alpha="0.72" />
+                    <TextView
+                        android:id="@+id/tvRoiPct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+                <!-- Row: Payout amount -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Payout amount"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:alpha="0.72" />
+                    <TextView
+                        android:id="@+id/tvPayoutAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/orange" />
+                </LinearLayout>
+
+
+
+
+                <!-- Row: Direct profit amount -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Direct profit amount"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:alpha="0.72" />
+                    <TextView
+                        android:id="@+id/tvDirectAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/orange" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="end"
-                android:paddingTop="16dp"
-                android:paddingBottom="2dp">
+                android:paddingTop="16dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCancel"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:layout_height="44dp"
                     android:text="@string/cancel" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnConfirm"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
                     android:text="@string/confirm"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/orange"
-                    android:layout_marginStart="8dp" />
+                    android:backgroundTint="@color/orange" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

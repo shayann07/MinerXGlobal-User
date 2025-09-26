@@ -4,6 +4,7 @@ package com.minerxgloble.minerxgloble.repos
 import android.content.Context
 import com.google.firebase.functions.FirebaseFunctions
 import com.minerxgloble.minerxgloble.models.TeamLevel
+import com.minerxgloble.minerxgloble.models.TeamUser
 import com.minerxgloble.minerxgloble.utils.PrefService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -34,7 +35,17 @@ class TeamLevelRepo(private val context: Context) {
             val inactiveUsers     = (m["inactiveUsers"] as? Number)?.toInt() ?: 0
             val totalDeposit      = (m["totalDeposit"] as? Number)?.toDouble() ?: 0.0
             val levelUnlocked     = (m["levelUnlocked"] as? Boolean) ?: false
-
+            // 🔽 Map the per-level users to your minimal model (userId, name, status)
+            @Suppress("UNCHECKED_CAST")
+            val rawUsers = (m["users"] as? List<Map<String, Any?>>).orEmpty()
+            val users: List<TeamUser> = rawUsers.map { u ->
+                val uid   = (u["uid"] as? String).orEmpty()
+                val first = (u["firstName"] as? String).orEmpty()
+                val last  = (u["lastName"] as? String).orEmpty()
+                val name  = listOf(first, last).filter { it.isNotBlank() }.joinToString(" ").ifBlank { uid }
+                val status = ((u["status"] as? String) ?: "").lowercase()
+                TeamUser(userId = uid, name = name, status = status)
+            }
             // Your adapter expects 'investedAmount' → use totalDeposit for display
             TeamLevel(
                 level = levelNum,
@@ -44,7 +55,8 @@ class TeamLevelRepo(private val context: Context) {
                 totalDeposit = totalDeposit,
                 totalBuyingProfit = 0.0,          // not provided by UI callable
                 investedAmount = totalDeposit,    // show as "Invested Amount"
-                levelUnlocked = levelUnlocked
+                levelUnlocked = levelUnlocked,
+                users = users
             )
         }.sortedBy { it.level }
     }

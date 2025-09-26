@@ -310,7 +310,7 @@ class DepositFragment : BaseFragment() {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.window?.setDimAmount(0.6f)
-        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCanceledOnTouchOutside(true)
         dialog.setCancelable(true)
 
         val ivQRCode = dialog.findViewById<ImageView>(R.id.ivQRCode)
