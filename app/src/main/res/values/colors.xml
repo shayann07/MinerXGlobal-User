@@ -23,7 +23,7 @@
 
     <color name="ticket_pending">#FFC107</color>  <!-- amber / warning -->
     <color name="ticket_closed">#4CAF50</color>   <!-- material green 500 -->
-    <color name="orange">#EE6924</color>   <!-- material green 500 -->
+    <color name="orange">#E1EE6924</color>   <!-- material green 500 -->
 
     <color name="mxg_black">#000000</color>
     <color name="mxg_white">#FFFFFF</color>
