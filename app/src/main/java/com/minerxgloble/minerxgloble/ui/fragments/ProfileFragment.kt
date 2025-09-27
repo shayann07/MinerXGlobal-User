@@ -135,7 +135,11 @@ class ProfileFragment : BaseFragment() {
                 b.etEmail.setText(email)
                 originalPhoneNumber = phone
                 b.etPhone.setText(phone)
-                b.etUpline.setText(referrer)
+               if(referrer.isNotEmpty()){
+                   b.etUpline.setText(referrer)
+               }else{
+                   b.etUpline.setText("No Upline")
+               }
             }
 
             // Load avatar

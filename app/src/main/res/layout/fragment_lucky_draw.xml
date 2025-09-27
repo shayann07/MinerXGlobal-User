@@ -153,8 +153,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:text="Lucky Draw"
+                            android:background="@drawable/bg_pill_black"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <!-- Secondary line: user's total invested in draw -->

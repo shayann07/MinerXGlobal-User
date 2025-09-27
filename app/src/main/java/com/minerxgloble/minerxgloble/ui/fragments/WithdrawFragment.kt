@@ -45,6 +45,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import com.google.android.material.button.MaterialButton
 import com.minerxgloble.minerxgloble.models.ActiveWithdrawalDTO
+import com.minerxgloble.minerxgloble.utils.TransactionDialogUtil
 import java.text.DecimalFormat
 import kotlin.math.ceil
 
@@ -99,7 +100,9 @@ class WithdrawFragment : BaseFragment() {
             }
         })[TransactionViewModel::class.java]
 
-        adapter = TransactionAdapter(emptyList()) { /* optional onClick */ }
+        adapter = TransactionAdapter(emptyList()) {
+            TransactionDialogUtil.showTransactionDialog(requireContext(), it)
+        }
         binding.transactionRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.transactionRecycler.adapter = adapter
 

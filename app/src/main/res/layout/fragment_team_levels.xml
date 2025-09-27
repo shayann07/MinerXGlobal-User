@@ -133,7 +133,8 @@
                     android:foreground="@drawable/ripple_dark"
                     app:cardBackgroundColor="@color/orange"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="12dp"
+                    app:cardElevation="6dp"
+                    android:layout_marginHorizontal="@dimen/dp_10"
                     app:cardUseCompatPadding="true"
                     app:strokeColor="@android:color/transparent"
                     app:strokeWidth="0dp">
@@ -150,9 +151,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@string/fragment_team_levels_levels"
+                            android:text="Team Income"
+                            android:background="@drawable/bg_pill_black"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <!-- Two columns: Today (left) | Total (right) -->
@@ -175,7 +177,7 @@
                                     android:id="@+id/labelTeamIncomeToday"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Today’s Team Income"
+                                    android:text="Today’s Income"
                                     android:textColor="@color/white"
                                     android:layout_gravity="center"
                                     android:textSize="12sp"
@@ -205,7 +207,7 @@
                                     android:id="@+id/labelTeamIncomeTotal"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Team Income"
+                                    android:text="Total  Income"
                                     android:layout_gravity="center"
                                     android:textColor="@color/white"
                                     android:textSize="12sp"

@@ -32,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:text="MinerX Deposit Wallet"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_pill_black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -41,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="Total USD"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -50,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="$0.0"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />

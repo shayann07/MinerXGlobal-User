@@ -79,19 +79,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_update_overlay_card"
+                    android:background="@drawable/bg_loader_card"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="18dp">
 
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:id="@+id/updateCircle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:indeterminate="true"
-                        app:indicatorColor="@color/light_blue"
-                        app:trackColor="#3DFFFFFF"
-                        app:trackThickness="6dp" />
+                    <com.minerxgloble.minerxgloble.ui.animation.XLogoLoadingView
+                        android:id="@+id/updateLogo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
 
                     <TextView
                         android:id="@+id/updateLabel"

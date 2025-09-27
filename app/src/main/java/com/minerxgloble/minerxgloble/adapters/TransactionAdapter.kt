@@ -104,13 +104,14 @@ class TransactionAdapter(
         return when (t) {
             "deposit" -> "Deposit"
             "withdraw" -> "Withdraw"
-            "dailyroi" -> "Daily ROI"
-            "teamprofit" -> "Team Profit"
-            "rank-reward", "rankreward", "rank_reward" -> "Rank Reward"
+            "dailyroi" -> "Daily Income"
+            "teamprofit" -> "Team Income"
+            "rank-reward", "rankreward", "rank_reward" -> "Rank Income"
 
-            "star-salary", "starsalary", "star_salary" -> "Star Salary"
+            "star-salary", "starsalary", "star_salary" -> "Monthly Salary"
 
             "plan purchase", "plan_purchase", "planpurchase" -> "Plan Purchase"
+            "direct profit" -> "Direct Income"
 
 
             "all" -> "All"

@@ -5,6 +5,7 @@
     <color name="grey">#B4FFFFFF</color>
     <color name="blue">#EE6924</color>
     <color name="seaGreen">#11CABE</color>
+    <color name="green">#27A218</color>
     <color name="darkSeaGreen">#1BA27A</color>
     <color name="yellow">#FFBB38</color>
     <color name="red">#F00806</color>
@@ -18,6 +19,9 @@
     <color name="main_card_color">#1A1A1A</color>
     <color name="snackbar_error">#F44336</color>    <!-- red-500 -->
     <color name="snackbar_success">#EE6924</color>
+    <color name="titleBlack">#000000</color>
+
+    <color name="purple_200">#BB86FC</color>
 
     <color name="transparent_black_light">#BB000000</color> <!-- subtle dim -->
 

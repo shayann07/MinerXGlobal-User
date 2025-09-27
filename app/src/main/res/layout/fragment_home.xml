@@ -127,7 +127,58 @@
                 app:layout_constraintStart_toStartOf="@id/gStart"
                 app:layout_constraintTop_toBottomOf="@id/topbar" />
 
-            <!-- QUICK ACTIONS -->
+            <!-- ANNOUNCEMENTS (moved up under walletHero) -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/announcementSlider"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
+                android:clipToPadding="false"
+                android:layout_marginTop="18dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletHero" />
+
+            <!-- ANNOUNCEMENTS shimmer (no title) -->
+            <FrameLayout
+                android:id="@+id/annShimmerWrap"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gEnd"
+                app:layout_constraintStart_toStartOf="@id/gStart"
+                app:layout_constraintTop_toBottomOf="@id/walletHero">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerAnnouncements"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:shimmer_auto_start="false"
+                    app:shimmer_base_alpha="0.9"
+                    app:shimmer_duration="1100"
+                    app:shimmer_highlight_alpha="0.6"
+                    app:shimmer_intensity="0.35">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:outlineAmbientShadowColor="#FF7B00"
+                        android:outlineSpotShadowColor="#FF7B00"
+                        app:cardBackgroundColor="@color/main_card_color"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="12dp"
+                        app:cardUseCompatPadding="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_card_matte" />
+                    </com.google.android.material.card.MaterialCardView>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
+
 
 
 
@@ -147,7 +198,7 @@
                 android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/walletHero" />
+                app:layout_constraintTop_toBottomOf="@id/announcementSlider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvStatsGrid"
@@ -336,88 +387,7 @@
                 </GridLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <!-- ANNOUNCEMENTS -->
-            <TextView
-                android:id="@+id/notificationTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="12dp"
-                android:text="@string/fragment_home_announcements"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/rvNetworkMini" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/announcementSlider"
-                android:layout_width="0dp"
-                android:layout_height="170dp"
-                android:clipToPadding="false"
-                android:layout_marginTop="18dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/notificationTv" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerNotificationTitle"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/rvNetworkMini"
-                app:shimmer_auto_start="false">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_matte" />
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <FrameLayout
-                android:id="@+id/annShimmerWrap"
-                android:layout_width="0dp"
-                android:layout_height="170dp"
-                app:layout_constraintEnd_toEndOf="@id/gEnd"
-                app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/shimmerNotificationTitle">
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerAnnouncements"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    app:shimmer_auto_start="false"
-                    app:shimmer_base_alpha="0.9"
-                    app:shimmer_duration="1100"
-                    app:shimmer_highlight_alpha="0.6"
-                    app:shimmer_intensity="0.35">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:outlineAmbientShadowColor="#FF7B00"
-                        android:outlineSpotShadowColor="#FF7B00"
-                        app:cardBackgroundColor="@color/main_card_color"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="12dp"
-                        app:cardUseCompatPadding="true">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/bg_card_matte" />
-                    </com.google.android.material.card.MaterialCardView>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </FrameLayout>
 
             <!-- DOCUMENTS -->
             <TextView
@@ -435,7 +405,7 @@
                 android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
-                app:layout_constraintTop_toBottomOf="@id/announcementSlider" />
+                app:layout_constraintTop_toBottomOf="@id/rvNetworkMini" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDocuments"

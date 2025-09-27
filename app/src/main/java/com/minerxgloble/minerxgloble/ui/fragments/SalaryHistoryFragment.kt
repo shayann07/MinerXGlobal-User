@@ -13,6 +13,7 @@ import com.minerxgloble.minerxgloble.R
 import com.minerxgloble.minerxgloble.adapters.TransactionAdapter
 import com.minerxgloble.minerxgloble.databinding.FragmentSalaryHistoryBinding
 import com.minerxgloble.minerxgloble.utils.PrefService
+import com.minerxgloble.minerxgloble.utils.TransactionDialogUtil
 import com.minerxgloble.minerxgloble.viewModels.TransactionViewModel
 import kotlin.math.ceil
 
@@ -44,7 +45,9 @@ class SalaryHistoryFragment : BaseFragment() {
         setupDrawerTrigger(view)
 
         /* ---------- list ---------- */
-        adapter = TransactionAdapter(emptyList()) { /* onClick if needed */ }
+        adapter = TransactionAdapter(emptyList()) {
+            TransactionDialogUtil.showTransactionDialog(requireContext(), it)
+        }
         b.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         b.rvHistory.adapter = adapter
 
@@ -76,13 +79,14 @@ class SalaryHistoryFragment : BaseFragment() {
             val filterMap = linkedMapOf(
                 "All" to "All",
                 "Plan Purchase" to "Plan Purchase",
-                "Daily ROI" to "dailyRoi",
-                "Team Profit" to "teamProfit",
-                "Rank Reward" to "rank-reward",
-                "Star Salary" to "star-salary",
+                "Daily Income" to "dailyRoi",
+                "Team Income" to "teamProfit",
+                "Rank Income" to "rank-reward",
+                "Monthly Salary" to "star-salary",
                 "Deposit" to "Deposit",
                 "Withdraw" to "Withdraw",
-                "Lucky Draw " to "Lucky Draw Investment"
+                "Lucky Draw " to "Lucky Draw Investment",
+                "Direct Income" to "Direct Profit"
             )
 
             val labels = filterMap.keys.toTypedArray()

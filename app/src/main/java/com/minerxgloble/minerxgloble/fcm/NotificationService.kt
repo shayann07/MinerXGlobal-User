@@ -5,9 +5,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory // ← added
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat // ← added
 import com.minerxgloble.minerxgloble.R
 import com.minerxgloble.minerxgloble.ui.MainActivity
 import com.minerxgloble.minerxgloble.utils.PrefService
@@ -21,7 +23,7 @@ import kotlin.random.Random
 class NotificationService : FirebaseMessagingService() {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
-    private val channelId = "default_channel"
+    private val channelId = "default_channel" // keep single channel
 
     private lateinit var prefManager: NotificationPreferenceManager
     private lateinit var userPref: PrefService
@@ -50,10 +52,11 @@ class NotificationService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Log.d("NotificationService", "onMessageReceived: ${message.data}")
+        Log.d("NotificationService", "onMessageReceived: data=${message.data}, notif=${message.notification}")
 
-        val title = message.data["title"] ?: return
-        val body = message.data["body"] ?: return
+        // Prefer data payload; fall back to notification payload if needed
+        val title = message.data["title"] ?: message.notification?.title ?: return
+        val body  = message.data["body"]  ?: message.notification?.body  ?: return
 
         createNotificationChannelIfNeeded()
 
@@ -72,14 +75,24 @@ class NotificationService : FirebaseMessagingService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Use a proper small icon for status bar (should be a white-only glyph).
+        // If you have a dedicated notification icon (recommended), replace with R.drawable.ic_stat_logo.
+        val smallIconRes = R.drawable.logo
+
+        // Large icon shows your full-color logo in expanded view.
+        val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.logo)
+
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.logo)
+            .setSmallIcon(smallIconRes)            // ← ensures consistent icon in status bar
+            .setLargeIcon(largeIcon)               // ← shows logo in expanded view
             .setContentTitle(title)
             .setContentText(body)
             .setStyle(NotificationCompat.BigTextStyle().bigText(body))
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            // Optional: accent color for the small icon background on newer Android
+            .setColor(ContextCompat.getColor(this, R.color.black)) // pick your brand color
 
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(Random.nextInt(), builder.build())
@@ -88,7 +101,9 @@ class NotificationService : FirebaseMessagingService() {
     private fun createNotificationChannelIfNeeded() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                channelId, "General Notifications", NotificationManager.IMPORTANCE_HIGH
+                channelId,
+                "General Notifications",
+                NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Default notification channel"
                 enableVibration(true)
@@ -100,4 +115,3 @@ class NotificationService : FirebaseMessagingService() {
         }
     }
 }
-

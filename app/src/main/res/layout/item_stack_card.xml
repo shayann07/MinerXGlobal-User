@@ -55,7 +55,8 @@
                 android:layout_gravity="center"
                 android:text="@string/item_home_wallet_card_minerx_deposit_wallet"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:background="@drawable/bg_pill_black"
                 android:textStyle="bold" />
 
             <TextView

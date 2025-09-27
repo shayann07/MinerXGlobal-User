@@ -75,6 +75,7 @@ class TeamLevelsFragment : BaseFragment() {
             }
         }
 
+
         vm.teamIncomeToday.observe(viewLifecycleOwner) { v ->
                binding.tvTeamIncomeToday.text = formatMoney(v) // e.g., "$" + decimal
 

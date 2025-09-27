@@ -59,6 +59,11 @@ class HomeFragment : BaseFragment() {
 
     private val walletVm: WalletViewModel by viewModels()
     private val teamVm: TeamLevelViewModel by viewModels()
+
+    // at top of HomeFragment
+    private var latestWallet: WalletRepo.WalletSnapshot? = null
+    private var latestTokenRate: Double = 0.0
+
     private val authVm: AuthViewModel by viewModels {
         AuthViewModelFactory(
             AuthRepository(
@@ -121,10 +126,10 @@ class HomeFragment : BaseFragment() {
         binding.walletHero.tvWalletTotalLabel.text = "Total USD"
         binding.walletHero.tvWalletAmount.text = "—"
 
+        // No caching. Just observe both and recompute.
         walletVm.wallet.observe(viewLifecycleOwner) { snap ->
-            snap ?: return@observe
-            val balance = snap.account.investment.currentBalance
-            binding.walletHero.tvWalletAmount.text = walletVm.money(balance)
+            latestWallet = snap
+            updateHeroTotal()
         }
 
         // ----- QUICK ACTIONS -----
@@ -192,18 +197,13 @@ class HomeFragment : BaseFragment() {
         teamVm.load()
 
         // ----- ANNOUNCEMENTS -----
-        binding.notificationTv.isVisible = false
         binding.announcementSlider.isVisible = false
-        showNotificationTitleShimmer(true)
         showAnnouncementShimmer(true)
 
         authVm.getAnnouncementImageUrls()
         authVm.announcementImageUrls.observe(viewLifecycleOwner) { urls ->
             val hasAny = !urls.isNullOrEmpty()
             if (hasAny) {
-                showNotificationTitleShimmer(false)
-                binding.notificationTv.isVisible = true
-
                 val annAdapter = AnnouncementImageAdapter(urls!!)
                 binding.announcementSlider.adapter = annAdapter
                 binding.announcementSlider.setPageTransformer { page, position ->
@@ -228,8 +228,8 @@ class HomeFragment : BaseFragment() {
             } else {
                 announcementPagerJob?.cancel()
                 showAnnouncementShimmer(false)
-                showNotificationTitleShimmer(false)
-                binding.notificationTv.isVisible = false
+
+
                 binding.announcementSlider.isVisible = false
             }
         }
@@ -262,9 +262,18 @@ class HomeFragment : BaseFragment() {
 
         networkVm.tokenRate.observe(viewLifecycleOwner) { rate ->
             rate ?: return@observe
+
+            // keep token-rate cache
             pref.setString(K_TOKEN_RATE, rate.toString())
-            netAdapter.setTokenRate(rate)            // adapter merges it as a 4th row
+
+            // adapter behavior unchanged
+            netAdapter.setTokenRate(rate)   // adapter merges it as a 4th row
+
+            // also update hero total (no impact on adapter)
+            latestTokenRate = rate
+            if (latestWallet != null) updateHeroTotal()
         }
+
         // ADD these lines
         networkVm.loadTokenRate()
         networkVm.startTokenRateListener()
@@ -275,6 +284,18 @@ class HomeFragment : BaseFragment() {
         binding.rvDocuments.adapter = docsAdapter
         networkVm.docs.observe(viewLifecycleOwner) { docs -> docs?.let { docsAdapter.submit(it) } }
         networkVm.load()
+    }
+    private fun updateHeroTotal() {
+        val snap = latestWallet ?: return
+
+        val invest = snap.account.investment.currentBalance
+        val earned = snap.account.earnings.totalEarned
+        val tokens = walletVm.nestedDouble(snap.raw, "earnings.tokens")
+
+        val tokenUsd = tokens * latestTokenRate
+        val total = invest + earned + tokenUsd
+
+        binding.walletHero.tvWalletAmount.text = walletVm.money(total)
     }
 
     // ===== Shimmers =====
@@ -293,12 +314,7 @@ class HomeFragment : BaseFragment() {
         binding.shimmerAnnouncements.isVisible = show
         if (show) binding.shimmerAnnouncements.startShimmer() else binding.shimmerAnnouncements.stopShimmer()
     }
-    private fun showNotificationTitleShimmer(show: Boolean) {
-        val shimmer = binding.shimmerNotificationTitle
-        shimmer.isVisible = show
-        binding.notificationTv.isVisible = !show
-        if (show) shimmer.startShimmer() else shimmer.stopShimmer()
-    }
+
 
     // ===== Stats mapping → grid =====
     private fun updateStatsWithFx(
@@ -470,7 +486,7 @@ class HomeFragment : BaseFragment() {
         binding.shimmerStatsGrid.stopShimmer()
         binding.shimmerNetworkMini.stopShimmer()
         binding.shimmerAnnouncements.stopShimmer()
-        binding.shimmerNotificationTitle.stopShimmer()
+
         networkVm.stopStatsListener()
     }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- base fill; will be overridden by backgroundTint -->
+    <solid android:color="?attr/colorSurfaceVariant" />
+
+    <!-- subtle outline that adapts to theme -->
+    <stroke
+        android:width="1dp"
+        android:color="?attr/colorOutline" />
+
+    <!-- fully rounded pill -->
+    <corners android:radius="999dp" />
+
+    <!-- comfy padding inside the pill -->
+    <padding
+        android:left="10dp"
+        android:top="6dp"
+        android:right="10dp"
+        android:bottom="6dp" />
+</shape>

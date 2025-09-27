@@ -102,7 +102,7 @@ power.</string>
     <string name="fragment_profile_change_password">Change Password</string>
     <string name="fragment_rank_rewards">Rewards</string>
     <string name="fragment_rank_users_can_achieve_higher_ranks_by_referring">Users can achieve higher ranks by referring</string>
-    <string name="fragment_salary_salary">Salary</string>
+    <string name="fragment_salary_salary">Monthly Salary</string>
     <string name="fragment_salary_n_2025_09">2025-09</string>
     <string name="fragment_salary_preview">Preview</string>
     <string name="fragment_salary_star_0">Star 0</string>
@@ -240,8 +240,8 @@ power.</string>
     <string name="dialog_cancel_withdraw_title">Cancel withdrawal?</string>
     <string name="dialog_cancel_withdraw_message">Are you sure you want to cancel your pending withdrawal and return the funds to your Earnings wallet?</string>
     <string name="dialog_cancel_withdraw_tip">Funds will be returned to your Earnings wallet immediately. Any network fee hold will be released.</string>
-    <string name="dialog_cancel_withdraw_cta">Yes, cancel</string>
-    <string name="dialog_common_keep">Keep withdrawal</string>
+    <string name="dialog_cancel_withdraw_cta">Yes</string>
+    <string name="dialog_common_keep">No</string>
     <string name="content_desc_warning">Warning</string>
 
     <string name="fragment_home_our_partners">Our Partners</string>
@@ -337,11 +337,15 @@ On your first investment, you receive 50 free tokens. Each withdrawal has a 5% f
 <b>Support</b><br/>
 Yes, Miner X offers 24/7 customer support for deposits, withdrawals, staking, and buy/sell queries.
 ]]></string>
-    <string name="profile">Profile</string>
+    <string name="profile">My Profile</string>
     <string name="upline_referrer">Upline Referrer</string>
     <string name="done">Done</string>
     <string name="expired">expired</string>
     <string name="cancel_withdrawal">Cancel Withdrawal</string>
+    <string name="close">Close</string>
+    <string name="direct">Direct</string>
+    <string name="indirect">Indirect</string>
+    <string name="reward">Reward</string>
 
 
 </resources>

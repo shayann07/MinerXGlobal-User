@@ -1,94 +1,198 @@
-<!-- Receipt Content -->
+<!-- dialog_receipt_modern.xml -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="24dp">
+    android:layout_margin="12dp">  <!-- smaller outer margin -->
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/main_card_color"
-        android:elevation="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="20dp"
-        android:background="@drawable/transparent"
-        app:strokeWidth="0dp">
+        app:cardUseCompatPadding="false"
+        app:shapeAppearanceOverlay="@style/ShapeOverlay.LargeRounded"
+        app:strokeColor="@color/purple_200"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_auth_card"
-            android:elevation="6dp"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:background="@drawable/bg_mxg_deposit_gradient"
+            android:orientation="vertical">
 
-            <!-- Title -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Header: ConstraintLayout to prevent wrapping and squeeze -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/dialoge_recipt_transaction_details"
-                android:textColor="#C471FF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp">
 
-            <!-- Total Payment -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:text="@string/dialoge_recipt_total_payment"
-                android:textColor="#9663BA"
-                android:textSize="14sp" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_wallet"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeOverlay.LargeRounded" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipStatus"
+                    style="@style/Widget.Material3.Chip.Assist.Elevated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="28dp"
+                    android:text="Status"
+                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
+                    app:chipEndPadding="8dp"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="28dp"
+                    app:chipStartPadding="8dp"
+                    app:ensureMinTouchTargetSize="false"
+                    app:layout_constraintBottom_toBottomOf="@id/ivIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivIcon"
+                    app:shapeAppearanceOverlay="@style/ShapeOverlay.Pill" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/dialoge_recipt_transaction_details"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="14sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
+                    app:layout_constraintEnd_toStartOf="@id/chipStatus"
+                    app:layout_constraintStart_toEndOf="@id/ivIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivIcon" />
+
+                <TextView
+                    android:id="@+id/tvSubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/dialoge_recipt_total_payment"
+                    android:textColor="#B9A7D6"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivIcon"
+                    app:layout_constraintEnd_toStartOf="@id/chipStatus"
+                    app:layout_constraintStart_toStartOf="@id/tvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Big Amount -->
             <TextView
                 android:id="@+id/invested_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
+                android:paddingTop="2dp"
                 android:text=""
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:background="#2D2140" />
+
+            <!-- Scrollable content (cap its height so small screens don’t squash the card) -->
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:fillViewport="true"
+                android:maxHeight="420dp"
                 android:scrollbars="none">
 
-                <!-- Info List -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="85dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
 
-                    <!-- Each Card -->
                     <include
                         android:id="@+id/card_userId"
                         layout="@layout/item_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:tag="User ID" />
 
                     <include
                         android:id="@+id/card_paymentTime"
                         layout="@layout/item_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:tag="Payment Time" />
 
                     <include
                         android:id="@+id/card_planName"
                         layout="@layout/item_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:tag="Plan Name" />
 
                     <include
                         android:id="@+id/card_userName"
                         layout="@layout/item_receipt_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:tag="User Name" />
-
                 </LinearLayout>
             </ScrollView>
+
+            <!-- Bottom actions -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSecondary"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/close"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPrimary"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/cancel_withdrawal"
+                    android:visibility="gone"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

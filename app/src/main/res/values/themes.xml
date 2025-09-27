@@ -180,4 +180,43 @@
         <attr name="mg_mirrorRepeat" format="boolean"/>
         <attr name="mg_autoStart" format="boolean"/>
     </declare-styleable>
+
+    <!-- Large rounded corners for cards / images -->
+    <style name="ShapeOverlay.LargeRounded" parent="">
+        <!-- Use 20dp to match your dialog card radius -->
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!-- Fully pill-shaped (used by the status Chip) -->
+    <style name="ShapeOverlay.Pill" parent="">
+        <item name="cornerFamily">rounded</item>
+        <!-- 50% makes it a pill independent of height -->
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- (Optional) A reusable style for your receipt Card -->
+    <style name="Widget.MinerX.ReceiptCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardUseCompatPadding">true</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeOverlay.LargeRounded</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/purple_200</item>
+    </style>
+
+    <!-- (Optional) If you want a unified button look for the dialog actions -->
+    <style name="Widget.MinerX.ReceiptButton.Primary" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="Widget.MinerX.ReceiptButton.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
 </resources>

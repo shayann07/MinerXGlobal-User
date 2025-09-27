@@ -39,6 +39,7 @@ import com.minerxgloble.minerxgloble.databinding.FragmentDepositBinding
 import com.minerxgloble.minerxgloble.models.TransactionModel
 import com.minerxgloble.minerxgloble.utils.PrefService
 import com.minerxgloble.minerxgloble.utils.ProfileImageUtil
+import com.minerxgloble.minerxgloble.utils.TransactionDialogUtil
 import com.minerxgloble.minerxgloble.viewModels.TransactionViewModel
 import com.minerxgloble.minerxgloble.viewModels.WalletViewModel
 import kotlinx.coroutines.Dispatchers
@@ -90,8 +91,8 @@ class DepositFragment : BaseFragment() {
         viewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
 
         // RecyclerView + adapter
-        adapter = TransactionAdapter(emptyList()) { txn ->
-            Toast.makeText(requireContext(), "Clicked: ${txn.type}", Toast.LENGTH_SHORT).show()
+        adapter = TransactionAdapter(emptyList()) {
+            TransactionDialogUtil.showTransactionDialog(requireContext(),it)
         }
         binding.transactionRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.transactionRecycler.adapter = adapter

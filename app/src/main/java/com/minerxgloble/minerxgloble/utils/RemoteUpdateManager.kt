@@ -32,6 +32,8 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import com.minerxgloble.minerxgloble.ui.animation.XLogoLoadingView
+
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -69,7 +71,7 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
 
     /** views inside the custom dialog */
     private lateinit var progressContainer: View
-    private lateinit var circle: CircularProgressIndicator
+    private lateinit var xLogo: XLogoLoadingView
     private var pollJob: Job? = null
 
     // async permission callback
@@ -170,7 +172,10 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
 
 // cache views for download logic
         progressContainer = binding.updateProgressContainer
-        circle = binding.updateCircle
+        xLogo = binding.updateLogo
+
+        xLogo.indeterminate = true
+        xLogo.start()
 
 // set your text
         binding.updateTitle.text = "Update Required"
@@ -227,7 +232,7 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
                 Environment.DIRECTORY_DOWNLOADS,
                 "update.apk"
             )
-            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            setNotificationVisibility(visibility)
             setAllowedOverMetered(true)
             setAllowedOverRoaming(true)
         }
@@ -244,7 +249,8 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
         // ─── show & animate circular progress ───
         // ─── show & animate circular progress ───
         progressContainer.visibility = View.VISIBLE
-        circle.isIndeterminate = true
+        xLogo.indeterminate = true
+        xLogo.start()
 
         pollJob?.cancel()
         pollJob = activity.lifecycleScope.launch(Dispatchers.IO) {
@@ -260,11 +266,16 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
                         c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS)
                     )) {
                         DownloadManager.STATUS_SUCCESSFUL -> {
+                            withContext(Dispatchers.Main) {
+                                if (this@RemoteUpdateManager::xLogo.isInitialized) xLogo.stop()
+                                progressContainer.visibility = View.GONE
+                            }
                             finished = true                   // will drop out after use{}
                         }
 
                         DownloadManager.STATUS_FAILED -> {
                             withContext(Dispatchers.Main) {
+                                if (this@RemoteUpdateManager::xLogo.isInitialized) xLogo.stop()
                                 progressContainer.visibility = View.GONE
                             }
                             finished = true
@@ -284,8 +295,8 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
                             if (total > 0) {
                                 val pct = (soFar * 100 / total).toInt()
                                 withContext(Dispatchers.Main) {
-                                    circle.isIndeterminate = false
-                                    circle.setProgressCompat(pct, true)
+                                    if (xLogo.indeterminate) xLogo.indeterminate = false
+                                    xLogo.setProgress(pct / 100f)
                                 }
                             }
                         }
@@ -316,6 +327,9 @@ class RemoteUpdateManager(private val activity: ComponentActivity) {
         // ⛔ FIX: Don’t touch uninitialized progressContainer
         if (this::progressContainer.isInitialized) {
             progressContainer.visibility = View.GONE
+        }
+        if (this::xLogo.isInitialized) {
+            xLogo.stop()
         }
     }
 

@@ -57,6 +57,10 @@ class RankAdapter(
         }
 
         h.itemView.setOnClickListener { onOpenDialog(item) }
+        // Ensure the chip doesn't hijack the row click:
+        h.chip.isCheckable = false
+        h.chip.isFocusable = false
+        h.chip.setOnClickListener { onOpenDialog(item) } // or h.itemView.performClick()
     }
 
     private fun setChip(chip: Chip, text: String, bgColor: Int) {

@@ -38,7 +38,6 @@ class AnnouncementImageAdapter(
 
         Glide.with(holder.itemView.context)
             .load(images.getOrNull(position))            // safe get
-            .placeholder(R.drawable.upgrade_system)      // while loading
             .error(R.drawable.upgrade_system)            // if URL fails
             .fallback(R.drawable.upgrade_system)         // if model is null
             .centerCrop()
