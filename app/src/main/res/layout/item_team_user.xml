@@ -23,7 +23,51 @@
         android:paddingEnd="10dp"
         android:paddingBottom="12dp">
 
-        <!-- Name (bold) -->
+        <!-- Status dot (rightmost) -->
+        <View
+            android:id="@+id/statusDot"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/status_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Amount block (value + label), safely between name and dot -->
+        <LinearLayout
+            android:id="@+id/amountCol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@id/userName"
+            app:layout_constraintEnd_toStartOf="@id/statusDot"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/userActiveInvValue"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/userActiveInvLabel"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invested"
+                android:textColor="@color/grey"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Name (left; ends before amountCol) -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/userName"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -34,11 +78,11 @@
             android:text=""
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/statusDot"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/amountCol"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- UID (single line only, smaller + mono-ish look) -->
+        <!-- UID (under name; also ends before amountCol) -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/userId"
             style="@style/TextAppearance.MaterialComponents.Body2"
@@ -49,23 +93,10 @@
             android:singleLine="true"
             android:text=""
             android:textColor="@color/grey"
-            android:textStyle="normal"
             android:fontFamily="monospace"
-            app:layout_constraintEnd_toEndOf="@id/userName"
             app:layout_constraintStart_toStartOf="@id/userName"
+            app:layout_constraintEnd_toStartOf="@id/amountCol"
             app:layout_constraintTop_toBottomOf="@id/userName" />
-
-        <!-- Status dot (right) -->
-        <View
-            android:id="@+id/statusDot"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/status_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

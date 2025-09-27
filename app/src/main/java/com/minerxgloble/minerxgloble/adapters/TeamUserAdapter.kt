@@ -47,10 +47,15 @@ class TeamUserAdapter : RecyclerView.Adapter<TeamUserAdapter.VH>() {
             userId.text = u.userId
             userName.text = u.name.ifBlank { "—" }
 
+            // NEW: money formatting for active invested (USD)
+            userActiveInvValue.text = formatMoney(u.activeInvested)
+
             val isActive = u.status.equals("active", ignoreCase = true)
             val colorHex = if (isActive) "#4CAF50" else "#F44336"  // green or red
             // tint the circle drawable
             statusDot.background.setTint(colorHex.toColorInt())
         }
     }
+    // helper
+    private fun formatMoney(v: Double): String = String.format("$%.2f", v)
 }

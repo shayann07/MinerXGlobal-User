@@ -33,7 +33,7 @@ class TransactionRepo {
                 TransactionModel(
                     id = doc.id, // use DOC ID, not the field
                     address = doc.getString("address") ?: "",
-                    amount = doc.getDouble("amountNet") ?: 0.0,
+                    amount = doc.getDouble("amountGross") ?: 0.0,
                     balanceUpdated = doc.getBoolean("balanceUpdated") ?: false,
                     status = doc.getString("status") ?: "",
                     timestamp = doc.getTimestamp("timestamp"),

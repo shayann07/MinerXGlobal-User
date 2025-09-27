@@ -237,6 +237,13 @@ power.</string>
     <string name="expand">expand</string>
     <string name="team_users_title_fmt">Team Users — Level %1$d (%2$s)</string>
 
+    <string name="dialog_cancel_withdraw_title">Cancel withdrawal?</string>
+    <string name="dialog_cancel_withdraw_message">Are you sure you want to cancel your pending withdrawal and return the funds to your Earnings wallet?</string>
+    <string name="dialog_cancel_withdraw_tip">Funds will be returned to your Earnings wallet immediately. Any network fee hold will be released.</string>
+    <string name="dialog_cancel_withdraw_cta">Yes, cancel</string>
+    <string name="dialog_common_keep">Keep withdrawal</string>
+    <string name="content_desc_warning">Warning</string>
+
     <string name="fragment_home_our_partners">Our Partners</string>
     <string name="cd_partner_logo_uniswap">Uniswap logo</string>
     <string name="cd_partner_logo_crypto_com">Crypto.com logo</string>
@@ -334,6 +341,7 @@ Yes, Miner X offers 24/7 customer support for deposits, withdrawals, staking, an
     <string name="upline_referrer">Upline Referrer</string>
     <string name="done">Done</string>
     <string name="expired">expired</string>
+    <string name="cancel_withdrawal">Cancel Withdrawal</string>
 
 
 </resources>

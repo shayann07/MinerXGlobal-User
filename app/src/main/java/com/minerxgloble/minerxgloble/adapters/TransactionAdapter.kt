@@ -93,6 +93,7 @@ class TransactionAdapter(
             "pending_admin" -> "Pending"
             "success" -> "Success"
             "failed" -> "Failed"
+            "canceled_by_user"  -> "Canceled"
             else -> status.replaceFirstChar { it.titlecase(Locale.ROOT) }
         }
     }

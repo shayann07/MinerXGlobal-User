@@ -75,6 +75,13 @@ class TeamLevelsFragment : BaseFragment() {
             }
         }
 
+        vm.teamIncomeToday.observe(viewLifecycleOwner) { v ->
+               binding.tvTeamIncomeToday.text = formatMoney(v) // e.g., "$" + decimal
+
+        }
+        vm.teamIncomeTotal.observe(viewLifecycleOwner) { v ->
+               binding.tvTeamIncomeTotal.text = formatMoney(v)
+        }
         binding.teamLevelRv.layoutManager = LinearLayoutManager(requireContext())
         binding.teamLevelRv.setHasFixedSize(true)
         binding.teamLevelRv.adapter = adapter
@@ -149,6 +156,10 @@ class TeamLevelsFragment : BaseFragment() {
 
         // Initial load
         vm.load()
+    }
+
+    private fun formatMoney(v: Double): String {
+        return String.format("$%.2f", v) // adapt to your currency/locale
     }
 
     private fun showFilterChooser() {

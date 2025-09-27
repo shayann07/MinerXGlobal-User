@@ -44,7 +44,9 @@ data class Account(
                 referralProfit     = (earnMap?.get("referralProfit") as? Number)?.toDouble() ?: 0.0,
                 totalEarned        = (earnMap?.get("totalEarned") as? Number)?.toDouble() ?: 0.0,
                 teamProfit         = (earnMap?.get("teamProfit") as? Number)?.toDouble() ?: 0.0,
-                totalEarnedToDate  = (earnMap?.get("totalEarnedToDate") as? Number)?.toDouble() ?: 0.0
+                totalEarnedToDate  = (earnMap?.get("totalEarnedToDate") as? Number)?.toDouble() ?: 0.0,
+                teamDaily          = (earnMap?.get("teamDaily") as? Number)?.toDouble() ?: 0.0,
+                lastTeamDate       = (earnMap?.get("lastTeamDate") as? String).orEmpty()
             )
 
             return Account(

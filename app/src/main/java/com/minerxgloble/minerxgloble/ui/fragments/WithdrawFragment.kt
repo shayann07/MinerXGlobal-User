@@ -43,6 +43,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.google.android.material.button.MaterialButton
+import com.minerxgloble.minerxgloble.models.ActiveWithdrawalDTO
 import java.text.DecimalFormat
 import kotlin.math.ceil
 
@@ -65,9 +67,16 @@ class WithdrawFragment : BaseFragment() {
     private var coinPlayer: MediaPlayer? = null
     private var isCelebrating = false
 
+    // ---- Cache keys (top-level in class) ----
+    private fun cacheKey(uid: String) = "active_withdraw_$uid"
+
+    // Replace the old 'prefs' definition with:
     private val prefs by lazy {
-        requireContext().getSharedPreferences("withdraw_prefs_$userId", Context.MODE_PRIVATE)
+        requireContext().getSharedPreferences("withdraw_prefs", Context.MODE_PRIVATE)
     }
+
+    // Single shared client
+    private val okHttpClient by lazy { okhttp3.OkHttpClient.Builder().retryOnConnectionFailure(true).build() }
 
     // guards to repopulate skeletons only when size changes
     private var lastSkelW = 0
@@ -107,6 +116,17 @@ class WithdrawFragment : BaseFragment() {
         )
         binding.walletCard.tvAccount.text = "Withdraw Wallet"
 
+        setWithdrawButtonDefault()
+        // 1) Try cache immediately (instant button toggle)
+        readActiveFromCache(userId)?.let { cached ->
+            if (cached.status.equals("pending_admin", ignoreCase = true)) {
+                setWithdrawButtonAsCancelable(cached)
+            }
+        }
+
+// 2) Then reconcile with server
+        fetchActiveWithdrawal()
+
         // --- SHIMMER: start while first page is loading
         showTransactionsShimmer(true)
 
@@ -125,12 +145,13 @@ class WithdrawFragment : BaseFragment() {
         binding.btnWithdraw.setOnClickListener { openWithdrawDialog() }
 
         binding.filterAllBtn.setOnClickListener {
-            val uiOptions     = listOf("All", "Pending", "Processing", "Completed", "Rejected")
+            val uiOptions     = listOf("All", "Pending", "Processing", "Completed", "Rejected","Canceled")
             val statusMapping = mapOf(
                 "Pending"     to "pending_admin",
                 "Processing"  to "processing",
                 "Completed"   to "completed",
-                "Rejected"    to "rejected"
+                "Rejected"    to "rejected",
+                "Canceled"    to "canceled_by_user"
             )
 
             MaterialAlertDialogBuilder(requireContext())
@@ -256,13 +277,32 @@ class WithdrawFragment : BaseFragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val resp = OkHttpClient().newCall(req).execute()
+                val resp = okHttpClient.newCall(req).execute()
                 val bodyStr = resp.body?.string()
                 withContext(Dispatchers.Main) {
                     hideLoading()
                     if (resp.isSuccessful) {
+                        // Try parse id/status/amount (adapt to your actual response)
+                        var optimistic = ActiveWithdrawalDTO(id = "", status = "pending_admin", amountGross = amount)
+                        try {
+                            val root = JSONObject(bodyStr ?: "{}")
+                            val w = root.optJSONObject("withdrawal")
+                            if (w != null) {
+                                optimistic = ActiveWithdrawalDTO(
+                                    id = w.optString("id"),
+                                    status = w.optString("status", "pending_admin"),
+                                    amountGross = w.optDouble("amountGross", amount)
+                                )
+                            }
+                        } catch (_: Exception) {}
+                        // Save + instant UI switch
+                        saveActiveToCache(userId, optimistic)
+                        setWithdrawButtonAsCancelable(optimistic)
+
                         transactionVM.fetchWithdrawalTransactions(userId)
                         playWithdrawCelebration()
+                        // Reconcile with server (ensures we get the real id if not parsed)
+                        fetchActiveWithdrawal()
                     } else {
                         val msg = try { JSONObject(bodyStr ?: "{}").optString("error") } catch (_: Exception) { null }
                         showSnackbar(msg ?: "Withdraw failed: ${resp.code}", true)
@@ -276,6 +316,106 @@ class WithdrawFragment : BaseFragment() {
             }
         }
     }
+    private fun fetchActiveWithdrawal() {
+        // GET {BASE_URL}/api/withdraw/active?uid=<userId>
+        val url = "$BASE_URL/api/withdraw/active?uid=$userId"
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val req = Request.Builder().url(url).get().build()
+                val resp = okHttpClient.newCall(req).execute()
+                val body = resp.body?.string()
+                withContext(Dispatchers.Main) {
+                    if (!resp.isSuccessful) {
+                        setWithdrawButtonDefault()
+                        return@withContext
+                    }
+                    val root = JSONObject(body ?: "{}")
+                    val active = root.optJSONObject("active")
+                    if (active == null) {
+                        clearActiveCache(userId)
+                        setWithdrawButtonDefault()
+                    } else {
+                        val dto = ActiveWithdrawalDTO(
+                            id = active.optString("id"),
+                            status = active.optString("status"),
+                            amountGross = active.optDouble("amountGross")
+                        )
+                        if (dto.status.equals("pending_admin", ignoreCase = true)) {
+                            saveActiveToCache(userId, dto)
+                            setWithdrawButtonAsCancelable(dto)
+                        } else {
+                            clearActiveCache(userId)
+                            setWithdrawButtonDefault()
+                        }
+                    }
+
+                }
+            } catch (_: Exception) {
+                withContext(Dispatchers.Main) { setWithdrawButtonDefault() }
+            }
+        }
+    }
+    private fun showCancelConfirmDialog(active: ActiveWithdrawalDTO) {
+        val view = layoutInflater.inflate(R.layout.dialog_cancel_withdrawal, null, false)
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(view)
+            .setCancelable(true)
+            .create()
+
+        view.findViewById<MaterialButton>(R.id.btnNo).setOnClickListener { dialog.dismiss() }
+        view.findViewById<MaterialButton>(R.id.btnYes).setOnClickListener {
+            dialog.dismiss()
+            cancelWithdrawal(active.id)
+        }
+        dialog.show()
+    }
+
+    private fun cancelWithdrawal(withdrawId: String) {
+        showLoading()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val json = JSONObject().apply { put("uid", userId) }
+                val req = Request.Builder()
+                    .url("$BASE_URL/api/withdraw/$withdrawId/cancel")
+                    .post(json.toString().toRequestBody("application/json".toMediaType()))
+                    .build()
+
+                val resp = okHttpClient.newCall(req).execute()
+                val bodyStr = resp.body?.string()
+
+                withContext(Dispatchers.Main) {
+                    hideLoading()
+                    if (resp.isSuccessful) {
+                        // Flip UI back to normal state
+                        clearActiveCache(userId)
+                        setWithdrawButtonDefault()
+
+                        // Refresh the list so the canceled row appears immediately
+                        showTransactionsShimmer(true)
+                        transactionVM.fetchWithdrawalTransactions(userId)
+
+                        showSnackbar("Withdrawal canceled. Funds returned to your Earnings wallet.")
+                    } else {
+                        val err = try { JSONObject(bodyStr ?: "{}").optString("error") } catch (_: Exception) { null }
+                        showSnackbar(err ?: "Couldn’t cancel withdrawal", true)
+
+                        // If server says 409 (state changed), also just refresh UI
+                        if (resp.code == 409) {
+                            showTransactionsShimmer(true)
+                            transactionVM.fetchWithdrawalTransactions(userId)
+                            fetchActiveWithdrawal()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    hideLoading()
+                    showSnackbar("Network error: ${e.message}", true)
+                }
+            }
+        }
+    }
+
 
     // celebration (unchanged)
     private fun playWithdrawCelebration() {
@@ -329,6 +469,48 @@ class WithdrawFragment : BaseFragment() {
             try { mp.release() } catch (_: Exception) {}
         }
         coinPlayer = null
+    }
+
+    private fun setWithdrawButtonDefault() {
+        binding.btnWithdraw.text = getString(R.string.withdraw)
+        binding.btnWithdraw.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.orange))
+        binding.btnWithdraw.setOnClickListener { openWithdrawDialog() }
+    }
+
+    private fun setWithdrawButtonAsCancelable(active: ActiveWithdrawalDTO) {
+        binding.btnWithdraw.text = getString(R.string.cancel_withdrawal) // "Cancel Withdrawal"
+        binding.btnWithdraw.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.red))
+        binding.btnWithdraw.setOnClickListener {
+            showCancelConfirmDialog(active)
+        }
+    }
+
+    // ---- Cache helpers ----
+    private fun saveActiveToCache(uid: String, dto: ActiveWithdrawalDTO) {
+        val obj = JSONObject().apply {
+            put("id", dto.id)
+            put("status", dto.status)
+            if (dto.amountGross != null) put("amountGross", dto.amountGross)
+        }
+        prefs.edit().putString(cacheKey(uid), obj.toString()).apply()
+    }
+
+    private fun readActiveFromCache(uid: String): ActiveWithdrawalDTO? {
+        val s = prefs.getString(cacheKey(uid), null) ?: return null
+        return try {
+            val o = JSONObject(s)
+            ActiveWithdrawalDTO(
+                id = o.optString("id"),
+                status = o.optString("status"),
+                amountGross = if (o.has("amountGross")) o.optDouble("amountGross") else null
+            )
+        } catch (_: Exception) { null }
+    }
+
+    private fun clearActiveCache(uid: String) {
+        prefs.edit().remove(cacheKey(uid)).apply()
     }
 
     private fun showSnackbar(message: String, isError: Boolean = false) {

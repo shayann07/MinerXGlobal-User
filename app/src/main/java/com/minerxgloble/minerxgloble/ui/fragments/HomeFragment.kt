@@ -312,8 +312,8 @@ class HomeFragment : BaseFragment() {
         val tokens = walletVm.nestedDouble(wallet.raw, "earnings.tokens").toInt()
         val directUsers = levels.firstOrNull()?.totalUsers ?: 0
         val indirectUsers = levels.drop(1).sumOf { it.totalUsers }
-        val directBusiness = levels.firstOrNull()?.totalDeposit ?: 0.0
-        val indirectBusiness = levels.drop(1).sumOf { it.totalDeposit }
+        val directBusiness = levels.firstOrNull()?.investedAmount ?: 0.0
+        val indirectBusiness = levels.drop(1).sumOf { it.investedAmount }
         val totalSize =directUsers+indirectUsers
         val totalBusiness = directBusiness + indirectBusiness
 
