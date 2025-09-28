@@ -334,7 +334,7 @@ class HomeFragment : BaseFragment() {
         val totalBusiness = directBusiness + indirectBusiness
 
         val cards = listOf(
-            UserStatCard("Balance", walletVm.money(balance)),
+            UserStatCard("Earnings", walletVm.money(balance)),
             UserStatCard("MXGN Tokens", tokens.toString()),
             UserStatCard("Team Size", totalSize.toString()),
             UserStatCard("Team Invested", walletVm.money(totalBusiness))
@@ -360,7 +360,7 @@ class HomeFragment : BaseFragment() {
         return if (!bal.isNullOrBlank() && tokens >= 0 && d >= 0 && i >= 0 && !biz.isNullOrBlank()) {
 
             listOf(
-                UserStatCard("Balance", bal),
+                UserStatCard("Earnings", bal),
                 UserStatCard("Tokens", tokens.toString()),
                 UserStatCard("Team Size", totalSize.toString()),
                 UserStatCard("Team Invested", biz)
