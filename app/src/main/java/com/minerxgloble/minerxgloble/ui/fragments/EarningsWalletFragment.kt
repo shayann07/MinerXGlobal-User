@@ -30,6 +30,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
+import androidx.core.graphics.drawable.toDrawable
 
 class EarningsWalletFragment : BaseFragment() {
 
@@ -132,6 +133,10 @@ class EarningsWalletFragment : BaseFragment() {
             .setView(dialogView)
             .setCancelable(true)
             .create()
+
+        ad.window?.setBackgroundDrawable(
+            android.graphics.Color.TRANSPARENT.toDrawable()
+        )
 
         btnCancel.setOnClickListener { ad.dismiss() }
 
@@ -249,5 +254,4 @@ class EarningsWalletFragment : BaseFragment() {
         )
         snack.show()
     }
-
 }
