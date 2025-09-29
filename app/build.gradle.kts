@@ -13,8 +13,8 @@ android {
         applicationId = "com.minerxgloble.minerxgloble"
         minSdk = 24
         targetSdk = 35
-        versionCode = 7
-        versionName = "7.0"
+        versionCode = 8
+        versionName = "8.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
