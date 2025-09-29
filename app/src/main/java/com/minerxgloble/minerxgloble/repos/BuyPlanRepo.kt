@@ -114,6 +114,7 @@ class BuyPlanRepo(
             var refUserRef: DocumentReference? = null
             var refUserToken: String? = null
             var refIsActiveOutside = false
+            var refDirectBlockedOutside = false // ← NEW
             if (refCode != null) {
                 // accounts.userId == custom id; users.uid == custom id
                 refAcctRef = db.collection("accounts")
@@ -127,6 +128,7 @@ class BuyPlanRepo(
                 val refSnap = refUserRef?.get()?.await()
                 refIsActiveOutside = (refSnap?.getString("status") == "active")
                 refUserToken = refSnap?.getString("fcmToken") ?: refSnap?.getString("deviceToken")
+                refDirectBlockedOutside = refSnap?.getBoolean("directProfitBlock") == true // ← NEW
             }
 
             // ───── existing ACTIVE userPlan? (only active; ignore expired) ─────
@@ -156,10 +158,12 @@ class BuyPlanRepo(
                 // Referrer user (if any) — read inside txn to gate earnings writes
                 var refActive = false
                 var refUid: String? = null   // ← custom id from users.uid
+                var refDirectBlocked = false // ← NEW
                 if (refUserRef != null && refAcctRef != null) {
                     val ru = tr.get(refUserRef!!)
-                    refActive = ru.getString("status") == "active"
-                    refUid    = ru.getString("uid")   // IMPORTANT: this is the CUSTOM id
+                    refActive        = ru.getString("status") == "active"
+                    refUid           = ru.getString("uid")   // IMPORTANT: this is the CUSTOM id
+                    refDirectBlocked = ru.getBoolean("directProfitBlock") == true // ← NEW
                 }
 
                 // Plan percentages + direct bonus
@@ -204,8 +208,8 @@ class BuyPlanRepo(
                     tr.update(buyerUserRef, mapOf("status" to "active"))
                 }
 
-                // REFERRER: earnings only (NO per-plan totalAccumulated updates)
-                if (refActive && refAcctRef != null && bonus > 0.0) {
+                // REFERRER: earnings only when eligible (gated by directProfitBlock) ── NEW CONDITION
+                if (refActive && !refDirectBlocked && refAcctRef != null && bonus > 0.0) {
                     tr.update(
                         refAcctRef,
                         Paths.REFERRAL_PROFIT,      FieldValue.increment(bonus),
@@ -246,7 +250,8 @@ class BuyPlanRepo(
                         "totalAccumulated"    to 0.0,
                         "lastCollectedDate"   to nowTs,
                         "referrerId"          to (refUid ?: ""),
-                        "referralReceivedDirectProfit" to (refActive),
+                        // reflect if referrer actually got direct profit (respecting block)  ← NEW
+                        "referralReceivedDirectProfit" to (refActive && !refDirectBlocked),
                         "userId"              to uid,
                         "accountId"           to buyerAccRef.id
                     ))
@@ -266,7 +271,8 @@ class BuyPlanRepo(
                         "uplineReferralBonus" to FieldValue.increment(bonus),
                         "status"              to "active",
                         "lastTopUpDate"       to nowTs,
-                        "referralReceivedDirectProfit" to (refActive),
+                        // reflect if referrer actually got direct profit (respecting block)  ← NEW
+                        "referralReceivedDirectProfit" to (refActive && !refDirectBlocked),
                         "referrerId"          to (refUid ?: "")
                     ))
                 }
@@ -353,8 +359,8 @@ class BuyPlanRepo(
                         )
                     }
 
-                    // Notify only eligible referrers (active + positive bonus) and only if we have a device token
-                    if (refIsActiveOutside && potentialBonus > 0.0 && !refUserToken.isNullOrBlank()) {
+                    // Notify only eligible referrers (active + not blocked + positive bonus + token)
+                    if (refIsActiveOutside && !refDirectBlockedOutside && potentialBonus > 0.0 && !refUserToken.isNullOrBlank()) {
                         val rounded = String.format("%,.2f", potentialBonus)
                         val title = "Referral bonus received"
                         val body  = "You earned $rounded from your referral's plan purchase."
@@ -366,8 +372,7 @@ class BuyPlanRepo(
                             accessToken = accessToken
                         )
                     }
-// else: don't send any notification
-
+                    // else: don't send any notification
                 } else {
                     Log.w(TAG, "[$trace] Skipping FCM push: access token is null/blank")
                 }
