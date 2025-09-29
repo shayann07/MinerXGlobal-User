@@ -1,81 +1,41 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_mxg_deposit_gradient">
 
-    android:background="@drawable/bg_mxg_deposit_gradient"
-    android:orientation="vertical">
-
-    <!-- 👤 Profile Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="@dimen/space_24"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        android:paddingBottom="16dp">
-
-        <ImageView
-            android:id="@+id/drawerImageView"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/ic_profile"
-            android:scaleType="centerCrop"
-            android:translationY="4dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="12dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/userEmailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="4dp"
-                android:textColor="#90FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <!-- Scrollable menu/content area -->
     <ScrollView
-        android:layout_width="match_parent"
+        android:id="@+id/menuScroll"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingTop="@dimen/space_24"
+        android:paddingEnd="8dp"
+        android:paddingBottom="112dp"
+        app:layout_constraintBottom_toTopOf="@id/profileBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
+            <!-- Your drawer menu -->
             <include layout="@layout/item_drawer_menu" />
-            <!-- ────────── Social links ────────── -->
+
+            <!-- ────────── Social links (kept scrollable) ────────── -->
             <LinearLayout
                 android:id="@+id/socialLinksRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingVertical="16dp">
 
-                <!-- WhatsApp -->
                 <ImageButton
                     android:id="@+id/btnWhatsApp"
                     android:layout_width="32dp"
@@ -84,7 +44,6 @@
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_whatsapp" />
 
-                <!-- Telegram -->
                 <ImageButton
                     android:id="@+id/btnTelegram"
                     android:layout_width="32dp"
@@ -92,8 +51,67 @@
                     android:layout_marginHorizontal="12dp"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_telegram" />
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <!-- Optional subtle gradient/divider above the fixed bar -->
+    <!-- If you have a drawable like @drawable/grad_top_fade, set it here -->
+    <!--
+    <View
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:background="@drawable/grad_top_fade"
+        app:layout_constraintBottom_toTopOf="@id/profileBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    -->
+
+    <!-- Fixed bottom profile bar -->
+    <LinearLayout
+        android:id="@+id/profileBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/drawerImageView"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_profile"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/userEmailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#90FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
