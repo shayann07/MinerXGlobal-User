@@ -3,7 +3,7 @@
     <!-- Active row -->
     <item android:state_activated="true">
         <shape android:shape="rectangle">/>
-            <solid android:color="#1F22D3EE"/>  <!-- subtle highlight -->
+            <solid android:color="#1F22D3EE" />  <!-- subtle highlight -->
         </shape>
     </item>
 
@@ -11,7 +11,7 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             />
-            <solid android:color="#1422D3EE"/>
+            <solid android:color="#1422D3EE" />
         </shape>
     </item>
 
@@ -19,7 +19,7 @@
     <item>
         <shape android:shape="rectangle">
             />
-            <solid android:color="@android:color/transparent"/>
+            <solid android:color="@android:color/transparent" />
         </shape>
     </item>
 </selector>

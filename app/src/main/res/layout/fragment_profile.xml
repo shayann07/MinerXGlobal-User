@@ -40,8 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="560dp"
                 android:alpha="0.10"
-                android:src="@drawable/logo"
                 android:padding="8dp"
+                android:src="@drawable/logo"
                 app:layout_constraintEnd_toEndOf="@id/gEnd"
                 app:layout_constraintStart_toStartOf="@id/gStart"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -96,81 +96,79 @@
                     android:id="@+id/profileCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:foreground="@drawable/ripple_dark"
                     android:outlineAmbientShadowColor="#FF7B00"
                     android:outlineSpotShadowColor="#FF7B00"
-                    android:foreground="@drawable/ripple_dark"
-                app:cardBackgroundColor="@color/orange"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
-                app:cardMaxElevation="10dp"
-                app:cardUseCompatPadding="true"
-                app:strokeColor="@android:color/transparent"
-                app:strokeWidth="0dp">
+                    app:cardBackgroundColor="@color/orange"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:cardMaxElevation="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="@android:color/transparent"
+                    app:strokeWidth="0dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingVertical="18dp"
-                    >
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/profile"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingVertical="18dp">
 
-                        android:layout_marginHorizontal="20dp"
-                        android:textAlignment="center"
-                        android:background="@drawable/bg_pill_black"
-                        />
-                    <!-- avatar + edit badge -->
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@drawable/bg_pill_black"
+                            android:gravity="center"
+                            android:text="@string/profile"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <!-- avatar + edit badge -->
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
-                        android:layout_marginTop="8dp">
+                            android:layout_marginTop="8dp">
 
 
-                        <ImageView
-                            android:id="@+id/ivAvatar"
-                            android:layout_width="86dp"
-                            android:layout_height="86dp"
-                            android:background="@drawable/circle_bg"
-                            android:clipToOutline="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/camera" />
+                            <ImageView
+                                android:id="@+id/ivAvatar"
+                                android:layout_width="86dp"
+                                android:layout_height="86dp"
+                                android:background="@drawable/circle_bg"
+                                android:clipToOutline="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/camera" />
 
-                        <ImageView
-                            android:id="@+id/ivEdit"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignEnd="@id/ivAvatar"
-                            android:layout_alignBottom="@id/ivAvatar"
-                            android:background="@drawable/circle_orange"
-                            android:padding="5dp"
-                            android:src="@drawable/ic_edit"
-                            app:tint="@color/white" />
-                    </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/ivEdit"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignEnd="@id/ivAvatar"
+                                android:layout_alignBottom="@id/ivAvatar"
+                                android:background="@drawable/circle_orange"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_edit"
+                                app:tint="@color/white" />
+                        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tvEmailTop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvEmailTop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-        </FrameLayout>
+            </FrameLayout>
 
-        <!-- FORM CARD -->
+            <!-- FORM CARD -->
             <FrameLayout
                 android:id="@+id/formShell"
                 android:layout_width="0dp"
