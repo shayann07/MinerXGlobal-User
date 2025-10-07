@@ -6,69 +6,50 @@
 
     <!-- Top profile header (pinned) -->
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/profileCard"
-        android:layout_width="0dp"
+
+    <LinearLayout
+        android:id="@+id/profileBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="@drawable/ripple_dark"
-        android:outlineAmbientShadowColor="@color/black"
-        android:outlineSpotShadowColor="@color/black"
-        app:cardBackgroundColor="@color/orange"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="16dp"
-        app:cardMaxElevation="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="18dp"
+        android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@android:color/transparent"
-        app:strokeWidth="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:id="@+id/profileBar"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/drawerImageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/profile" />
+
+        <TextView
+            android:id="@+id/userNameTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="18dp">
+            android:layout_marginTop="12dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="" />
 
-            <ImageView
-                android:id="@+id/drawerImageView"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile"
-                android:translationY="2dp" />
+        <TextView
+            android:id="@+id/userEmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="#90FFFFFF"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/userNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/userEmailTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="shayankhan17353@gmail.com"
-                    android:textColor="#90FFFFFF"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
     <!-- Scrollable menu/content area -->
     <ScrollView
@@ -82,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileCard">
+        app:layout_constraintTop_toBottomOf="@id/profileBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,30 +74,73 @@
             <include layout="@layout/item_drawer_menu" />
 
             <!-- ────────── Social links (kept scrollable) ────────── -->
+            <!-- ────────── Social links (kept scrollable) ────────── -->
             <LinearLayout
                 android:id="@+id/socialLinksRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingVertical="16dp">
+                android:orientation="vertical"
+                android:paddingVertical="16dp"
+                android:gravity="center_horizontal">
 
-                <ImageButton
-                    android:id="@+id/btnWhatsApp"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginHorizontal="12dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_whatsapp" />
+                <!-- Heading -->
+                <TextView
+                    android:id="@+id/tvSocialHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Our Social Communities"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:paddingBottom="18dp"
+                    android:textColor="@android:color/white" />
 
-                <ImageButton
-                    android:id="@+id/btnTelegram"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginHorizontal="12dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_telegram" />
+                <!-- Row of links -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- WhatsApp link (TextView with SAME ID as previous button) -->
+                    <TextView
+                        android:id="@+id/btnWhatsApp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:minWidth="80dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="12dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:text="WhatsApp"
+                        android:drawableStart="@drawable/ic_whatsapp"
+                        android:drawablePadding="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+                    <!-- Telegram link (TextView with SAME ID as previous button) -->
+                    <TextView
+                        android:id="@+id/btnTelegram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:minWidth="80dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="12dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="Telegram"
+                        android:drawablePadding="15dp"
+                        android:drawableStart="@drawable/ic_telegram"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

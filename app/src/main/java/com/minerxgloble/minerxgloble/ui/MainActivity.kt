@@ -606,6 +606,7 @@ class MainActivity : AppCompatActivity() {
                 webUri = channelUrl
             )
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            showSnackbar("Redirecting")
         }
 
         /* Telegram channel (Miner X Global Official) */
@@ -616,6 +617,7 @@ class MainActivity : AppCompatActivity() {
                 webUri = "https://t.me/minerxglobalofficial"
             )
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            showSnackbar("Redirecting")
         }
     }
 
