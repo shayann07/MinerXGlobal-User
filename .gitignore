@@ -1,0 +1,56 @@
+# ---- Android/Gradle ----
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local machine config
+local.properties
+.cxx/
+.externalNativeBuild/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+out/
+
+# Kotlin/JetBrains caches
+.kotlin/
+
+# Keystores & signing
+*.jks
+*.keystore
+**/keystore.properties
+**/signing.properties
+
+# Packages / binaries
+*.apk
+*.ap_
+*.aab
+*.aar
+*.dex
+*.class
+*.so
+obj/
+captures/
+
+# Google/Firebase config (usually should not be public)
+**/google-services.json
+**/GoogleService-Info.plist
+**/fabric.properties
+**/crashlytics-build.properties
+
+# Gradle & build outputs (extra safety)
+**/outputs/
+**/intermediates/
+**/incremental/
+**/tmp/
+**/logs/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors
+.vscode/

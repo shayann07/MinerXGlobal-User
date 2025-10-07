@@ -1,0 +1,14 @@
+# Normalize text files in repo; checkout uses native endings, repo stores LF
+* text=auto
+
+# Keep these as binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.keystore binary
+*.jks binary
+*.jar binary
+*.apk binary
+*.aab binary
+*.aar binary
