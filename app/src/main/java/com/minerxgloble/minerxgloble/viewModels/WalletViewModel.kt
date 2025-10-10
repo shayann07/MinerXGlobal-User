@@ -90,11 +90,10 @@ class WalletViewModel(application: Application) : AndroidViewModel(application) 
         return earnedToDate
     }
 
-    fun totalEarningsBalance(s: WalletRepo.WalletSnapshot): Double {
-        val totalEarned = s.account.earnings.totalEarned
-        val withdrawn = nestedDouble(s.raw, "earnings.totalWithdrawn")
-        return totalEarned - withdrawn
-    }
+    // Replace this with a direct return if totalEarned is already net:
+    fun totalEarningsBalance(s: WalletRepo.WalletSnapshot): Double =
+        s.account.earnings.totalEarned
+
 
     override fun onCleared() {
         // Detach the forever observer to avoid leaks
