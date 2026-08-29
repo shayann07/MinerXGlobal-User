@@ -1,39 +1,20 @@
 # MinerXGlobal — Android Cloud Mining & Investment Portfolio Client
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-purple.svg)](https://kotlinlang.org)
-[![Android SDK](https://img.shields.io/badge/Android%20SDK-35-green.svg)](https://developer.android.com)
-[![Gradle](https://img.shields.io/badge/Gradle-8.11.1-blue.svg)](https://gradle.org)
-[![Firebase](https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore%20%7C%20Functions-orange.svg)](https://firebase.google.com)
+[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)]()
+[![Language](https://img.shields.io/badge/Language-Kotlin-7F52FF?logo=kotlin&logoColor=white)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-MinerXGlobal is an advanced native Android cryptocurrency cloud mining and investment portfolio management application built with modern Kotlin, Jetpack Navigation, custom OpenGL/Canvas particle animations, and Firebase serverless cloud architecture.
+> MinerX Global user app â€” buy investment plans, earn from a multi-level referral team, enter the lucky draw, and chat with other users and support in real time.
 
 ---
 
-## Application Architecture
+## 📖 Overview
 
-```mermaid
-graph TD
-    subgraph Client_App ["Android Single-Activity Architecture"]
-        MainActivity[MainActivity Host] --> BottomNav[Bottom Navigation: Home, Wallets, Plans, Team, Profile]
-        MainActivity --> DrawerNav[Drawer Menu: 11 Navigation Routes & Socials]
-        BottomNav --> HomeTab[Home: Live Hashrates, Mining Rigs, Metrics]
-        BottomNav --> WalletsTab[Wallets: Investment, Earnings & Transfers]
-        BottomNav --> PlansTab[Mining Contracts: Hashrate Tiers & Daily ROI]
-        BottomNav --> TeamTab[Affiliate Network: Multi-Tier Commissions]
-    end
-
-    subgraph Backend_Infrastructure ["Cloud Services & REST Microservices"]
-        WalletsTab --> RenderAPI[Render REST API: CoinPayments Deposit / Withdraw Proxy]
-        PlansTab --> Firestore[(Google Cloud Firestore)]
-        TeamTab --> CloudFunctions[Firebase Cloud Functions: Level Calculations]
-        Client_App --> OTAUpdate[Firebase Remote Config & Sideload OTA Installer]
-    end
-```
+MinerX Global user app â€” buy investment plans, earn from a multi-level referral team, enter the lucky draw, and chat with other users and support in real time.
 
 ---
 
-## Key Features
+## ✨ Key Features
 
 - **Mining Contract Tier Engine**: Dynamic calculation and real-time streaming of daily mining yield (ROI%), package durations, and direct sponsor bonuses.
 - **Dual Wallet Architecture**: Clear separation of Investment Capital and Mining Yield Wallets with internal balance transfer workflows.
@@ -43,79 +24,37 @@ graph TD
 
 ---
 
-## Technical Stack
+---
 
-| Component | Library / Framework | Version |
-|---|---|---|
-| **Language** | Kotlin | 2.1.10 |
-| **Build System** | Android Gradle Plugin / Gradle | 8.10.1 / 8.11.1 |
-| **SDK Levels** | Compile SDK: 35, Target SDK: 35, Min SDK: 24 | Android 7.0+ |
-| **Navigation & UI** | Jetpack Navigation Component + ViewBinding + DrawerLayout | 2.9.0 |
-| **Cloud Services** | Firebase Auth, Firestore, Cloud Functions, Remote Config, Storage | Firebase BoM 33.15.0 |
-| **Networking & HTTP** | OkHttp3 + Volley + Gson + Moshi | 4.12.0 / 2.12.1 |
-| **Visual Effects & Animations** | Airbnb Lottie, Shimmer, OpenGL particle shaders | 6.5.2 |
+## 🛠️ Technology Stack
+
+| Component / Layer | Technology |
+|---|---|
+| **Platform** | Android |
+| **Primary Language** | Kotlin |
+| **Architecture** | MVVM / Clean Architecture |
+| **License** | Open Source (MIT) |
 
 ---
 
-## Setup & Local Development
+## 🚀 Getting Started
 
 ### Prerequisites
-- Android Studio Ladybug (2024.2.1+) or newer
-- JDK 17 / Java 11 runtime
-- Android SDK 35 installed
+- Android Studio Ladybug (or newer)
+- JDK 17 / 21
+- Android SDK 34 / 35
 
-### Step-by-Step Configuration
-
-1. **Clone the Repository:**
+### Build & Run
+1. Clone the repository:
    ```bash
    git clone https://github.com/shayann07/MinerXGlobal-User.git
    cd MinerXGlobal-User
    ```
-
-2. **Configure Firebase Credentials:**
-   Copy the example configuration template:
-   ```bash
-   cp app/google-services.json.example app/google-services.json
-   ```
-
-3. **Configure Local SDK:**
-   ```bash
-   cp local.properties.example local.properties
-   ```
-
-4. **Build the Application:**
-   ```bash
-   ./gradlew assembleDebug
-   ```
+2. Open the project in **Android Studio**.
+3. Sync Gradle dependencies and run on an emulator or physical device.
 
 ---
 
-## Repository Structure
+## 📄 License
 
-```
-MinerXGlobal-User/
-├── app/
-│   ├── src/main/
-│   │   ├── java/com/minerxgloble/minerxgloble/
-│   │   │   ├── adapters/       # 19 Recycler & ViewPager adapters
-│   │   │   ├── fcm/            # Push notification & FCM token services
-│   │   │   ├── models/         # 31 Data models (User, Plan, Wallet, etc.)
-│   │   │   ├── repos/          # 11 Repositories (Auth, BuyPlan, Wallet, Transaction)
-│   │   │   ├── ui/             # MainActivity, 27 Fragments, 16 ViewModels
-│   │   │   └── utils/          # Constants, RemoteUpdateManager, SharedPrefs
-│   │   ├── res/                # ~90 layouts, animations, navigation graph
-│   │   └── AndroidManifest.xml # FileProvider, deep links, permissions
-│   ├── google-services.json.example
-│   └── build.gradle.kts
-├── local.properties.example
-├── LICENSE                     # MIT License
-└── README.md
-```
-
----
-
-## License
-
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
-
-Copyright (c) 2026 **shayann07**
+This project is licensed under the [MIT License](LICENSE) — Copyright (c) 2026 [shayann07](https://github.com/shayann07).
