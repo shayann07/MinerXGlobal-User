@@ -1,56 +1,56 @@
-# ---- Android/Gradle ----
-.gradle/
-**/build/
-!gradle/wrapper/gradle-wrapper.jar
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
 
-# Local machine config
-local.properties
+# Java class & dex files
+*.class
+*.dex
+
+# Generated & build outputs
+bin/
+gen/
+out/
+app/build/
+build/
+captures/
 .cxx/
 .externalNativeBuild/
 
-# Android Studio / IntelliJ
+# Gradle files
+.gradle/
+buildOutputCleanup/
+
+# Android Studio / IntelliJ IDEA
 .idea/
 *.iml
-out/
+*.iws
+*.ipr
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
 
-# Kotlin/JetBrains caches
-.kotlin/
+# Local configuration files
+local.properties
+signing.properties
 
-# Keystores & signing
+# Keystores & Credentials
 *.jks
 *.keystore
-**/keystore.properties
-**/signing.properties
+*.p12
+*.pfx
+*.pem
+*.key
+app/google-services.json
+google-services.json
+service-account*.json
+*.env
 
-# Packages / binaries
-*.apk
-*.ap_
-*.aab
-*.aar
-*.dex
-*.class
-*.so
-obj/
-captures/
-
-# Google/Firebase config (usually should not be public)
-**/google-services.json
-**/GoogleService-Info.plist
-**/fabric.properties
-**/crashlytics-build.properties
-
-# Gradle & build outputs (extra safety)
-**/outputs/
-**/intermediates/
-**/incremental/
-**/tmp/
-**/logs/
-
-# OS cruft
+# Logs & OS metadata
+*.log
 .DS_Store
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Editors
-.vscode/
